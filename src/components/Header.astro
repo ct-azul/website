@@ -1,0 +1,238 @@
+---
+const navLinks = [
+  { href: '/#nosotros', label: 'Nosotros' },
+  { href: '/#iniciativas', label: 'Iniciativas' },
+  { href: '/#valores', label: 'Valores' },
+  { href: '/unirse', label: 'Únete' },
+  { href: '/contacto', label: 'Contacto' },
+];
+---
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="Cluster Tecnológico Azul - Inicio">
+      <span class="logo-mark">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+          <circle cx="14" cy="14" r="4" fill="currentColor"/>
+          <line x1="14" y1="1" x2="14" y2="7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="14" y1="21" x2="14" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="1" y1="14" x2="7" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="21" y1="14" x2="27" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="3.9" y1="3.9" x2="8" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+          <line x1="20" y1="20" x2="24.1" y2="24.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+          <line x1="24.1" y1="3.9" x2="20" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+          <line x1="8" y1="20" x2="3.9" y2="24.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+        </svg>
+      </span>
+      <span class="logo-text">
+        <span class="logo-cluster">Cluster</span>
+        <span class="logo-azul">Azul</span>
+      </span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Navegación principal">
+      <ul>
+        {navLinks.slice(0, -1).map(link => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="/unirse" class="btn btn-primary btn-sm">Únete</a>
+      <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="nav-mobile" id="nav-mobile" aria-label="Navegación móvil" hidden>
+    <ul>
+      {navLinks.map(link => (
+        <li><a href={link.href}>{link.label}</a></li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const header = document.getElementById('site-header')!;
+  const hamburger = document.getElementById('hamburger')!;
+  const navMobile = document.getElementById('nav-mobile')!;
+
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  hamburger.addEventListener('click', () => {
+    const open = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', String(!open));
+    hamburger.classList.toggle('open', !open);
+    navMobile.hidden = open;
+  });
+
+  navMobile.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.setAttribute('aria-expanded', 'false');
+      hamburger.classList.remove('open');
+      navMobile.hidden = true;
+    });
+  });
+</script>
+
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition: background 300ms ease, border-color 300ms ease, backdrop-filter 300ms ease;
+    border-bottom: 1px solid transparent;
+  }
+
+  .site-header.scrolled {
+    background: rgba(5, 8, 15, 0.88);
+    border-color: var(--clr-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    height: 68px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--clr-cyan);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .logo:hover {
+    color: var(--clr-cyan);
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  .logo-cluster {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--clr-text-soft);
+  }
+
+  .logo-azul {
+    font-size: 1.15rem;
+    color: var(--clr-text);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-desktop {
+    margin-left: auto;
+  }
+
+  .nav-desktop ul {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+  }
+
+  .nav-desktop a {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--clr-text-soft);
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-sm);
+    transition: color var(--transition), background var(--transition);
+    text-decoration: none;
+  }
+
+  .nav-desktop a:hover {
+    color: var(--clr-text);
+    background: var(--clr-surface);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-left: auto;
+  }
+
+  .nav-desktop ~ .header-actions {
+    margin-left: 1rem;
+  }
+
+  .btn-sm {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.85rem;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--clr-text);
+    border-radius: 2px;
+    transition: transform 220ms ease, opacity 220ms ease;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-mobile {
+    background: var(--clr-surface);
+    border-top: 1px solid var(--clr-border);
+  }
+
+  .nav-mobile ul {
+    list-style: none;
+    padding: 1rem 0;
+  }
+
+  .nav-mobile a {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--clr-text-soft);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+  .nav-mobile a:hover {
+    color: var(--clr-text);
+  }
+
+  @media (max-width: 768px) {
+    .nav-desktop { display: none; }
+    .hamburger { display: flex; }
+    .header-actions .btn { display: none; }
+  }
+</style>

@@ -1,0 +1,377 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Únete"
+  description="Sumate al Cluster Tecnológico Azul. Completá el formulario y sé parte de la comunidad tecnológica de Azul, Argentina."
+>
+  <div class="page-hero">
+    <div class="container">
+      <span class="section-label">Sumate</span>
+      <h1>Únete al cluster</h1>
+      <p class="page-subtitle">
+        Completá el formulario y un miembro del equipo se va a poner en contacto con vos.
+        El cluster es abierto — nadie queda afuera por su nivel o experiencia.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container page-grid">
+      <aside class="form-sidebar">
+        <div class="sidebar-block">
+          <h3>¿Qué te espera?</h3>
+          <ul class="benefit-list">
+            <li>
+              <span class="benefit-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 20h5v-2a3 3 0 0 0-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 0 1 5.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 0 1 9.288 0M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                </svg>
+              </span>
+              Red de contactos local
+            </li>
+            <li>
+              <span class="benefit-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+              </span>
+              Acceso a talleres y capacitaciones
+            </li>
+            <li>
+              <span class="benefit-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 0 0 1.946-.806 3.42 3.42 0 0 1 4.438 0 3.42 3.42 0 0 0 1.946.806 3.42 3.42 0 0 1 3.138 3.138 3.42 3.42 0 0 0 .806 1.946 3.42 3.42 0 0 1 0 4.438 3.42 3.42 0 0 0-.806 1.946 3.42 3.42 0 0 1-3.138 3.138 3.42 3.42 0 0 0-1.946.806 3.42 3.42 0 0 1-4.438 0 3.42 3.42 0 0 0-1.946-.806 3.42 3.42 0 0 1-3.138-3.138 3.42 3.42 0 0 0-.806-1.946 3.42 3.42 0 0 1 0-4.438 3.42 3.42 0 0 0 .806-1.946 3.42 3.42 0 0 1 3.138-3.138z"/>
+                </svg>
+              </span>
+              Participación en proyectos reales
+            </li>
+            <li>
+              <span class="benefit-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 0 1-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                </svg>
+              </span>
+              Canal de comunicación activo
+            </li>
+            <li>
+              <span class="benefit-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 0 0 .95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 0 0-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 0 0-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 0 0-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 0 0 .951-.69l1.519-4.674z"/>
+                </svg>
+              </span>
+              Mentorías y referentes del sector
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-block sidebar-quote">
+          <p>"La tecnología no tiene fronteras geográficas. Pero el impacto más profundo ocurre cuando la aplicás en el lugar donde vivís."</p>
+          <span>— Equipo fundador, Cluster Tecnológico Azul</span>
+        </div>
+      </aside>
+
+      <div class="form-container">
+        <div id="form-success" class="form-feedback success" hidden>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
+          </svg>
+          <h3>¡Gracias por sumarte!</h3>
+          <p>Recibimos tu solicitud. En breve nos ponemos en contacto con vos.</p>
+        </div>
+
+        <div id="form-error" class="form-feedback error" hidden>
+          <p>Ocurrió un error al enviar el formulario. Por favor intentá de nuevo o escribinos a <a href="mailto:hola@clustertecnologicoazul.com">hola@clustertecnologicoazul.com</a>.</p>
+        </div>
+
+        <form id="join-form" class="form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nombre">Nombre y apellido *</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" placeholder="juan@ejemplo.com" required autocomplete="email" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="rol">¿Cómo te describís? *</label>
+              <select id="rol" name="rol" required>
+                <option value="" disabled selected>Seleccioná una opción</option>
+                <option value="desarrollador">Desarrollador/a de software</option>
+                <option value="diseniador">Diseñador/a UX/UI</option>
+                <option value="data">Data / IA / ML</option>
+                <option value="emprendedor">Emprendedor/a tech</option>
+                <option value="estudiante">Estudiante</option>
+                <option value="docente">Docente / investigador/a</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="organizacion">Empresa u organización</label>
+              <input type="text" id="organizacion" name="organizacion" placeholder="Opcional" autocomplete="organization" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mensaje">¿Por qué querés unirte? ¿Qué te gustaría aportar o aprender?</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Contanos un poco sobre vos y tus intereses..." rows="5"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="como-conociste">¿Cómo nos conociste?</label>
+            <select id="como-conociste" name="como-conociste">
+              <option value="" disabled selected>Seleccioná una opción</option>
+              <option value="redes">Redes sociales</option>
+              <option value="amigo">Un amigo / colega</option>
+              <option value="evento">Evento o charla</option>
+              <option value="github">GitHub</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-submit" id="submit-btn">
+            <span class="btn-label">Enviar solicitud</span>
+            <span class="btn-loading" hidden>
+              <svg class="spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+              </svg>
+              Enviando...
+            </span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('join-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const successEl = document.getElementById('form-success')!;
+  const errorEl = document.getElementById('form-error')!;
+
+  const btnLabel   = submitBtn.querySelector<HTMLElement>('.btn-label');
+  const btnLoading = submitBtn.querySelector<HTMLElement>('.btn-loading');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    submitBtn.disabled = true;
+    btnLabel?.setAttribute('hidden', '');
+    btnLoading?.removeAttribute('hidden');
+    errorEl.hidden = true;
+
+    try {
+      const res = await fetch('/api/unirse', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+
+      if (res.ok) {
+        form.hidden = true;
+        successEl.hidden = false;
+      } else {
+        throw new Error('Error en el servidor');
+      }
+    } catch {
+      errorEl.hidden = false;
+      submitBtn.disabled = false;
+      btnLabel?.removeAttribute('hidden');
+      btnLoading?.setAttribute('hidden', '');
+    }
+  });
+</script>
+
+<style>
+  .page-hero {
+    padding-top: calc(68px + 4rem);
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--clr-border);
+  }
+
+  .page-hero .section-label {
+    margin-bottom: 1rem;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  .page-subtitle {
+    color: var(--clr-text-soft);
+    font-size: 1.05rem;
+    max-width: 600px;
+    line-height: 1.75;
+  }
+
+  .page-body {
+    padding-block: 4rem;
+  }
+
+  .page-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* Sidebar */
+  .form-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: sticky;
+    top: calc(68px + 2rem);
+  }
+
+  .sidebar-block {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+  }
+
+  .sidebar-block h3 {
+    font-size: 0.95rem;
+    color: var(--clr-text);
+    margin-bottom: 1rem;
+  }
+
+  .benefit-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .benefit-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.88rem;
+    color: var(--clr-text-soft);
+  }
+
+  .benefit-icon {
+    width: 28px;
+    height: 28px;
+    background: var(--clr-surface-2);
+    border: 1px solid var(--clr-border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--clr-cyan);
+    flex-shrink: 0;
+  }
+
+  .sidebar-quote {
+    border-color: var(--clr-blue-dim);
+    background: rgba(43, 127, 255, 0.05);
+  }
+
+  .sidebar-quote p {
+    font-style: italic;
+    color: var(--clr-text-soft);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+
+  .sidebar-quote span {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--clr-muted);
+  }
+
+  /* Form */
+  .form-container {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .btn-submit {
+    margin-top: 0.5rem;
+    align-self: flex-start;
+    min-width: 180px;
+    justify-content: center;
+  }
+
+  .spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Feedback */
+  .form-feedback {
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-feedback.success {
+    background: rgba(0, 212, 200, 0.07);
+    border: 1px solid rgba(0, 212, 200, 0.3);
+    color: var(--clr-cyan);
+  }
+
+  .form-feedback.success svg {
+    margin-inline: auto;
+    margin-bottom: 0.75rem;
+  }
+
+  .form-feedback.success h3 {
+    color: var(--clr-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-feedback.success p {
+    color: var(--clr-text-soft);
+    font-size: 0.95rem;
+  }
+
+  .form-feedback.error {
+    background: rgba(239, 68, 68, 0.07);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: var(--clr-text-soft);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 900px) {
+    .page-grid { grid-template-columns: 1fr; }
+    .form-sidebar { position: static; }
+  }
+
+  @media (max-width: 540px) {
+    .form-container { padding: 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>

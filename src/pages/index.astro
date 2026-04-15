@@ -1,0 +1,604 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Cluster Tecnológico Azul">
+  <!-- ── HERO ─────────────────────────────────────── -->
+  <section class="hero">
+    <canvas id="starfield" aria-hidden="true"></canvas>
+    <div class="hero-bg-word" aria-hidden="true">AZUL</div>
+
+    <div class="container hero-content">
+      <div class="reveal reveal-1">
+        <span class="section-label">Azul, Buenos Aires, Argentina</span>
+      </div>
+      <h1 class="hero-title reveal reveal-2">
+        Impulsando la<br />
+        <em>innovación</em><br />
+        tecnológica
+      </h1>
+      <p class="hero-subtitle reveal reveal-3">
+        Somos una comunidad de desarrolladores, emprendedores y profesionales de tecnología
+        que trabajan juntos para transformar el ecosistema digital de Azul.
+      </p>
+      <div class="hero-actions reveal reveal-4">
+        <a href="/unirse" class="btn btn-primary">Únete al cluster</a>
+        <a href="/#nosotros" class="btn btn-outline">Conocé más</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span class="scroll-line"></span>
+      <span class="scroll-label">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ── NOSOTROS ──────────────────────────────────── -->
+  <section class="section" id="nosotros">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">01 — Nosotros</span>
+        <h2>Un cluster para Azul,<br />construido por Azul</h2>
+      </div>
+
+      <div class="nosotros-grid">
+        <div class="nosotros-text">
+          <p>
+            El <strong>Cluster Tecnológico Azul</strong> nació de una convicción simple:
+            que la innovación no es exclusiva de las grandes ciudades. Azul tiene el talento,
+            la voluntad y la energía para convertirse en un polo tecnológico del interior bonaerense.
+          </p>
+          <p>
+            Conectamos a personas que trabajan en tecnología, que quieren aprender, que tienen ideas
+            o que buscan colaborar con otras mentes creativas. Juntos, empujamos los límites de lo
+            que es posible desde nuestra ciudad.
+          </p>
+        </div>
+        <div class="nosotros-stats">
+          <div class="stat-card">
+            <span class="stat-number">2025</span>
+            <span class="stat-label">Año de fundación</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">Azul</span>
+            <span class="stat-label">Buenos Aires, Argentina</span>
+          </div>
+          <div class="stat-card highlight">
+            <span class="stat-number">Open</span>
+            <span class="stat-label">Comunidad abierta a todos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── VALORES ───────────────────────────────────── -->
+  <section class="section" id="valores">
+    <div class="container">
+      <div class="section-header centered">
+        <span class="section-label">02 — Valores</span>
+        <h2>Lo que nos mueve</h2>
+      </div>
+
+      <div class="pilares-grid">
+        <article class="pilar-card">
+          <div class="pilar-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+          </div>
+          <h3>Innovación</h3>
+          <p>Exploramos nuevas tecnologías, metodologías y formas de resolver problemas locales con herramientas globales.</p>
+        </article>
+
+        <article class="pilar-card">
+          <div class="pilar-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M17 20h5v-2a3 3 0 0 0-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 0 1 5.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 0 1 9.288 0M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm6 3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM7 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
+            </svg>
+          </div>
+          <h3>Comunidad</h3>
+          <p>Creemos en el poder del colectivo. Compartimos conocimiento, experiencias y oportunidades sin barreras.</p>
+        </article>
+
+        <article class="pilar-card">
+          <div class="pilar-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3>Impacto local</h3>
+          <p>Cada proyecto, evento o iniciativa apunta a generar un cambio real y medible en el ecosistema tecnológico de Azul.</p>
+        </article>
+
+        <article class="pilar-card">
+          <div class="pilar-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+            </svg>
+          </div>
+          <h3>Código abierto</h3>
+          <p>Promovemos la cultura open source: compartir código, ideas y proyectos que beneficien a toda la comunidad.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── INICIATIVAS ───────────────────────────────── -->
+  <section class="section" id="iniciativas">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">03 — Iniciativas</span>
+        <h2>¿Qué hacemos?</h2>
+      </div>
+
+      <div class="iniciativas-list">
+        <div class="iniciativa-item">
+          <span class="iniciativa-num">01</span>
+          <div class="iniciativa-body">
+            <h3>Meetups & Eventos</h3>
+            <p>Encuentros periódicos donde compartimos proyectos, charlas técnicas y experiencias. Un espacio para conectar con profesionales locales y de la región.</p>
+          </div>
+        </div>
+
+        <div class="iniciativa-item">
+          <span class="iniciativa-num">02</span>
+          <div class="iniciativa-body">
+            <h3>Capacitaciones</h3>
+            <p>Talleres y workshops de tecnologías emergentes: inteligencia artificial, desarrollo web, cloud computing, seguridad informática y más.</p>
+          </div>
+        </div>
+
+        <div class="iniciativa-item">
+          <span class="iniciativa-num">03</span>
+          <div class="iniciativa-body">
+            <h3>Proyectos colaborativos</h3>
+            <p>Desarrollamos software de impacto local: herramientas para el municipio, emprendimientos, ONGs y la comunidad educativa de Azul.</p>
+          </div>
+        </div>
+
+        <div class="iniciativa-item">
+          <span class="iniciativa-num">04</span>
+          <div class="iniciativa-body">
+            <h3>Red de mentorías</h3>
+            <p>Conectamos profesionales experimentados con estudiantes y desarrolladores en formación. El conocimiento se multiplica cuando se comparte.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────── -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-card">
+        <div class="cta-glow" aria-hidden="true"></div>
+        <span class="section-label">¿Listo para sumarte?</span>
+        <h2>Sé parte del cambio<br />en Azul</h2>
+        <p>
+          El cluster es abierto a todos: desarrolladores, diseñadores, emprendedores,
+          estudiantes y cualquier persona apasionada por la tecnología.
+          No importa tu nivel — acá todos aprendemos de todos.
+        </p>
+        <div class="cta-actions">
+          <a href="/unirse" class="btn btn-primary">Quiero unirme</a>
+          <a href="/contacto" class="btn btn-outline">Tengo una pregunta</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Starfield canvas
+  const canvas = document.getElementById('starfield') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
+
+  type Star = { x: number; y: number; r: number; a: number; da: number; dx: number; dy: number };
+  let stars: Star[] = [];
+  let W = 0, H = 0;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    initStars();
+  }
+
+  function initStars() {
+    const count = Math.floor((W * H) / 8000);
+    stars = Array.from({ length: count }, () => ({
+      x:  Math.random() * W,
+      y:  Math.random() * H,
+      r:  Math.random() * 1.2 + 0.2,
+      a:  Math.random(),
+      da: (Math.random() - 0.5) * 0.004,
+      dx: (Math.random() - 0.5) * 0.12,
+      dy: (Math.random() - 0.5) * 0.12,
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (const s of stars) {
+      s.a = Math.max(0.05, Math.min(1, s.a + s.da));
+      if (s.a <= 0.05 || s.a >= 1) s.da *= -1;
+      s.x = (s.x + s.dx + W) % W;
+      s.y = (s.y + s.dy + H) % H;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(180, 210, 255, ${s.a})`;
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+</script>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding-top: 68px;
+  }
+
+  #starfield {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero-bg-word {
+    position: absolute;
+    right: -2vw;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(14rem, 28vw, 26rem);
+    letter-spacing: -0.05em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(43, 127, 255, 0.08);
+    user-select: none;
+    pointer-events: none;
+    z-index: 0;
+    white-space: nowrap;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding-block: 5rem;
+    max-width: 760px;
+  }
+
+  .hero-content .section-label {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    color: #fff;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--clr-cyan);
+    position: relative;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--clr-text-soft);
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1;
+  }
+
+  .scroll-line {
+    display: block;
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--clr-border), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  .scroll-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--clr-muted);
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* Sections */
+  .section {
+    padding-block: 5rem;
+  }
+
+  .section-header {
+    margin-bottom: 3.5rem;
+  }
+
+  .section-header .section-label {
+    margin-bottom: 1rem;
+  }
+
+  .section-header h2 {
+    font-size: clamp(1.8rem, 4vw, 2.75rem);
+    color: var(--clr-text);
+  }
+
+  .section-header.centered {
+    text-align: center;
+  }
+
+  .section-header.centered .section-label {
+    justify-content: center;
+  }
+
+  .section-header.centered .section-label::before {
+    display: none;
+  }
+
+  /* Nosotros */
+  .nosotros-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .nosotros-text p {
+    color: var(--clr-text-soft);
+    font-size: 1.05rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.8;
+  }
+
+  .nosotros-text p:last-child { margin-bottom: 0; }
+
+  .nosotros-text strong {
+    color: var(--clr-text);
+    font-weight: 500;
+  }
+
+  .nosotros-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .stat-card.highlight {
+    border-color: var(--clr-blue-dim);
+    background: rgba(43, 127, 255, 0.06);
+  }
+
+  .stat-number {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--clr-text);
+    flex-shrink: 0;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--clr-text-soft);
+  }
+
+  /* Pilares */
+  .pilares-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .pilar-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 1.75rem;
+    transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  }
+
+  .pilar-card:hover {
+    border-color: var(--clr-blue-dim);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(43, 127, 255, 0.12);
+  }
+
+  .pilar-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--clr-surface-2);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--clr-cyan);
+    margin-bottom: 1.25rem;
+  }
+
+  .pilar-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: var(--clr-text);
+  }
+
+  .pilar-card p {
+    font-size: 0.875rem;
+    color: var(--clr-text-soft);
+    line-height: 1.7;
+  }
+
+  /* Iniciativas */
+  .iniciativas-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .iniciativa-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    padding-block: 2rem;
+    border-top: 1px solid var(--clr-border);
+    transition: background var(--transition);
+  }
+
+  .iniciativa-item:hover {
+    background: var(--clr-surface);
+    margin-inline: -1.5rem;
+    padding-inline: 1.5rem;
+    border-radius: var(--radius-sm);
+    border-top-color: transparent;
+  }
+
+  .iniciativa-num {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--clr-muted);
+    padding-top: 0.25rem;
+  }
+
+  .iniciativa-body h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+    color: var(--clr-text);
+  }
+
+  .iniciativa-body p {
+    color: var(--clr-text-soft);
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
+  /* CTA */
+  .cta-section {
+    padding-block: 4rem 6rem;
+  }
+
+  .cta-card {
+    position: relative;
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    padding: 4rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(43, 127, 255, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-card .section-label {
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .cta-card .section-label::before {
+    display: none;
+  }
+
+  .cta-card h2 {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    color: #fff;
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+
+  .cta-card p {
+    color: var(--clr-text-soft);
+    max-width: 540px;
+    margin-inline: auto;
+    margin-bottom: 2.5rem;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    position: relative;
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .pilares-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .nosotros-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .pilares-grid { grid-template-columns: 1fr 1fr; }
+    .cta-card { padding: 2.5rem 1.5rem; }
+    .iniciativa-item { grid-template-columns: 50px 1fr; gap: 1.25rem; }
+  }
+
+  @media (max-width: 520px) {
+    .pilares-grid { grid-template-columns: 1fr; }
+    .section { padding-block: 3.5rem; }
+  }
+</style>
