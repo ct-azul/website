@@ -74,7 +74,7 @@ export const POST: APIRoute = async ({ request }) => {
           <tr><td style="padding:8px;font-weight:bold;color:#666">Email</td><td style="padding:8px"><a href="mailto:${escHtml(email)}">${escHtml(email)}</a></td></tr>
           <tr><td style="padding:8px;font-weight:bold;color:#666">Rol</td><td style="padding:8px">${escHtml(rol)}</td></tr>
           <tr><td style="padding:8px;font-weight:bold;color:#666">Organización</td><td style="padding:8px">${organizacion ? escHtml(organizacion) : '—'}</td></tr>
-          <tr><td style="padding:8px;font-weight:bold;color:#666">¿Cómo nos conoció?</td><td style="padding:8px">${comoConociste ? escHtml(comoConociste) : '—'}</td></tr>
+          <tr><td style="padding:8px;font-weight:bold;color:#666">¿Cómo nos conociste?</td><td style="padding:8px">${comoConociste ? escHtml(comoConociste) : '—'}</td></tr>
           <tr><td style="padding:8px;font-weight:bold;color:#666;vertical-align:top">Mensaje</td><td style="padding:8px;white-space:pre-wrap">${mensaje ? escHtml(mensaje) : '—'}</td></tr>
         </table>
       `,
