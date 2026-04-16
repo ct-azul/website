@@ -71,7 +71,7 @@ import { CONTACT_EMAIL } from '../config';
       </aside>
 
       <div class="form-container">
-        <div id="form-success" class="form-feedback success" hidden>
+        <div id="form-success" class="form-feedback success" hidden role="alert">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
           </svg>
@@ -79,7 +79,7 @@ import { CONTACT_EMAIL } from '../config';
           <p>Gracias por escribirnos. Te respondemos pronto.</p>
         </div>
 
-        <div id="form-error" class="form-feedback error" hidden>
+        <div id="form-error" class="form-feedback error" hidden role="alert">
           <p>Ocurrió un error al enviar el mensaje. Por favor intentá de nuevo o escribinos directamente a <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
         </div>
 
@@ -155,6 +155,8 @@ import { CONTACT_EMAIL } from '../config';
       if (res.ok) {
         form.hidden = true;
         successEl.hidden = false;
+        successEl.setAttribute('tabindex', '-1');
+        successEl.focus();
       } else {
         throw new Error('Error en el servidor');
       }

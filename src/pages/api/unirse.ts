@@ -1,42 +1,39 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
-import { CONTACT_EMAIL as DEFAULT_CONTACT_EMAIL } from '../../config';
+import { JSON_HEADERS, EMAIL_RE, escHtml, getEmailConfig, parseJsonBody, str } from '../../lib/email';
 
 export const prerender = false;
-
-const JSON_HEADERS = { 'Content-Type': 'application/json' } as const;
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const ALLOWED_ROLES = new Set([
   'desarrollador', 'diseniador', 'data',
   'emprendedor', 'estudiante', 'docente', 'otro',
 ]);
 
-function escHtml(s: string): string {
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
+const ALLOWED_COMO = new Set(['redes', 'amigo', 'evento', 'github', 'otro', '']);
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  const runtime = (locals as { runtime?: { env?: Record<string, string> } }).runtime;
-  const resendKey = runtime?.env?.RESEND_API_KEY ?? import.meta.env.RESEND_API_KEY;
-  const toEmail   = runtime?.env?.CONTACT_EMAIL ?? import.meta.env.CONTACT_EMAIL ?? DEFAULT_CONTACT_EMAIL;
+  const { resendKey, toEmail } = getEmailConfig(locals);
 
-  let body: Record<string, string>;
+  let raw: unknown;
   try {
-    body = await request.json() as Record<string, string>;
+    raw = await request.json();
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), { status: 400, headers: JSON_HEADERS });
   }
 
-  const { nombre, email, rol, organizacion, mensaje, 'como-conociste': comoConociste } = body;
+  const body = parseJsonBody(raw);
+  if (!body) {
+    return new Response(JSON.stringify({ error: 'Invalid JSON' }), { status: 400, headers: JSON_HEADERS });
+  }
 
-  if (!nombre?.trim() || !email?.trim() || !rol?.trim()) {
+  const nombre        = str(body.nombre).trim();
+  const email         = str(body.email).trim();
+  const rol           = str(body.rol).trim();
+  const organizacion  = str(body.organizacion).trim();
+  const mensaje       = str(body.mensaje).trim();
+  const comoConociste = str(body['como-conociste']).trim();
+
+  if (!nombre || !email || !rol) {
     return new Response(JSON.stringify({ error: 'Campos requeridos faltantes' }), { status: 422, headers: JSON_HEADERS });
   }
 
@@ -48,7 +45,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return new Response(JSON.stringify({ error: 'Rol inválido' }), { status: 422, headers: JSON_HEADERS });
   }
 
-  if (nombre.length > 200 || (organizacion && organizacion.length > 200) || (mensaje && mensaje.length > 5000)) {
+  if (comoConociste && !ALLOWED_COMO.has(comoConociste)) {
+    return new Response(JSON.stringify({ error: 'Valor inválido' }), { status: 422, headers: JSON_HEADERS });
+  }
+
+  if (nombre.length > 200 || organizacion.length > 200 || mensaje.length > 5000) {
     return new Response(JSON.stringify({ error: 'Campo demasiado largo' }), { status: 422, headers: JSON_HEADERS });
   }
 
@@ -61,10 +62,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const resend = new Resend(resendKey);
 
   const { error } = await resend.emails.send({
-    from: 'Cluster Tecnológico Azul <noreply@clustertecnologicoazul.org>',
-    to:   [toEmail],
+    from:    'Cluster Tecnológico Azul <noreply@clustertecnologicoazul.org>',
+    to:      [toEmail],
     replyTo: email,
-    subject: `Nueva solicitud de ingreso — ${escHtml(nombre)}`,
+    subject: `Nueva solicitud de ingreso — ${nombre}`,
     html: `
       <h2>Nueva solicitud de ingreso al Cluster</h2>
       <table style="border-collapse:collapse;width:100%">

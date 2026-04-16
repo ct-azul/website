@@ -1,37 +1,32 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
-import { CONTACT_EMAIL as DEFAULT_CONTACT_EMAIL } from '../../config';
+import { JSON_HEADERS, EMAIL_RE, escHtml, getEmailConfig, parseJsonBody, str } from '../../lib/email';
 
 export const prerender = false;
 
-const JSON_HEADERS = { 'Content-Type': 'application/json' } as const;
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-function escHtml(s: string): string {
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
+const ALLOWED_ASUNTOS = new Set(['informacion', 'colaboracion', 'evento', 'prensa', 'otro']);
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  const runtime = (locals as { runtime?: { env?: Record<string, string> } }).runtime;
-  const resendKey = runtime?.env?.RESEND_API_KEY ?? import.meta.env.RESEND_API_KEY;
-  const toEmail   = runtime?.env?.CONTACT_EMAIL ?? import.meta.env.CONTACT_EMAIL ?? DEFAULT_CONTACT_EMAIL;
+  const { resendKey, toEmail } = getEmailConfig(locals);
 
-  let body: Record<string, string>;
+  let raw: unknown;
   try {
-    body = await request.json() as Record<string, string>;
+    raw = await request.json();
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), { status: 400, headers: JSON_HEADERS });
   }
 
-  const { nombre, email, asunto, mensaje } = body;
+  const body = parseJsonBody(raw);
+  if (!body) {
+    return new Response(JSON.stringify({ error: 'Invalid JSON' }), { status: 400, headers: JSON_HEADERS });
+  }
 
-  if (!nombre?.trim() || !email?.trim() || !asunto?.trim() || !mensaje?.trim()) {
+  const nombre  = str(body.nombre).trim();
+  const email   = str(body.email).trim();
+  const asunto  = str(body.asunto).trim();
+  const mensaje = str(body.mensaje).trim();
+
+  if (!nombre || !email || !asunto || !mensaje) {
     return new Response(JSON.stringify({ error: 'Campos requeridos faltantes' }), { status: 422, headers: JSON_HEADERS });
   }
 
@@ -39,7 +34,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return new Response(JSON.stringify({ error: 'Email inválido' }), { status: 422, headers: JSON_HEADERS });
   }
 
-  if (nombre.length > 200 || asunto.length > 300 || mensaje.length > 5000) {
+  if (!ALLOWED_ASUNTOS.has(asunto)) {
+    return new Response(JSON.stringify({ error: 'Asunto inválido' }), { status: 422, headers: JSON_HEADERS });
+  }
+
+  if (nombre.length > 200 || mensaje.length > 5000) {
     return new Response(JSON.stringify({ error: 'Campo demasiado largo' }), { status: 422, headers: JSON_HEADERS });
   }
 
@@ -52,10 +51,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const resend = new Resend(resendKey);
 
   const { error } = await resend.emails.send({
-    from: 'Cluster Tecnológico Azul <noreply@clustertecnologicoazul.org>',
-    to:   [toEmail],
+    from:    'Cluster Tecnológico Azul <noreply@clustertecnologicoazul.org>',
+    to:      [toEmail],
     replyTo: email,
-    subject: `Nuevo contacto: ${escHtml(asunto)} — ${escHtml(nombre)}`,
+    subject: `Nuevo contacto: ${asunto} — ${nombre}`,
     html: `
       <h2>Nuevo mensaje de contacto</h2>
       <table style="border-collapse:collapse;width:100%">
