@@ -7,6 +7,10 @@
 		"directory": "./dist",
 		"binding": "ASSETS"
 	},
+	"routes": [
+		{ "pattern": "clustertecnologicoazul.org", "custom_domain": true },
+		{ "pattern": "www.clustertecnologicoazul.org", "custom_domain": true }
+	],
 	"observability": {
 		"enabled": true
 	}
