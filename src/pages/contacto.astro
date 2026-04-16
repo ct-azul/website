@@ -1,6 +1,7 @@
 ---
 export const prerender = true;
 import Layout from '../layouts/Layout.astro';
+import { CONTACT_EMAIL } from '../config';
 ---
 
 <Layout
@@ -31,7 +32,7 @@ import Layout from '../layouts/Layout.astro';
             </span>
             <div>
               <span class="contact-label">Email</span>
-              <a href="mailto:hola@clustertecnologicoazul.com">hola@clustertecnologicoazul.com</a>
+              <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
             </div>
           </div>
           <div class="contact-item">
@@ -79,7 +80,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <div id="form-error" class="form-feedback error" hidden>
-          <p>Ocurrió un error al enviar el mensaje. Por favor intentá de nuevo o escribinos directamente a <a href="mailto:hola@clustertecnologicoazul.com">hola@clustertecnologicoazul.com</a>.</p>
+          <p>Ocurrió un error al enviar el mensaje. Por favor intentá de nuevo o escribinos directamente a <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
         </div>
 
         <form id="contact-form" class="form" novalidate>

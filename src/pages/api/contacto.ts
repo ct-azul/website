@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
+import { CONTACT_EMAIL as DEFAULT_CONTACT_EMAIL } from '../../config';
 
 export const prerender = false;
 
@@ -19,7 +20,7 @@ function escHtml(s: string): string {
 export const POST: APIRoute = async ({ request, locals }) => {
   const runtime = (locals as { runtime?: { env?: Record<string, string> } }).runtime;
   const resendKey = runtime?.env?.RESEND_API_KEY ?? import.meta.env.RESEND_API_KEY;
-  const toEmail   = runtime?.env?.CONTACT_EMAIL    ?? import.meta.env.CONTACT_EMAIL ?? 'hola@clustertecnologicoazul.com';
+  const toEmail   = runtime?.env?.CONTACT_EMAIL ?? import.meta.env.CONTACT_EMAIL ?? DEFAULT_CONTACT_EMAIL;
 
   let body: Record<string, string>;
   try {
