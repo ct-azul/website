@@ -1,4 +1,10 @@
+import { env } from 'cloudflare:workers';
 import { CONTACT_EMAIL as DEFAULT_CONTACT_EMAIL } from '../config';
+
+interface WorkerEnv {
+  RESEND_API_KEY?: string;
+  CONTACT_EMAIL?: string;
+}
 
 export const JSON_HEADERS = { 'Content-Type': 'application/json' } as const;
 
@@ -13,11 +19,11 @@ export function escHtml(s: string): string {
     .replace(/'/g, '&#39;');
 }
 
-export function getEmailConfig(locals: unknown): { resendKey: string | undefined; toEmail: string } {
-  const runtime = (locals as { runtime?: { env?: Record<string, string> } }).runtime;
+export function getEmailConfig(): { resendKey: string | undefined; toEmail: string } {
+  const { RESEND_API_KEY, CONTACT_EMAIL } = env as WorkerEnv;
   return {
-    resendKey: runtime?.env?.RESEND_API_KEY ?? import.meta.env.RESEND_API_KEY,
-    toEmail:   runtime?.env?.CONTACT_EMAIL  ?? import.meta.env.CONTACT_EMAIL ?? DEFAULT_CONTACT_EMAIL,
+    resendKey: RESEND_API_KEY,
+    toEmail:   CONTACT_EMAIL ?? DEFAULT_CONTACT_EMAIL,
   };
 }
 
