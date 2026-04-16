@@ -32,10 +32,10 @@ Copiá `.env.example` a `.env` y completá los valores:
 cp .env.example .env
 ```
 
-| Variable | Descripción |
-| --- | --- |
-| `RESEND_API_KEY` | API key de [Resend](https://resend.com) para envío de emails |
-| `CONTACT_EMAIL` | Email donde llegan los formularios de contacto y solicitudes de ingreso |
+| Variable         | Descripción                                                             |
+| ---------------- | ----------------------------------------------------------------------- |
+| `RESEND_API_KEY` | API key de [Resend](https://resend.com) para envío de emails            |
+| `CONTACT_EMAIL`  | Email donde llegan los formularios de contacto y solicitudes de ingreso |
 
 > Sin `RESEND_API_KEY`, los formularios funcionan igual pero los envíos se loguean
 > a consola en lugar de enviarse por email.
@@ -54,12 +54,12 @@ cp .env.example .env
 
 ## Páginas
 
-| Ruta | Descripción |
-| --- | --- |
-| `/` | Landing page institucional |
-| `/unirse` | Formulario de solicitud de ingreso al cluster |
-| `/contacto` | Formulario de contacto general |
-| `/api/unirse` | Endpoint que procesa el formulario de ingreso |
+| Ruta            | Descripción                                    |
+| --------------- | ---------------------------------------------- |
+| `/`             | Landing page institucional                     |
+| `/unirse`       | Formulario de solicitud de ingreso al cluster  |
+| `/contacto`     | Formulario de contacto general                 |
+| `/api/unirse`   | Endpoint que procesa el formulario de ingreso  |
 | `/api/contacto` | Endpoint que procesa el formulario de contacto |
 
 ## Contribuir
