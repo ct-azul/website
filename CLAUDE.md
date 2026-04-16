@@ -15,17 +15,17 @@ GitHub org: <https://github.com/clustertecnologicoazul>
 
 ## Tech stack
 
-| Layer | Technology | Notes |
-| --- | --- | --- |
-| Framework | **Astro v6** (SSR mode) | `output: 'server'` — NOT static |
-| Adapter | `@astrojs/cloudflare` | Targets Cloudflare Workers runtime |
-| Runtime | **Cloudflare Workers + Assets** | Deployed via `wrangler.jsonc`, not Pages |
-| Email sending | **Resend** | `resend` npm package, free tier: 3,000/month |
-| Email receiving | **Cloudflare Email Routing** | Forwards `info@clustertecnologicoazul.org` → Gmail |
-| DNS | **Cloudflare** (authoritative nameservers) | Domain registrar: external `.org` provider |
-| Language | TypeScript (strict) | All API routes and utilities |
-| Styles | Plain CSS with CSS custom properties | No Tailwind, no CSS-in-JS |
-| Fonts | Plus Jakarta Sans + IBM Plex Sans + IBM Plex Mono | Loaded via Google Fonts `<link>` in `Layout.astro` |
+| Layer           | Technology                                        | Notes                                              |
+| --------------- | ------------------------------------------------- | -------------------------------------------------- |
+| Framework       | **Astro v6** (SSR mode)                           | `output: 'server'` — NOT static                    |
+| Adapter         | `@astrojs/cloudflare`                             | Targets Cloudflare Workers runtime                 |
+| Runtime         | **Cloudflare Workers + Assets**                   | Deployed via `wrangler.jsonc`, not Pages           |
+| Email sending   | **Resend**                                        | `resend` npm package, free tier: 3,000/month       |
+| Email receiving | **Cloudflare Email Routing**                      | Forwards `info@clustertecnologicoazul.org` → Gmail |
+| DNS             | **Cloudflare** (authoritative nameservers)        | Domain registrar: external `.org` provider         |
+| Language        | TypeScript (strict)                               | All API routes and utilities                       |
+| Styles          | Plain CSS with CSS custom properties              | No Tailwind, no CSS-in-JS                          |
+| Fonts           | Plus Jakarta Sans + IBM Plex Sans + IBM Plex Mono | Loaded via Google Fonts `<link>` in `Layout.astro` |
 
 ---
 
@@ -111,10 +111,10 @@ schema and will break the build.
 
 ### Where to set them
 
-| Purpose | Location | Variable |
-| --- | --- | --- |
+| Purpose                  | Location                                                         | Variable                                              |
+| ------------------------ | ---------------------------------------------------------------- | ----------------------------------------------------- |
 | Email sending at runtime | **Workers & Pages → website → Settings → Variables and Secrets** | `RESEND_API_KEY` (Secret), `CONTACT_EMAIL` (Variable) |
-| Local dev | `.env` file (gitignored) | same names |
+| Local dev                | `.env` file (gitignored)                                         | same names                                            |
 
 > **DO NOT** set `RESEND_API_KEY` in the CI/CD "Build variables" section. Those variables are only
 > available during the build process, not at Worker runtime. The Worker reads env via
@@ -162,14 +162,14 @@ AND the hardcoded `from:` string in `src/pages/api/contacto.ts` and `src/pages/a
 
 ### DNS records summary (Cloudflare)
 
-| Type | Name | Purpose |
-| --- | --- | --- |
-| CNAME | `@` | Routes apex domain to the Worker |
-| CNAME | `www` | Routes www to the Worker |
-| MX | `@` | Cloudflare Email Routing (inbound) |
-| TXT | `@` | SPF record for Resend |
-| CNAME | `resend._domainkey` | DKIM for Resend (outbound auth) |
-| TXT | `_dmarc` | DMARC policy |
+| Type  | Name                | Purpose                            |
+| ----- | ------------------- | ---------------------------------- |
+| CNAME | `@`                 | Routes apex domain to the Worker   |
+| CNAME | `www`               | Routes www to the Worker           |
+| MX    | `@`                 | Cloudflare Email Routing (inbound) |
+| TXT   | `@`                 | SPF record for Resend              |
+| CNAME | `resend._domainkey` | DKIM for Resend (outbound auth)    |
+| TXT   | `_dmarc`            | DMARC policy                       |
 
 > The A records for `@` and `www` that existed before Cloudflare Workers setup were deleted.
 > Do not re-add them — they would conflict with the Worker CNAME routes.
@@ -262,12 +262,12 @@ The site is written in **Argentine Spanish (Rioplatense)**:
 
 ## Social media
 
-| Platform | URL |
-| --- | --- |
-| LinkedIn | <https://linkedin.com/company/clustertecnologicoazul> |
-| Instagram | <https://instagram.com/clustertecnologicoazul> |
-| GitHub | <https://github.com/clustertecnologicoazul> |
-| Linktree | <https://linktr.ee/clustertecnologicoazul> |
+| Platform  | URL                                                   |
+| --------- | ----------------------------------------------------- |
+| LinkedIn  | <https://linkedin.com/company/clustertecnologicoazul> |
+| Instagram | <https://instagram.com/clustertecnologicoazul>        |
+| GitHub    | <https://github.com/clustertecnologicoazul>           |
+| Linktree  | <https://linktr.ee/clustertecnologicoazul>            |
 
 Social links appear in: **Footer** (icon-only) and **Contacto page sidebar** (icon + label + handle).
 
