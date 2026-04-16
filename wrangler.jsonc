@@ -8,8 +8,8 @@
 		"binding": "ASSETS"
 	},
 	"routes": [
-		{ "pattern": "clustertecnologicoazul.org", "custom_domain": true, "override_existing_dns_record": true },
-		{ "pattern": "www.clustertecnologicoazul.org", "custom_domain": true, "override_existing_dns_record": true }
+		{ "pattern": "clustertecnologicoazul.org", "custom_domain": true },
+		{ "pattern": "www.clustertecnologicoazul.org", "custom_domain": true }
 	],
 	"observability": {
 		"enabled": true
