@@ -60,7 +60,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const resend = new Resend(resendKey);
 
   const { error } = await resend.emails.send({
-    from: 'Cluster Tecnológico Azul <noreply@clustertecnologicoazul.com>',
+    from: 'Cluster Tecnológico Azul <noreply@clustertecnologicoazul.org>',
     to:   [toEmail],
     replyTo: email,
     subject: `Nueva solicitud de ingreso — ${escHtml(nombre)}`,
