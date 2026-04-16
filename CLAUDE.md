@@ -6,16 +6,17 @@ Operational guide for AI agents maintaining this project. Read this before makin
 
 ## Project overview
 
-Institutional website for **Cluster Tecnológico Azul**, a nonprofit tech community in Azul, Buenos Aires, Argentina.  
-Live URL: **https://clustertecnologicoazul.org**  
-GitHub org: https://github.com/clustertecnologicoazul
+Institutional website for **Cluster Tecnológico Azul**, a nonprofit tech community in Azul, Buenos Aires, Argentina.
+
+Live URL: <https://clustertecnologicoazul.org>
+GitHub org: <https://github.com/clustertecnologicoazul>
 
 ---
 
 ## Tech stack
 
 | Layer | Technology | Notes |
-|---|---|---|
+| --- | --- | --- |
 | Framework | **Astro v6** (SSR mode) | `output: 'server'` — NOT static |
 | Adapter | `@astrojs/cloudflare` | Targets Cloudflare Workers runtime |
 | Runtime | **Cloudflare Workers + Assets** | Deployed via `wrangler.jsonc`, not Pages |
@@ -24,13 +25,13 @@ GitHub org: https://github.com/clustertecnologicoazul
 | DNS | **Cloudflare** (authoritative nameservers) | Domain registrar: external `.org` provider |
 | Language | TypeScript (strict) | All API routes and utilities |
 | Styles | Plain CSS with CSS custom properties | No Tailwind, no CSS-in-JS |
-| Fonts | Plus Jakarta Sans (display) + IBM Plex Sans (body) + IBM Plex Mono | Loaded via Google Fonts `<link>` in `Layout.astro` |
+| Fonts | Plus Jakarta Sans + IBM Plex Sans + IBM Plex Mono | Loaded via Google Fonts `<link>` in `Layout.astro` |
 
 ---
 
 ## Repository structure
 
-```
+```text
 website/
 ├── src/
 │   ├── config.ts              # Shared constants (CONTACT_EMAIL fallback)
@@ -70,7 +71,8 @@ npm run dev            # starts on http://localhost:4321
 npm run build          # production build → dist/
 ```
 
-Without `RESEND_API_KEY` set, form submissions are **logged to console** instead of emailed — this is intentional and safe for local dev.
+Without `RESEND_API_KEY` set, form submissions are **logged to console** instead of emailed —
+this is intentional and safe for local dev.
 
 ---
 
@@ -78,7 +80,7 @@ Without `RESEND_API_KEY` set, form submissions are **logged to console** instead
 
 ### How it works
 
-This is deployed as a **Cloudflare Worker with static Assets**, NOT as a Cloudflare Pages project.  
+This is deployed as a **Cloudflare Worker with static Assets**, NOT as a Cloudflare Pages project.
 The distinction matters for environment variables (see below).
 
 - `wrangler.jsonc` drives the deployment
@@ -100,7 +102,8 @@ The distinction matters for environment variables (see below).
 }
 ```
 
-Do **not** add `override_existing_dns_record` to routes — it's not a valid field in the routes schema and will break the build.
+Do **not** add `override_existing_dns_record` to routes — it is not a valid field in the routes
+schema and will break the build.
 
 ---
 
@@ -109,15 +112,17 @@ Do **not** add `override_existing_dns_record` to routes — it's not a valid fie
 ### Where to set them
 
 | Purpose | Location | Variable |
-|---|---|---|
+| --- | --- | --- |
 | Email sending at runtime | **Workers & Pages → website → Settings → Variables and Secrets** | `RESEND_API_KEY` (Secret), `CONTACT_EMAIL` (Variable) |
 | Local dev | `.env` file (gitignored) | same names |
 
-> **DO NOT** set `RESEND_API_KEY` in the CI/CD "Build variables" section. Those variables are only available during the build process, not at Worker runtime. The Worker reads env via `import { env } from 'cloudflare:workers'` (Astro v6 requirement).
+> **DO NOT** set `RESEND_API_KEY` in the CI/CD "Build variables" section. Those variables are only
+> available during the build process, not at Worker runtime. The Worker reads env via
+> `import { env } from 'cloudflare:workers'` (Astro v6 requirement).
 
 ### Astro v6 env access (breaking change from v5)
 
-`Astro.locals.runtime.env` was **removed in Astro v6**.  
+`Astro.locals.runtime.env` was **removed in Astro v6**.
 All environment variable access must use:
 
 ```typescript
@@ -128,7 +133,9 @@ This is already implemented in `src/lib/email.ts`. Do not revert to `locals.runt
 
 ### Fallback behavior
 
-If `RESEND_API_KEY` is missing at runtime, the API routes log the submission to Cloudflare Worker logs and return `200 OK` (so the user sees success). This is intentional to avoid breaking the UX during misconfiguration. Check Worker logs at: **Workers & Pages → website → Logs**.
+If `RESEND_API_KEY` is missing at runtime, the API routes log the submission to Cloudflare Worker
+logs and return `200 OK` (so the user sees success). This is intentional to avoid breaking the UX
+during misconfiguration. Check Worker logs at: **Workers & Pages → website → Logs**.
 
 ---
 
@@ -143,19 +150,20 @@ If `RESEND_API_KEY` is missing at runtime, the API routes log the submission to 
 - `replyTo`: set to the user's submitted email so replies go directly to them
 - Domain verified in Resend dashboard with DNS records (DKIM TXT + SPF/CNAME)
 
-If you need to change the `from` address or domain, update both the Resend domain verification AND the hardcoded `from:` string in `src/pages/api/contacto.ts` and `src/pages/api/unirse.ts`.
+If you need to change the `from` address or domain, update both the Resend domain verification
+AND the hardcoded `from:` string in `src/pages/api/contacto.ts` and `src/pages/api/unirse.ts`.
 
 ### Inbound (receiving email) — Cloudflare Email Routing
 
 - `info@clustertecnologicoazul.org` is handled by Cloudflare Email Routing
 - Forwarded to a Gmail address (configured in **Cloudflare Dashboard → Email → Email Routing**)
-- No code changes needed for inbound; it's purely a DNS/dashboard setting
+- No code changes needed for inbound; it is purely a DNS/dashboard setting
 - MX records for the domain point to Cloudflare's mail servers
 
 ### DNS records summary (Cloudflare)
 
 | Type | Name | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | CNAME | `@` | Routes apex domain to the Worker |
 | CNAME | `www` | Routes www to the Worker |
 | MX | `@` | Cloudflare Email Routing (inbound) |
@@ -163,7 +171,8 @@ If you need to change the `from` address or domain, update both the Resend domai
 | CNAME | `resend._domainkey` | DKIM for Resend (outbound auth) |
 | TXT | `_dmarc` | DMARC policy |
 
-> The A records for `@` and `www` that existed before Cloudflare Workers setup were deleted. Do not re-add them — they would conflict with the Worker CNAME routes.
+> The A records for `@` and `www` that existed before Cloudflare Workers setup were deleted.
+> Do not re-add them — they would conflict with the Worker CNAME routes.
 
 ---
 
@@ -180,15 +189,18 @@ Both forms (`/unirse` and `/contacto`) follow the same pattern:
 ### Input validation rules
 
 **Both endpoints:**
+
 - `email`: must match `EMAIL_RE` regex, max 320 chars
 - `nombre`: required, max 200 chars
 - `mensaje`: max 5,000 chars
 
-**`/api/unirse`:** `rol` validated against `ALLOWED_ROLES` set; `como-conociste` validated against `ALLOWED_COMO` set
+**`/api/unirse`:** `rol` validated against `ALLOWED_ROLES` set;
+`como-conociste` validated against `ALLOWED_COMO` set
 
 **`/api/contacto`:** `asunto` validated against `ALLOWED_ASUNTOS` set
 
-If you add new select options to any form, you **must** also add the new value to the corresponding allowlist set in the API route.
+If you add new select options to any form, you **must** also add the new value to the corresponding
+allowlist set in the API route.
 
 ### Security
 
@@ -219,7 +231,8 @@ Defined as CSS custom properties in `src/styles/global.css`:
 --font-mono:     'IBM Plex Mono', monospace
 ```
 
-The `[hidden]` attribute is enforced with `display: none !important` in `global.css` to prevent CSS `display: flex/grid` from overriding it (known issue with form show/hide logic).
+The `[hidden]` attribute is enforced with `display: none !important` in `global.css` to prevent
+CSS `display: flex/grid` from overriding it (known issue with form show/hide logic).
 
 ---
 
@@ -239,7 +252,8 @@ The site is written in **Argentine Spanish (Rioplatense)**:
 - Skip-to-content link at top of `<body>` (`.skip-link` class)
 - `<main id="main-content">` as the skip target
 - Form success/error feedback uses `role="alert"` so screen readers announce it
-- After successful form submit, focus is moved to the success message (`.setAttribute('tabindex', '-1'); .focus()`)
+- After successful form submit, focus is moved to the success message
+  (`.setAttribute('tabindex', '-1'); .focus()`)
 - `prefers-reduced-motion`: starfield animation is hidden, `.reveal` elements default to `opacity: 1`
 - Starfield canvas uses `IntersectionObserver` to pause `requestAnimationFrame` when off-screen
 - Form focus styles include both `outline` (for high-contrast mode) and `box-shadow` (visual enhancement)
@@ -249,11 +263,11 @@ The site is written in **Argentine Spanish (Rioplatense)**:
 ## Social media
 
 | Platform | URL |
-|---|---|
-| LinkedIn | https://linkedin.com/company/clustertecnologicoazul |
-| Instagram | https://instagram.com/clustertecnologicoazul |
-| GitHub | https://github.com/clustertecnologicoazul |
-| Linktree | https://linktr.ee/clustertecnologicoazul |
+| --- | --- |
+| LinkedIn | <https://linkedin.com/company/clustertecnologicoazul> |
+| Instagram | <https://instagram.com/clustertecnologicoazul> |
+| GitHub | <https://github.com/clustertecnologicoazul> |
+| Linktree | <https://linktr.ee/clustertecnologicoazul> |
 
 Social links appear in: **Footer** (icon-only) and **Contacto page sidebar** (icon + label + handle).
 
@@ -263,41 +277,49 @@ Social links appear in: **Footer** (icon-only) and **Contacto page sidebar** (ic
 
 - `<link rel="canonical">` and `og:url` computed from `Astro.url.pathname` + `Astro.site` in `Layout.astro`
 - `og:image` points to `/og-image.png` — **this file does not exist yet** and needs to be created (1200×630px)
-- `site` in `astro.config.mjs` is `https://clustertecnologicoazul.org` — keep this in sync with the live domain
+- `site` in `astro.config.mjs` is `https://clustertecnologicoazul.org` — keep in sync with the live domain
 
 ---
 
 ## Common tasks
 
 ### Add a new page
+
 1. Create `src/pages/mypage.astro`
 2. Add `export const prerender = true;` if it has no dynamic server-side logic
 3. Add it to the nav links array in both `Header.astro` and `Footer.astro`
 
 ### Add a new form field
+
 1. Add the `<input>` / `<select>` to the `.astro` page
 2. Add validation in the corresponding `src/pages/api/*.ts` route
-3. If it's a `<select>`, add all valid values to the allowlist `Set`
+3. If it is a `<select>`, add all valid values to the allowlist `Set`
 4. Add the new field to the HTML email template in the API route
-5. If the field is user-supplied string rendered in the email HTML, wrap it in `escHtml()`
+5. If the field is a user-supplied string rendered in the email HTML, wrap it in `escHtml()`
 
 ### Change the contact email
+
 1. Update `CONTACT_EMAIL` in **Workers & Pages → website → Settings → Variables and Secrets**
 2. The fallback in `src/config.ts` is only used locally — update it too if the change is permanent
 
 ### Rotate the Resend API key
-1. Generate a new key at https://resend.com/api-keys
+
+1. Generate a new key at <https://resend.com/api-keys>
 2. Update the `RESEND_API_KEY` Secret in **Workers & Pages → website → Settings → Variables and Secrets**
 3. No code changes required
 
 ### Add a new select option to a form
+
 1. Add the `<option value="newvalue">` to the `.astro` page
-2. Add `'newvalue'` to the corresponding `ALLOWED_*` Set in the API route — **required**, or submissions with the new value will return 422
+2. Add `'newvalue'` to the corresponding `ALLOWED_*` Set in the API route — **required**,
+   or submissions with the new value will return 422
 
 ### Deploy
+
 Pushes to `main` trigger automatic deployment via Cloudflare's GitHub integration. No manual deploy needed.
 
 To deploy manually:
+
 ```bash
 npm run build
 npx wrangler deploy

@@ -8,7 +8,7 @@ Sitio web institucional del [Cluster Tecnológico Azul](https://github.com/clust
 
 - **[Astro](https://astro.build)** — framework estático/SSR
 - **TypeScript** — tipado estricto
-- **[Cloudflare Pages](https://pages.cloudflare.com)** — hosting y funciones serverless
+- **[Cloudflare Workers](https://workers.cloudflare.com)** — hosting y funciones serverless
 - **[Resend](https://resend.com)** — envío de emails desde formularios
 
 ## Desarrollo local
@@ -33,26 +33,29 @@ cp .env.example .env
 ```
 
 | Variable | Descripción |
-|---|---|
+| --- | --- |
 | `RESEND_API_KEY` | API key de [Resend](https://resend.com) para envío de emails |
 | `CONTACT_EMAIL` | Email donde llegan los formularios de contacto y solicitudes de ingreso |
 
-> Sin `RESEND_API_KEY`, los formularios funcionan igual pero los envíos se loguean a consola en lugar de enviarse por email.
+> Sin `RESEND_API_KEY`, los formularios funcionan igual pero los envíos se loguean
+> a consola en lugar de enviarse por email.
 
-## Deploy en Cloudflare Pages
+## Deploy en Cloudflare
 
-1. Conectá el repositorio en el [dashboard de Cloudflare Pages](https://dash.cloudflare.com/?to=/:account/pages)
+1. Conectá el repositorio en el [dashboard de Cloudflare](https://dash.cloudflare.com)
 2. Configuración de build:
-   - **Framework preset**: Astro
    - **Build command**: `npm run build`
    - **Output directory**: `dist`
-3. Agregá las variables de entorno en *Settings → Environment variables*
-4. Para Resend, verificá tu dominio en [resend.com/domains](https://resend.com/domains) y actualizá el campo `from` en los archivos `src/pages/api/*.ts`
+3. Agregá las variables en **Workers & Pages → website → Settings → Variables and Secrets**:
+   - `RESEND_API_KEY` como **Secret** (encriptado)
+   - `CONTACT_EMAIL` como Variable de texto
+4. Para Resend, verificá tu dominio en [resend.com/domains](https://resend.com/domains)
+   y actualizá el campo `from` en `src/pages/api/*.ts`
 
 ## Páginas
 
 | Ruta | Descripción |
-|---|---|
+| --- | --- |
 | `/` | Landing page institucional |
 | `/unirse` | Formulario de solicitud de ingreso al cluster |
 | `/contacto` | Formulario de contacto general |
