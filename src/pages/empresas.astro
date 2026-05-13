@@ -95,7 +95,7 @@ import { CONTACT_EMAIL } from '../config';
               <input
                 type="text" id="empresa" name="empresa"
                 placeholder="Nombre de tu empresa"
-                required autocomplete="organization"
+                required autocomplete="organization" maxlength="200"
               />
             </div>
             <div class="form-group">
@@ -103,7 +103,7 @@ import { CONTACT_EMAIL } from '../config';
               <input
                 type="text" id="responsable" name="responsable"
                 placeholder="Tu nombre y apellido"
-                required autocomplete="name"
+                required autocomplete="name" maxlength="200"
               />
             </div>
           </div>
@@ -138,7 +138,7 @@ import { CONTACT_EMAIL } from '../config';
             <textarea
               id="mensaje" name="mensaje"
               placeholder="Describí brevemente tus procesos actuales, los desafíos que enfrentás o cualquier detalle que nos ayude a entender mejor tu situación..."
-              rows="5"
+              rows="5" maxlength="2000"
             ></textarea>
           </div>
 
@@ -283,7 +283,7 @@ import { CONTACT_EMAIL } from '../config';
   /* Commitment block */
   .commitment-block {
     border-color: var(--clr-blue-dim);
-    background: rgba(43, 127, 255, 0.04);
+    background: var(--clr-blue-glow);
   }
 
   .commitment-block p {
@@ -298,7 +298,7 @@ import { CONTACT_EMAIL } from '../config';
     align-items: flex-start;
     gap: 0.75rem;
     border-color: var(--clr-blue-dim);
-    background: rgba(43, 127, 255, 0.04);
+    background: var(--clr-blue-glow);
   }
 
   .response-icon {

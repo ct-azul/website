@@ -10,6 +10,10 @@ export const JSON_HEADERS = { 'Content-Type': 'application/json' } as const;
 
 export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+export function sanitizeSubject(s: string): string {
+  return s.replace(/[\r\n]/g, ' ');
+}
+
 export function escHtml(s: string): string {
   return String(s)
     .replace(/&/g, '&amp;')

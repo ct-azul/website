@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
-import { JSON_HEADERS, EMAIL_RE, escHtml, getEmailConfig, parseJsonBody, str } from '../../lib/email';
+import { JSON_HEADERS, EMAIL_RE, escHtml, sanitizeSubject, getEmailConfig, parseJsonBody, str } from '../../lib/email';
 
 export const prerender = false;
 
@@ -55,7 +55,7 @@ export const POST: APIRoute = async ({ request }) => {
       from:    'Cluster Tecnológico Azul <noreply@clustertecnologicoazul.org>',
       to:      [toEmail],
       replyTo: email,
-      subject: `Nuevo contacto: ${asunto} — ${nombre}`,
+      subject: `Nuevo contacto: ${sanitizeSubject(asunto)} — ${sanitizeSubject(nombre)}`,
       html: `
         <h2>Nuevo mensaje de contacto</h2>
         <table style="border-collapse:collapse;width:100%">

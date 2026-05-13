@@ -467,7 +467,7 @@ import Layout from '../layouts/Layout.astro';
 
   .stat-card.highlight {
     border-color: var(--clr-blue-dim);
-    background: rgba(43, 127, 255, 0.06);
+    background: var(--clr-blue-glow);
   }
 
   .stat-number {
@@ -546,12 +546,21 @@ import Layout from '../layouts/Layout.astro';
     transition: background var(--transition);
   }
 
-  .iniciativa-item:hover {
-    background: var(--clr-surface);
-    margin-inline: -1.5rem;
-    padding-inline: 1.5rem;
-    border-radius: var(--radius-sm);
-    border-top-color: transparent;
+  @media (hover: hover) {
+    .iniciativa-item:hover {
+      background: var(--clr-surface);
+      margin-inline: -1.5rem;
+      padding-inline: 1.5rem;
+      border-radius: var(--radius-sm);
+      border-top-color: transparent;
+    }
+
+    @media (max-width: 640px) {
+      .iniciativa-item:hover {
+        margin-inline: -1.25rem;
+        padding-inline: 1.25rem;
+      }
+    }
   }
 
   .iniciativa-num {

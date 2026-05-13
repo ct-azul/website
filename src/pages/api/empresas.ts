@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
-import { JSON_HEADERS, EMAIL_RE, escHtml, getEmailConfig, parseJsonBody, str } from '../../lib/email';
+import { JSON_HEADERS, EMAIL_RE, escHtml, sanitizeSubject, getEmailConfig, parseJsonBody, str } from '../../lib/email';
 
 export const prerender = false;
 
@@ -64,7 +64,7 @@ export const POST: APIRoute = async ({ request }) => {
       from:    'Cluster Tecnológico Azul <noreply@clustertecnologicoazul.org>',
       to:      [toEmail],
       replyTo: email,
-      subject: `Nueva solicitud de asesoría: ${categoria} — ${empresa}`,
+      subject: `Nueva solicitud de asesoría: ${sanitizeSubject(categoria)} — ${sanitizeSubject(empresa)}`,
       html: `
         <h2>Nueva solicitud de asesoría</h2>
         <table style="border-collapse:collapse;width:100%">
@@ -99,7 +99,7 @@ export const POST: APIRoute = async ({ request }) => {
         <p>Recibimos tu solicitud de asesoría para <strong>${escHtml(empresa)}</strong>. ¡Muchas gracias por tu interés!</p>
         <p>Nos pondremos en contacto con vos en menos de 48 horas hábiles para coordinar los próximos pasos.</p>
         <p>Si tenés alguna consulta adicional, podés escribirnos directamente a
-          <a href="mailto:info@clustertecnologicoazul.org">info@clustertecnologicoazul.org</a>.
+          <a href="mailto:${escHtml(toEmail)}">${escHtml(toEmail)}</a>.
         </p>
         <br>
         <p>Saludos,<br><strong>Cluster Tecnológico Azul</strong><br>Azul, Buenos Aires, Argentina</p>

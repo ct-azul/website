@@ -74,6 +74,10 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 body {
   background-color: var(--clr-bg);
   color: var(--clr-text);
@@ -173,6 +177,11 @@ img {
   transform: translateY(-1px);
 }
 
+.btn:focus-visible {
+  outline: 2px solid var(--clr-blue);
+  outline-offset: 3px;
+}
+
 /* Form elements */
 .form-group {
   display: flex;
@@ -262,6 +271,19 @@ img {
   .reveal {
     opacity: 1;
     animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline-color: Highlight;
+  }
+
+  .btn:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
   }
 }
 

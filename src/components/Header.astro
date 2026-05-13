@@ -55,19 +55,31 @@ const navLinks = [
     header.classList.toggle('scrolled', window.scrollY > 40);
   });
 
+  function closeMenu() {
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.classList.remove('open');
+    navMobile.hidden = true;
+  }
+
   hamburger.addEventListener('click', () => {
     const open = hamburger.getAttribute('aria-expanded') === 'true';
     hamburger.setAttribute('aria-expanded', String(!open));
     hamburger.classList.toggle('open', !open);
     navMobile.hidden = open;
+    if (!open) {
+      navMobile.querySelector<HTMLElement>('a')?.focus();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && hamburger.getAttribute('aria-expanded') === 'true') {
+      closeMenu();
+      hamburger.focus();
+    }
   });
 
   navMobile.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      hamburger.setAttribute('aria-expanded', 'false');
-      hamburger.classList.remove('open');
-      navMobile.hidden = true;
-    });
+    a.addEventListener('click', closeMenu);
   });
 </script>
 

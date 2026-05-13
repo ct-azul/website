@@ -120,7 +120,7 @@ import { CONTACT_EMAIL } from '../config';
           <div class="form-row">
             <div class="form-group">
               <label for="nombre">Nombre *</label>
-              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required autocomplete="name" />
+              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required autocomplete="name" maxlength="200" />
             </div>
             <div class="form-group">
               <label for="email">Email *</label>
@@ -142,7 +142,7 @@ import { CONTACT_EMAIL } from '../config';
 
           <div class="form-group">
             <label for="mensaje">Mensaje *</label>
-            <textarea id="mensaje" name="mensaje" placeholder="Contanos tu consulta, propuesta o idea..." rows="6" required></textarea>
+            <textarea id="mensaje" name="mensaje" placeholder="Contanos tu consulta, propuesta o idea..." rows="6" required maxlength="5000"></textarea>
           </div>
 
           <button type="submit" class="btn btn-primary btn-submit" id="submit-btn">
@@ -174,6 +174,8 @@ import { CONTACT_EMAIL } from '../config';
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
     submitBtn.disabled = true;
+    submitBtn.setAttribute('aria-disabled', 'true');
+    form.setAttribute('aria-busy', 'true');
     btnLabel?.setAttribute('hidden', '');
     btnLoading?.removeAttribute('hidden');
     errorEl.hidden = true;
@@ -196,6 +198,8 @@ import { CONTACT_EMAIL } from '../config';
     } catch {
       errorEl.hidden = false;
       submitBtn.disabled = false;
+      submitBtn.removeAttribute('aria-disabled');
+      form.removeAttribute('aria-busy');
       btnLabel?.removeAttribute('hidden');
       btnLoading?.setAttribute('hidden', '');
     }
@@ -305,7 +309,7 @@ import { CONTACT_EMAIL } from '../config';
     align-items: flex-start;
     gap: 0.75rem;
     border-color: var(--clr-blue-dim);
-    background: rgba(43, 127, 255, 0.04);
+    background: var(--clr-blue-glow);
   }
 
   .response-icon {

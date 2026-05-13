@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
-import { JSON_HEADERS, EMAIL_RE, escHtml, getEmailConfig, parseJsonBody, str } from '../../lib/email';
+import { JSON_HEADERS, EMAIL_RE, escHtml, sanitizeSubject, getEmailConfig, parseJsonBody, str } from '../../lib/email';
 
 export const prerender = false;
 
@@ -9,7 +9,7 @@ const ALLOWED_ROLES = new Set([
   'emprendedor', 'estudiante', 'docente', 'otro',
 ]);
 
-const ALLOWED_COMO = new Set(['redes', 'amigo', 'evento', 'github', 'otro', '']);
+const ALLOWED_COMO = new Set(['redes', 'amigo', 'evento', 'github', 'otro']);
 
 export const POST: APIRoute = async ({ request }) => {
   const { resendKey, toEmail } = getEmailConfig();
@@ -66,7 +66,7 @@ export const POST: APIRoute = async ({ request }) => {
       from:    'Cluster Tecnológico Azul <noreply@clustertecnologicoazul.org>',
       to:      [toEmail],
       replyTo: email,
-      subject: `Nueva solicitud de ingreso — ${nombre}`,
+      subject: `Nueva solicitud de ingreso — ${sanitizeSubject(nombre)}`,
       html: `
         <h2>Nueva solicitud de ingreso al Cluster</h2>
         <table style="border-collapse:collapse;width:100%">
