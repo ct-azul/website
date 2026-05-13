@@ -78,7 +78,7 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     if (error) {
-      console.error('[empresas] Resend notification error:', JSON.stringify(error));
+      console.error('[empresas] Resend API error:', JSON.stringify(error));
       return new Response(JSON.stringify({ error: 'Error enviando email' }), { status: 500, headers: JSON_HEADERS });
     }
 
