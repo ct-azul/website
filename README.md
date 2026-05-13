@@ -51,6 +51,8 @@ cp .env.example .env
    - `CONTACT_EMAIL` como Variable de texto
 4. Para Resend, verificá tu dominio en [resend.com/domains](https://resend.com/domains)
    y actualizá el campo `from` en `src/pages/api/*.ts`
+5. Habilitá rate limiting en **Security → WAF → Rate limiting rules**:
+   - Path: `/api/*`, máximo 5 requests por minuto por IP
 
 ## Páginas
 

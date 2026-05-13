@@ -55,8 +55,12 @@ website/
 │       └── global.css         # Design tokens, resets, utility classes
 ├── public/
 │   ├── logo.png               # Official cluster logo (499×499px, square)
-│   ├── favicon.svg
-│   └── favicon.ico
+│   ├── favicon.svg            # SVG favicon (logo embedded as base64)
+│   ├── favicon.ico            # Multi-size ICO (16×16 + 32×32, generated from logo)
+│   ├── apple-touch-icon.png   # 180×180, iOS Add to Home Screen
+│   ├── icon-192.png           # 192×192, Android/Chrome
+│   ├── icon-512.png           # 512×512, PWA splash screens
+│   └── og-image.png           # 1200×630, Open Graph / Twitter Card social preview
 ├── astro.config.mjs           # Astro config: output=server, cloudflare adapter, site URL
 ├── wrangler.jsonc             # Cloudflare Worker config: name, routes, assets, observability
 └── .env.example               # Template for local env vars
@@ -213,7 +217,10 @@ allowlist set in the API route.
 
 - All user-supplied values rendered in HTML email bodies are run through `escHtml()` (from `src/lib/email.ts`) to prevent XSS
 - `escHtml()` is NOT applied to email subjects (they are plain text, not HTML)
+- All user-supplied values used in email subjects are run through `sanitizeSubject()` (strips `\r\n`) to prevent MIME header injection
 - All API responses include `Content-Type: application/json` via `JSON_HEADERS`
+- Rate limiting is enforced via a **Cloudflare WAF rule** on `/api/*`: max 5 requests/minute per IP.
+  Configured at: **Security → WAF → Rate limiting rules** in the Cloudflare dashboard — no code changes needed
 
 ---
 
@@ -317,7 +324,7 @@ Social links appear in: **Footer** (icon-only) and **Contacto page sidebar** (ic
 ## SEO
 
 - `<link rel="canonical">` and `og:url` computed from `Astro.url.pathname` + `Astro.site` in `Layout.astro`
-- `og:image` points to `/og-image.png` — **this file does not exist yet** and needs to be created (1200×630px)
+- `og:image` points to `/og-image.png` (1200×630px, exists in `public/`). Regenerate with sharp if branding changes.
 - `site` in `astro.config.mjs` is `https://clustertecnologicoazul.org` — keep in sync with the live domain
 
 ---
@@ -329,6 +336,10 @@ Social links appear in: **Footer** (icon-only) and **Contacto page sidebar** (ic
 1. Create `src/pages/mypage.astro`
 2. Add `export const prerender = true;` if it has no dynamic server-side logic
 3. Add it to the nav links array in both `Header.astro` and `Footer.astro`
+
+To show a nav link **only in the mobile menu** (not the desktop nav bar), add `mobileOnly: true` to
+the entry in `Header.astro`. The desktop nav filters these out automatically. The Footer always
+shows all links regardless of `mobileOnly`.
 
 ### Add a new form field
 
