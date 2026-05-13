@@ -27,7 +27,7 @@ import { CONTACT_EMAIL } from '../config';
           <ul class="includes-list">
             <li>
               <span class="includes-icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
                 </svg>
               </span>
@@ -35,7 +35,7 @@ import { CONTACT_EMAIL } from '../config';
             </li>
             <li>
               <span class="includes-icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
                 </svg>
               </span>
@@ -43,7 +43,7 @@ import { CONTACT_EMAIL } from '../config';
             </li>
             <li>
               <span class="includes-icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
                 </svg>
               </span>
@@ -63,7 +63,7 @@ import { CONTACT_EMAIL } from '../config';
 
         <div class="info-block response-time">
           <div class="response-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
             </svg>
           </div>
@@ -73,7 +73,7 @@ import { CONTACT_EMAIL } from '../config';
 
       <div class="form-container">
         <div id="form-success" class="form-feedback success" hidden role="alert">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
           </svg>
           <h3>¡Solicitud recibida!</h3>
@@ -145,7 +145,7 @@ import { CONTACT_EMAIL } from '../config';
           <button type="submit" class="btn btn-primary btn-submit" id="submit-btn">
             <span class="btn-label">Quiero recibir asesoría</span>
             <span class="btn-loading" hidden>
-              <svg class="spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg aria-hidden="true" class="spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
               </svg>
               Enviando...
@@ -171,6 +171,8 @@ import { CONTACT_EMAIL } from '../config';
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
     submitBtn.disabled = true;
+    submitBtn.setAttribute('aria-disabled', 'true');
+    form.setAttribute('aria-busy', 'true');
     btnLabel?.setAttribute('hidden', '');
     btnLoading?.removeAttribute('hidden');
     errorEl.hidden = true;
@@ -187,12 +189,16 @@ import { CONTACT_EMAIL } from '../config';
         successEl.hidden = false;
         successEl.setAttribute('tabindex', '-1');
         successEl.focus();
+        submitBtn.removeAttribute('aria-disabled');
+        form.removeAttribute('aria-busy');
       } else {
         throw new Error('Error en el servidor');
       }
     } catch {
       errorEl.hidden = false;
       submitBtn.disabled = false;
+      submitBtn.removeAttribute('aria-disabled');
+      form.removeAttribute('aria-busy');
       btnLabel?.removeAttribute('hidden');
       btnLoading?.setAttribute('hidden', '');
     }
@@ -249,7 +255,7 @@ import { CONTACT_EMAIL } from '../config';
   .info-block h3 {
     font-size: 0.9rem;
     color: var(--clr-text);
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
   }
 
   /* Includes list */
@@ -343,6 +349,10 @@ import { CONTACT_EMAIL } from '../config';
   }
 
   .spinner { animation: spin 1s linear infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spinner { animation: none; }
+  }
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
