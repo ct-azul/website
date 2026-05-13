@@ -87,6 +87,14 @@ const navLinks = [
     -webkit-backdrop-filter: blur(16px);
   }
 
+  /* Force dark-mode text tokens when unscrolled — header always overlays the dark hero */
+  .site-header:not(.scrolled) {
+    --clr-text:      #d8e3f0;
+    --clr-text-soft: #8399bb;
+    --clr-surface:   rgba(255, 255, 255, 0.08);
+    --clr-cyan:      #00d4c8;
+  }
+
   .header-inner {
     display: flex;
     align-items: center;

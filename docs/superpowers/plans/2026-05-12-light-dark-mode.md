@@ -12,11 +12,11 @@
 
 ## File Map
 
-| File | Role in this change |
-|---|---|
-| `src/styles/global.css` | Primary: replace `:root` with light tokens, add dark-mode override blocks, add `--clr-header-scrolled` |
-| `src/components/Header.astro` | Replace one hardcoded `rgba(5, 8, 15, 0.88)` with `var(--clr-header-scrolled)` |
-| `src/pages/index.astro` | Add always-dark token overrides to `.hero` and `.cta-card` page-scoped styles |
+| File                          | Role in this change                                                                                    |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `src/styles/global.css`       | Primary: replace `:root` with light tokens, add dark-mode override blocks, add `--clr-header-scrolled` |
+| `src/components/Header.astro` | Replace one hardcoded `rgba(5, 8, 15, 0.88)` with `var(--clr-header-scrolled)`                         |
+| `src/pages/index.astro`       | Add always-dark token overrides to `.hero` and `.cta-card` page-scoped styles                          |
 
 No changes needed to `unirse.astro`, `contacto.astro`, `empresas.astro`, or `Layout.astro` — their styles already use CSS variable references that will adapt automatically.
 
@@ -25,6 +25,7 @@ No changes needed to `unirse.astro`, `contacto.astro`, `empresas.astro`, or `Lay
 ### Task 1: Reorganize color tokens in global.css
 
 **Files:**
+
 - Modify: `src/styles/global.css:1-24`
 
 This is the core change. Replace the single dark `:root` block with a light `:root` (default) plus two dark override blocks (OS preference + explicit attribute).
@@ -118,6 +119,7 @@ git commit -m "feat: add light/dark mode color tokens to global.css"
 ### Task 2: Fix Header scrolled background
 
 **Files:**
+
 - Modify: `src/components/Header.astro:84`
 
 The Header has one hardcoded dark color for its scrolled state. Replace it with the CSS variable added in Task 1.
@@ -160,6 +162,7 @@ git commit -m "feat: use css variable for header scrolled background"
 ### Task 3: Scope hero and CTA sections to always-dark in index.astro
 
 **Files:**
+
 - Modify: `src/pages/index.astro` (page-scoped `<style>` block)
 
 The `.hero` (starfield hero) and `.cta-card` sections must stay dark regardless of the page's active color mode. In light mode, the hero canvas particles would be invisible on a light background, and `.cta-card h2` already has `color: #fff` hardcoded which breaks on a light surface.
@@ -251,12 +254,12 @@ Ensure your OS is set to light mode (System Preferences → Appearance → Light
 
 Check each page:
 
-| Page | What to verify |
-|---|---|
-| `/` | Blue-tinted light background on body. Hero stays dark (navy/starfield). Both CTA cards stay dark. Nav text visible. |
-| `/empresas` | Light page background, form inputs readable, sidebar readable. Commitment block (blue accent border) visible. |
-| `/unirse` | Light page background, form readable. Success/error feedback colors (teal/red) visible. |
-| `/contacto` | Same as `/unirse`. |
+| Page        | What to verify                                                                                                      |
+| ----------- | ------------------------------------------------------------------------------------------------------------------- |
+| `/`         | Blue-tinted light background on body. Hero stays dark (navy/starfield). Both CTA cards stay dark. Nav text visible. |
+| `/empresas` | Light page background, form inputs readable, sidebar readable. Commitment block (blue accent border) visible.       |
+| `/unirse`   | Light page background, form readable. Success/error feedback colors (teal/red) visible.                             |
+| `/contacto` | Same as `/unirse`.                                                                                                  |
 
 Scroll on any page to trigger the header scrolled state — header background should become semi-transparent light (`rgba(238, 242, 249, 0.92)`).
 
@@ -266,12 +269,12 @@ Switch OS to dark mode (or use Chrome DevTools → Rendering → "Emulate CSS pr
 
 Check each page:
 
-| Page | What to verify |
-|---|---|
-| `/` | Deep navy background (not near-black `#05080f`). Hero/CTA sections visually unchanged from before. |
-| `/empresas` | Navy background, surfaces slightly lighter. All text readable. |
-| `/unirse` | Same. |
-| `/contacto` | Same. |
+| Page        | What to verify                                                                                     |
+| ----------- | -------------------------------------------------------------------------------------------------- |
+| `/`         | Deep navy background (not near-black `#05080f`). Hero/CTA sections visually unchanged from before. |
+| `/empresas` | Navy background, surfaces slightly lighter. All text readable.                                     |
+| `/unirse`   | Same.                                                                                              |
+| `/contacto` | Same.                                                                                              |
 
 Scrolled header in dark mode: `rgba(13, 27, 46, 0.92)`.
 
