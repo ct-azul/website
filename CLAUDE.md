@@ -55,7 +55,6 @@ website/
 │       └── global.css         # Design tokens, resets, utility classes
 ├── public/
 │   ├── logo.png               # Official cluster logo (499×499px, square)
-│   ├── favicon.svg            # SVG favicon (logo embedded as base64)
 │   ├── favicon.ico            # Multi-size ICO (16×16 + 32×32, generated from logo)
 │   ├── apple-touch-icon.png   # 180×180, iOS Add to Home Screen
 │   ├── icon-192.png           # 192×192, Android/Chrome
@@ -336,10 +335,18 @@ Social links appear in: **Footer** (icon-only) and **Contacto page sidebar** (ic
 1. Create `src/pages/mypage.astro`
 2. Add `export const prerender = true;` if it has no dynamic server-side logic
 3. Add it to the nav links array in both `Header.astro` and `Footer.astro`
+4. Add it to `public/sitemap.xml` with today's date as `<lastmod>`
 
 To show a nav link **only in the mobile menu** (not the desktop nav bar), add `mobileOnly: true` to
 the entry in `Header.astro`. The desktop nav filters these out automatically. The Footer always
 shows all links regardless of `mobileOnly`.
+
+### Update sitemap.xml
+
+`public/sitemap.xml` is maintained manually. Update `<lastmod>` for a page only when its
+**content** changed in a meaningful way (copy, structure, new sections). Do not update it for
+CSS tweaks, dependency bumps, or unrelated deploys — search engines learn to ignore `lastmod`
+if it changes too often without real content changes.
 
 ### Add a new form field
 
@@ -365,6 +372,36 @@ shows all links regardless of `mobileOnly`.
 1. Add the `<option value="newvalue">` to the `.astro` page
 2. Add `'newvalue'` to the corresponding `ALLOWED_*` Set in the API route — **required**,
    or submissions with the new value will return 422
+
+### Regenerate PNG images from SVG sources
+
+All marketing/social images have an SVG source file alongside the PNG. The SVG embeds the logo
+as a base64 PNG and is the source of truth — edit the SVG, then regenerate the PNG.
+
+**Open Graph image** (`public/og-image.svg` → `public/og-image.png`, 1200×630):
+
+```bash
+node -e "require('sharp')('public/og-image.svg').png().toFile('public/og-image.png', console.log)"
+```
+
+**Instagram posts** (`public/ig-posts/*.svg` → matching `*.png`, 1080×1080):
+
+```bash
+node -e "
+const sharp = require('sharp');
+const fs = require('fs');
+const dir = 'public/ig-posts';
+fs.readdirSync(dir).filter(f => f.endsWith('.svg')).forEach(f => {
+  const out = f.replace('.svg', '.png');
+  sharp(\`\${dir}/\${f}\`).png().toFile(\`\${dir}/\${out}\`, console.log);
+});
+"
+```
+
+After regenerating, commit both the `.svg` source and the updated `.png`.
+
+> The logo embedded inside the SVGs is base64-encoded at generation time. If `public/logo.png`
+> changes, re-run the original generation script (or re-embed the logo) before regenerating PNGs.
 
 ### Deploy
 
