@@ -288,6 +288,16 @@ import Layout from '../layouts/Layout.astro';
     align-items: center;
     overflow: hidden;
     padding-top: 68px;
+    /* always dark — starfield canvas requires a dark background */
+    background-color: #0d1b2e;
+    --clr-bg:        #0d1b2e;
+    --clr-surface:   #132238;
+    --clr-surface-2: #1a2d45;
+    --clr-border:    #243d5c;
+    --clr-text:      #d8e3f0;
+    --clr-text-soft: #8399bb;
+    --clr-muted:     #4a5e7a;
+    color-scheme: dark;
   }
 
   #starfield {
@@ -575,6 +585,15 @@ import Layout from '../layouts/Layout.astro';
     padding: 4rem;
     text-align: center;
     overflow: hidden;
+    /* always dark — h2 uses hardcoded color:#fff, glow uses dark rgba values */
+    --clr-bg:        #0d1b2e;
+    --clr-surface:   #132238;
+    --clr-surface-2: #1a2d45;
+    --clr-border:    #243d5c;
+    --clr-text:      #d8e3f0;
+    --clr-text-soft: #8399bb;
+    --clr-muted:     #4a5e7a;
+    color-scheme: dark;
   }
 
   .cta-glow {
