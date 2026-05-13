@@ -18,7 +18,10 @@
 | `src/components/Header.astro` | Replace one hardcoded `rgba(5, 8, 15, 0.88)` with `var(--clr-header-scrolled)`                         |
 | `src/pages/index.astro`       | Add always-dark token overrides to `.hero` and `.cta-card` page-scoped styles                          |
 
-No changes needed to `unirse.astro`, `contacto.astro`, `empresas.astro`, or `Layout.astro` — their styles already use CSS variable references that will adapt automatically.
+Also modified (issues caught in final review, not anticipated in plan):
+- `src/layouts/Layout.astro` — replace single hardcoded `meta theme-color` with two media-query-aware tags
+- `src/pages/unirse.astro`, `contacto.astro`, `empresas.astro` — `.page-hero h1` had hardcoded `color: #fff`; changed to `color: var(--clr-text)`
+- `src/components/Header.astro` — added `.site-header:not(.scrolled)` dark-mode token overrides (header overlays always-dark hero, text must stay light in both modes)
 
 ---
 
