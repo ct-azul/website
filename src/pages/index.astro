@@ -23,8 +23,8 @@ import Layout from '../layouts/Layout.astro';
         que trabajan juntos para transformar el ecosistema digital de Azul.
       </p>
       <div class="hero-actions reveal reveal-4">
+        <a href="/empresas" class="btn btn-primary">Recibí asesoría</a>
         <a href="/unirse" class="btn btn-primary">Unite al cluster</a>
-        <a href="/empresas" class="btn btn-outline">Recibí asesoría empresarial</a>
         <a href="/#nosotros" class="btn btn-outline">Conocé más</a>
       </div>
     </div>
@@ -669,5 +669,14 @@ import Layout from '../layouts/Layout.astro';
   @media (max-width: 520px) {
     .pilares-grid { grid-template-columns: 1fr; }
     .section { padding-block: 3.5rem; }
+    .pilar-card {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      column-gap: 1rem;
+      align-items: center;
+    }
+    .pilar-icon { grid-row: 1; grid-column: 1; margin-bottom: 0; }
+    .pilar-card h3 { grid-row: 1; grid-column: 2; margin-bottom: 0; }
+    .pilar-card p { grid-row: 2; grid-column: 1 / -1; margin-top: 0.75rem; }
   }
 </style>

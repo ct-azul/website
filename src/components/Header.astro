@@ -29,8 +29,9 @@ const navLinks = [
 
     <div class="header-actions">
       <a href="/unirse" class="btn btn-primary btn-sm">Unite</a>
-      <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
-        <span></span><span></span><span></span>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+        <span class="hamburger-icon"><span></span><span></span><span></span></span>
+        <span class="hamburger-label">Menú</span>
       </button>
     </div>
   </div>
@@ -188,15 +189,22 @@ const navLinks = [
 
   .hamburger {
     display: none;
-    flex-direction: column;
-    gap: 5px;
+    align-items: center;
+    gap: 0.5rem;
     background: none;
     border: none;
     cursor: pointer;
     padding: 4px;
+    color: var(--clr-text);
   }
 
-  .hamburger span {
+  .hamburger-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .hamburger-icon span {
     display: block;
     width: 22px;
     height: 2px;
@@ -205,12 +213,20 @@ const navLinks = [
     transition: transform 220ms ease, opacity 220ms ease;
   }
 
-  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .hamburger.open span:nth-child(2) { opacity: 0; }
-  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .hamburger-label {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+
+  .hamburger.open .hamburger-label { display: none; }
+
+  .hamburger.open .hamburger-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open .hamburger-icon span:nth-child(2) { opacity: 0; }
+  .hamburger.open .hamburger-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
   .nav-mobile {
-    background: var(--clr-surface);
+    background: var(--clr-bg);
     border-top: 1px solid var(--clr-border);
   }
 
@@ -238,5 +254,6 @@ const navLinks = [
     .nav-desktop { display: none; }
     .hamburger { display: flex; }
     .header-actions .btn { display: none; }
+    .nav-desktop ~ .header-actions { margin-left: auto; }
   }
 </style>
