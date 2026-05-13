@@ -78,13 +78,14 @@ const navLinks = [
     left: 0;
     right: 0;
     z-index: 100;
-    transition: background 300ms ease, border-color 300ms ease, backdrop-filter 300ms ease;
+    transition: background 300ms ease, border-color 300ms ease, box-shadow 300ms ease, backdrop-filter 300ms ease;
     border-bottom: 1px solid transparent;
   }
 
   .site-header.scrolled {
     background: var(--clr-header-scrolled);
     border-color: var(--clr-border);
+    box-shadow: 0 1px 24px rgba(0, 0, 0, 0.08);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
   }
@@ -95,6 +96,7 @@ const navLinks = [
     --clr-text-soft: #8399bb;
     --clr-surface:   rgba(255, 255, 255, 0.08);
     --clr-cyan:      #00d4c8;
+    border-color: rgba(255, 255, 255, 0.10);
   }
 
   .header-inner {
@@ -111,10 +113,6 @@ const navLinks = [
     color: var(--clr-cyan);
     text-decoration: none;
     flex-shrink: 0;
-  }
-
-  .logo:hover {
-    color: var(--clr-cyan);
   }
 
   .logo-img {
