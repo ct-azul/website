@@ -44,39 +44,39 @@ A future toggle only needs `document.documentElement.dataset.theme = 'dark'|'lig
 
 ### Light mode (default)
 
-| Token            | Value                    | Role                  |
-| ---------------- | ------------------------ | --------------------- |
-| `--clr-bg`       | `#eef2f9`                | Page background       |
-| `--clr-surface`  | `#f5f8ff`                | Cards, inputs         |
-| `--clr-surface-2`| `#e8eef8`                | Secondary surfaces    |
-| `--clr-border`   | `#c5d3e8`                | Borders               |
-| `--clr-text`     | `#0f1e35`                | Body text             |
-| `--clr-text-soft`| `#3d5a80`                | Secondary text        |
-| `--clr-muted`    | `#7a94b8`                | Muted / placeholder   |
-| `--clr-blue`     | `#1a6ff0`                | Primary CTA           |
-| `--clr-cyan`     | `#0099a8`                | Accent                |
-| `--clr-gold`     | `#c47d0e`                | Highlights            |
-| `--clr-blue-dim` | `#d0e3ff`                | Blue surface tint     |
-| `--clr-blue-glow`| `rgba(26,111,240,0.10)`  | Glow effects          |
+| Token             | Value                   | Role                |
+| ----------------- | ----------------------- | ------------------- |
+| `--clr-bg`        | `#eef2f9`               | Page background     |
+| `--clr-surface`   | `#f5f8ff`               | Cards, inputs       |
+| `--clr-surface-2` | `#e8eef8`               | Secondary surfaces  |
+| `--clr-border`    | `#c5d3e8`               | Borders             |
+| `--clr-text`      | `#0f1e35`               | Body text           |
+| `--clr-text-soft` | `#3d5a80`               | Secondary text      |
+| `--clr-muted`     | `#7a94b8`               | Muted / placeholder |
+| `--clr-blue`      | `#1a6ff0`               | Primary CTA         |
+| `--clr-cyan`      | `#0099a8`               | Accent              |
+| `--clr-gold`      | `#c47d0e`               | Highlights          |
+| `--clr-blue-dim`  | `#d0e3ff`               | Blue surface tint   |
+| `--clr-blue-glow` | `rgba(26,111,240,0.10)` | Glow effects        |
 
 ### Dark mode (softened navy)
 
 Only the background stack changes from current values; text and accent tokens are unchanged.
 
-| Token            | Current    | New        |
-| ---------------- | ---------- | ---------- |
-| `--clr-bg`       | `#05080f`  | `#0d1b2e`  |
-| `--clr-surface`  | `#0a1020`  | `#132238`  |
-| `--clr-surface-2`| `#101828`  | `#1a2d45`  |
-| `--clr-border`   | `#1b2b42`  | `#243d5c`  |
-| `--clr-text`     | `#d8e3f0`  | unchanged  |
-| `--clr-text-soft`| `#8399bb`  | unchanged  |
-| `--clr-muted`    | `#4a5e7a`  | unchanged  |
-| `--clr-blue`     | `#2b7fff`  | unchanged  |
-| `--clr-cyan`     | `#00d4c8`  | unchanged  |
-| `--clr-gold`     | `#f0b429`  | unchanged  |
-| `--clr-blue-dim` | `#1a4f9e`  | unchanged  |
-| `--clr-blue-glow`| `rgba(43,127,255,0.18)` | unchanged |
+| Token             | Current                 | New       |
+| ----------------- | ----------------------- | --------- |
+| `--clr-bg`        | `#05080f`               | `#0d1b2e` |
+| `--clr-surface`   | `#0a1020`               | `#132238` |
+| `--clr-surface-2` | `#101828`               | `#1a2d45` |
+| `--clr-border`    | `#1b2b42`               | `#243d5c` |
+| `--clr-text`      | `#d8e3f0`               | unchanged |
+| `--clr-text-soft` | `#8399bb`               | unchanged |
+| `--clr-muted`     | `#4a5e7a`               | unchanged |
+| `--clr-blue`      | `#2b7fff`               | unchanged |
+| `--clr-cyan`      | `#00d4c8`               | unchanged |
+| `--clr-gold`      | `#f0b429`               | unchanged |
+| `--clr-blue-dim`  | `#1a4f9e`               | unchanged |
+| `--clr-blue-glow` | `rgba(43,127,255,0.18)` | unchanged |
 
 ---
 
@@ -115,15 +115,15 @@ replaced with a CSS variable `--clr-header-scrolled` defined per mode:
 
 ## Files Changed
 
-| File | Change |
-| ---- | ------ |
-| `src/styles/global.css` | Reorganize color tokens into light (`:root`), dark media query, dark `[data-theme]` blocks; add `--clr-header-scrolled` |
-| `src/layouts/Layout.astro` | No structural changes; `--clr-header-scrolled` definition lives in `global.css` |
-| `src/components/Header.astro` | Replace hardcoded `rgba(5,8,15,0.88)` with `var(--clr-header-scrolled)` |
-| `src/pages/index.astro` | Scope `.hero` and `.cta-card` to always-dark token overrides |
-| `src/pages/empresas.astro` | Audit and fix any hardcoded dark colors; apply always-dark scoping where needed |
-| `src/pages/unirse.astro` | Same audit |
-| `src/pages/contacto.astro` | Same audit |
+| File                          | Change                                                                                                                  |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `src/styles/global.css`       | Reorganize color tokens into light (`:root`), dark media query, dark `[data-theme]` blocks; add `--clr-header-scrolled` |
+| `src/layouts/Layout.astro`    | No structural changes; `--clr-header-scrolled` definition lives in `global.css`                                         |
+| `src/components/Header.astro` | Replace hardcoded `rgba(5,8,15,0.88)` with `var(--clr-header-scrolled)`                                                 |
+| `src/pages/index.astro`       | Scope `.hero` and `.cta-card` to always-dark token overrides                                                            |
+| `src/pages/empresas.astro`    | Audit and fix any hardcoded dark colors; apply always-dark scoping where needed                                         |
+| `src/pages/unirse.astro`      | Same audit                                                                                                              |
+| `src/pages/contacto.astro`    | Same audit                                                                                                              |
 
 ---
 
