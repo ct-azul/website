@@ -219,27 +219,61 @@ allowlist set in the API route.
 
 ## Design system
 
-Defined as CSS custom properties in `src/styles/global.css`:
+Defined as CSS custom properties in `src/styles/global.css`. The site supports **light/dark mode**
+via `prefers-color-scheme`, with **light as the default**. A `data-theme` attribute on `<html>`
+can override OS detection (`"light"` or `"dark"`) — no CSS changes needed.
+
+### Light mode (default)
 
 ```css
---clr-bg:        #05080f   /* page background */
---clr-surface:   #0a1020   /* cards, inputs */
---clr-surface-2: #101828
---clr-border:    #1b2b42
---clr-blue:      #2b7fff   /* primary CTA color */
---clr-cyan:      #00d4c8   /* accent / highlight */
+--clr-bg:        #eef2f9   /* page background */
+--clr-surface:   #f5f8ff   /* cards, inputs */
+--clr-surface-2: #e8eef8
+--clr-border:    #c5d3e8
+--clr-blue:      #1a6ff0   /* primary CTA color */
+--clr-cyan:      #0099a8   /* accent / highlight */
+--clr-gold:      #c47d0e
+--clr-text:      #0f1e35
+--clr-text-soft: #3d5a80
+--clr-muted:     #7a94b8
+--clr-header-scrolled: rgba(238, 242, 249, 0.92)
+```
+
+### Dark mode (`prefers-color-scheme: dark` or `data-theme="dark"`)
+
+```css
+--clr-bg:        #0d1b2e
+--clr-surface:   #132238
+--clr-surface-2: #1a2d45
+--clr-border:    #243d5c
+--clr-blue:      #2b7fff
+--clr-cyan:      #00d4c8
 --clr-gold:      #f0b429
 --clr-text:      #d8e3f0
 --clr-text-soft: #8399bb
 --clr-muted:     #4a5e7a
+--clr-header-scrolled: rgba(13, 27, 46, 0.92)
+```
 
+### Fonts (shared across modes)
+
+```css
 --font-display:  'Plus Jakarta Sans', sans-serif
 --font-body:     'IBM Plex Sans', sans-serif
 --font-mono:     'IBM Plex Mono', monospace
 ```
 
-The `[hidden]` attribute is enforced with `display: none !important` in `global.css` to prevent
-CSS `display: flex/grid` from overriding it (known issue with form show/hide logic).
+### Always-dark sections
+
+`.hero` (homepage starfield) and `.cta-card` hardcode dark tokens regardless of mode.
+These sections set `color-scheme: dark` and override `--clr-*` variables locally.
+
+### Other notes
+
+- The `[hidden]` attribute is enforced with `display: none !important` in `global.css` to prevent
+  CSS `display: flex/grid` from overriding it (known issue with form show/hide logic).
+- The unscrolled header always overlays the dark hero, so `.site-header:not(.scrolled)` forces
+  dark-mode text tokens regardless of the active color scheme.
 
 ---
 
