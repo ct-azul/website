@@ -97,7 +97,7 @@ export const POST: APIRoute = async ({ request }) => {
       html: `
         <p>Hola ${escHtml(responsable)},</p>
         <p>Recibimos tu solicitud de asesoría para <strong>${escHtml(empresa)}</strong>. ¡Muchas gracias por tu interés!</p>
-        <p>Nos pondremos en contacto con vos en los próximos días hábiles para coordinar los próximos pasos.</p>
+        <p>Nos pondremos en contacto con vos en menos de 48 horas hábiles para coordinar los próximos pasos.</p>
         <p>Si tenés alguna consulta adicional, podés escribirnos directamente a
           <a href="mailto:info@clustertecnologicoazul.org">info@clustertecnologicoazul.org</a>.
         </p>
