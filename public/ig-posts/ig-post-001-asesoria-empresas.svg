@@ -1,0 +1,78 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rect width="1080" height="1080" fill="#0d1b2e"/>
+  <defs>
+    <pattern id="grid" width="54" height="54" patternUnits="userSpaceOnUse">
+      <path d="M 54 0 L 0 0 0 54" fill="none" stroke="#1a2d45" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow" cx="50%" cy="50%" r="52%">
+      <stop offset="0%" stop-color="#2b7fff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#0d1b2e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#grid)"/>
+  <rect width="1080" height="1080" fill="url(#glow)"/>
+  <rect x="0" y="0" width="1080" height="4" fill="#2b7fff" opacity="0.7"/>
+  <rect x="0" y="1076" width="1080" height="4" fill="#2b7fff" opacity="0.3"/>
+
+  <!-- Logo + name row -->
+  <image x="245" y="68" width="48" height="48" href="data:image/png;base64,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"/>
+  <text x="307" y="102"
+    font-family="system-ui,-apple-system,'Segoe UI',sans-serif"
+    font-size="30" font-weight="500" fill="#4a5e7a"
+    text-anchor="start" letter-spacing="3">
+    CLUSTER TECNOLÓGICO AZUL
+  </text>
+
+  <!-- Main headline -->
+  <text x="540" y="300"
+    font-family="system-ui,-apple-system,'Segoe UI',sans-serif"
+    font-size="70" font-weight="700" fill="#d8e3f0"
+    text-anchor="middle" letter-spacing="-1">
+    Asesoría en IA
+  </text>
+  <text x="540" y="380"
+    font-family="system-ui,-apple-system,'Segoe UI',sans-serif"
+    font-size="70" font-weight="700" fill="#d8e3f0"
+    text-anchor="middle" letter-spacing="-1">
+    para tu empresa
+  </text>
+
+  <!-- Separator -->
+  <rect x="380" y="435" width="320" height="2" fill="#243d5c"/>
+
+  <!-- Bullet points -->
+  <text x="290" y="510" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" font-size="28" fill="#00d4c8">✦</text>
+  <text x="330" y="510" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" font-size="28" fill="#8399bb">Automatización de procesos</text>
+
+  <text x="290" y="566" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" font-size="28" fill="#00d4c8">✦</text>
+  <text x="330" y="566" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" font-size="28" fill="#8399bb">Asistentes con IA</text>
+
+  <text x="290" y="622" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" font-size="28" fill="#00d4c8">✦</text>
+  <text x="330" y="622" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" font-size="28" fill="#8399bb">Análisis de datos</text>
+
+  <text x="290" y="678" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" font-size="28" fill="#00d4c8">✦</text>
+  <text x="330" y="678" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" font-size="28" fill="#8399bb">Capacitación del equipo</text>
+
+  <!-- CTA box -->
+  <rect x="200" y="755" width="680" height="104" rx="12" fill="#1a2d45" stroke="#2b7fff" stroke-width="1.5" stroke-opacity="0.5"/>
+  <text x="540" y="796"
+    font-family="system-ui,-apple-system,'Segoe UI',sans-serif"
+    font-size="22" font-weight="400" fill="#8399bb"
+    text-anchor="middle">
+    Link en la bio →
+  </text>
+  <text x="540" y="835"
+    font-family="ui-monospace,'Cascadia Code',monospace"
+    font-size="24" font-weight="500" fill="#d8e3f0"
+    text-anchor="middle">
+    clustertecnologicoazul.org/empresas
+  </text>
+
+  <!-- Footer -->
+  <text x="540" y="980"
+    font-family="system-ui,-apple-system,'Segoe UI',sans-serif"
+    font-size="26" fill="#4a5e7a"
+    text-anchor="middle" letter-spacing="1">
+    Azul · Buenos Aires · Argentina
+  </text>
+</svg>
