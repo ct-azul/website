@@ -1,16 +1,18 @@
+/* ── Light mode (default) ────────────────────────────────────── */
 :root {
-  --clr-bg:        #05080f;
-  --clr-surface:   #0a1020;
-  --clr-surface-2: #101828;
-  --clr-border:    #1b2b42;
-  --clr-blue:      #2b7fff;
-  --clr-blue-dim:  #1a4f9e;
-  --clr-blue-glow: rgba(43, 127, 255, 0.18);
-  --clr-cyan:      #00d4c8;
-  --clr-gold:      #f0b429;
-  --clr-text:      #d8e3f0;
-  --clr-text-soft: #8399bb;
-  --clr-muted:     #4a5e7a;
+  --clr-bg:        #eef2f9;
+  --clr-surface:   #f5f8ff;
+  --clr-surface-2: #e8eef8;
+  --clr-border:    #c5d3e8;
+  --clr-blue:      #1a6ff0;
+  --clr-blue-dim:  #d0e3ff;
+  --clr-blue-glow: rgba(26, 111, 240, 0.10);
+  --clr-cyan:      #0099a8;
+  --clr-gold:      #c47d0e;
+  --clr-text:      #0f1e35;
+  --clr-text-soft: #3d5a80;
+  --clr-muted:     #7a94b8;
+  --clr-header-scrolled: rgba(238, 242, 249, 0.92);
 
   --font-display: 'Plus Jakarta Sans', sans-serif;
   --font-body:    'IBM Plex Sans', sans-serif;
@@ -21,6 +23,42 @@
   --radius-lg: 20px;
 
   --transition: 220ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ── Dark mode — OS preference ───────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --clr-bg:        #0d1b2e;
+    --clr-surface:   #132238;
+    --clr-surface-2: #1a2d45;
+    --clr-border:    #243d5c;
+    --clr-blue:      #2b7fff;
+    --clr-blue-dim:  #1a4f9e;
+    --clr-blue-glow: rgba(43, 127, 255, 0.18);
+    --clr-cyan:      #00d4c8;
+    --clr-gold:      #f0b429;
+    --clr-text:      #d8e3f0;
+    --clr-text-soft: #8399bb;
+    --clr-muted:     #4a5e7a;
+    --clr-header-scrolled: rgba(13, 27, 46, 0.92);
+  }
+}
+
+/* ── Dark mode — explicit override (future manual toggle) ────── */
+:root[data-theme="dark"] {
+  --clr-bg:        #0d1b2e;
+  --clr-surface:   #132238;
+  --clr-surface-2: #1a2d45;
+  --clr-border:    #243d5c;
+  --clr-blue:      #2b7fff;
+  --clr-blue-dim:  #1a4f9e;
+  --clr-blue-glow: rgba(43, 127, 255, 0.18);
+  --clr-cyan:      #00d4c8;
+  --clr-gold:      #f0b429;
+  --clr-text:      #d8e3f0;
+  --clr-text-soft: #8399bb;
+  --clr-muted:     #4a5e7a;
+  --clr-header-scrolled: rgba(13, 27, 46, 0.92);
 }
 
 *, *::before, *::after {
