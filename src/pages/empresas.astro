@@ -1,0 +1,383 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+import { CONTACT_EMAIL } from '../config';
+---
+
+<Layout
+  title="Asesoría para Empresas"
+  description="Solicitá asesoría en innovación tecnológica para tu empresa. El Cluster Tecnológico Azul te ayuda a implementar IA en tus procesos."
+>
+  <div class="page-hero">
+    <div class="container">
+      <span class="section-label">Empresas</span>
+      <h1>Asesoría en innovación tecnológica</h1>
+      <p class="page-subtitle">
+        Te ayudamos a innovar tus procesos para mejorar el rendimiento de tu empresa.
+        Contanos tu situación y te orientamos.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container page-grid">
+      <aside class="sidebar">
+        <div class="info-block">
+          <h3>¿Qué incluye la asesoría?</h3>
+          <ul class="includes-list">
+            <li>
+              <span class="includes-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
+                </svg>
+              </span>
+              Diagnóstico inicial de procesos
+            </li>
+            <li>
+              <span class="includes-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
+                </svg>
+              </span>
+              Recomendación de herramientas de IA
+            </li>
+            <li>
+              <span class="includes-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
+                </svg>
+              </span>
+              Hoja de ruta de implementación
+            </li>
+          </ul>
+        </div>
+
+        <div class="info-block commitment-block">
+          <h3>Innovar es comprometerse con Azul</h3>
+          <p>
+            Al trabajar con el Cluster, tu empresa no solo mejora sus procesos —
+            también contribuye al crecimiento del ecosistema tecnológico local y
+            al desarrollo profesional de los jóvenes de Azul.
+          </p>
+        </div>
+
+        <div class="info-block response-time">
+          <div class="response-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
+            </svg>
+          </div>
+          <p>Te respondemos en menos de <strong>48 horas</strong> hábiles.</p>
+        </div>
+      </aside>
+
+      <div class="form-container">
+        <div id="form-success" class="form-feedback success" hidden role="alert">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
+          </svg>
+          <h3>¡Solicitud recibida!</h3>
+          <p>Gracias por contactarnos. Te respondemos en los próximos días hábiles.</p>
+        </div>
+
+        <div id="form-error" class="form-feedback error" hidden role="alert">
+          <p>
+            Ocurrió un error al enviar la solicitud. Por favor intentá de nuevo
+            o escribinos directamente a
+            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+          </p>
+        </div>
+
+        <form id="empresas-form" class="form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="empresa">Empresa *</label>
+              <input
+                type="text" id="empresa" name="empresa"
+                placeholder="Nombre de tu empresa"
+                required autocomplete="organization"
+              />
+            </div>
+            <div class="form-group">
+              <label for="responsable">Responsable *</label>
+              <input
+                type="text" id="responsable" name="responsable"
+                placeholder="Tu nombre y apellido"
+                required autocomplete="name"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input
+              type="email" id="email" name="email"
+              placeholder="tu@empresa.com"
+              required autocomplete="email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="categoria">Área de asesoría *</label>
+            <select id="categoria" name="categoria" required>
+              <option value="" disabled selected>¿En qué área querés asesorarte?</option>
+              <option value="automatizacion">Automatización de procesos internos</option>
+              <option value="asistentes-ia">Asistentes con IA</option>
+              <option value="integracion">Integración de herramientas de IA</option>
+              <option value="analisis-datos">Análisis de datos e inteligencia de negocio</option>
+              <option value="capacitacion">Capacitación del equipo</option>
+              <option value="no-se">No sé por dónde empezar</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="mensaje">
+              Contanos más
+              <span class="label-optional">(opcional)</span>
+            </label>
+            <textarea
+              id="mensaje" name="mensaje"
+              placeholder="Describí brevemente tus procesos actuales, los desafíos que enfrentás o cualquier detalle que nos ayude a entender mejor tu situación..."
+              rows="5"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-submit" id="submit-btn">
+            <span class="btn-label">Quiero recibir asesoría</span>
+            <span class="btn-loading" hidden>
+              <svg class="spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+              </svg>
+              Enviando...
+            </span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('empresas-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const successEl = document.getElementById('form-success')!;
+  const errorEl   = document.getElementById('form-error')!;
+
+  const btnLabel   = submitBtn.querySelector<HTMLElement>('.btn-label');
+  const btnLoading = submitBtn.querySelector<HTMLElement>('.btn-loading');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    submitBtn.disabled = true;
+    btnLabel?.setAttribute('hidden', '');
+    btnLoading?.removeAttribute('hidden');
+    errorEl.hidden = true;
+
+    try {
+      const res = await fetch('/api/empresas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+
+      if (res.ok) {
+        form.hidden = true;
+        successEl.hidden = false;
+        successEl.setAttribute('tabindex', '-1');
+        successEl.focus();
+      } else {
+        throw new Error('Error en el servidor');
+      }
+    } catch {
+      errorEl.hidden = false;
+      submitBtn.disabled = false;
+      btnLabel?.removeAttribute('hidden');
+      btnLoading?.setAttribute('hidden', '');
+    }
+  });
+</script>
+
+<style>
+  .page-hero {
+    padding-top: calc(68px + 4rem);
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--clr-border);
+  }
+
+  .page-hero .section-label { margin-bottom: 1rem; }
+
+  .page-hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  .page-subtitle {
+    color: var(--clr-text-soft);
+    font-size: 1.05rem;
+    max-width: 540px;
+    line-height: 1.75;
+  }
+
+  .page-body { padding-block: 4rem; }
+
+  .page-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: sticky;
+    top: calc(68px + 2rem);
+  }
+
+  .info-block {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+  }
+
+  .info-block h3 {
+    font-size: 0.9rem;
+    color: var(--clr-text);
+    margin-bottom: 1rem;
+  }
+
+  /* Includes list */
+  .includes-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .includes-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.875rem;
+    color: var(--clr-text-soft);
+  }
+
+  .includes-icon {
+    color: var(--clr-cyan);
+    flex-shrink: 0;
+    display: flex;
+  }
+
+  /* Commitment block */
+  .commitment-block {
+    border-color: var(--clr-blue-dim);
+    background: rgba(43, 127, 255, 0.04);
+  }
+
+  .commitment-block p {
+    font-size: 0.875rem;
+    color: var(--clr-text-soft);
+    line-height: 1.7;
+  }
+
+  /* Response time */
+  .response-time {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border-color: var(--clr-blue-dim);
+    background: rgba(43, 127, 255, 0.04);
+  }
+
+  .response-icon {
+    color: var(--clr-blue);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .response-time p {
+    font-size: 0.85rem;
+    color: var(--clr-text-soft);
+    line-height: 1.6;
+  }
+
+  .response-time strong { color: var(--clr-text); }
+
+  /* Form container */
+  .form-container {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .label-optional {
+    font-size: 0.78rem;
+    color: var(--clr-muted);
+    font-weight: 400;
+    margin-left: 0.35rem;
+  }
+
+  .btn-submit {
+    align-self: flex-start;
+    min-width: 220px;
+    justify-content: center;
+  }
+
+  .spinner { animation: spin 1s linear infinite; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Feedback messages */
+  .form-feedback {
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-feedback.success {
+    background: rgba(0, 212, 200, 0.07);
+    border: 1px solid rgba(0, 212, 200, 0.3);
+    color: var(--clr-cyan);
+  }
+
+  .form-feedback.success svg { margin-inline: auto; margin-bottom: 0.75rem; }
+  .form-feedback.success h3 { color: var(--clr-text); margin-bottom: 0.5rem; }
+  .form-feedback.success p  { color: var(--clr-text-soft); font-size: 0.95rem; }
+
+  .form-feedback.error {
+    background: rgba(239, 68, 68, 0.07);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: var(--clr-text-soft);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 840px) {
+    .page-grid { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+  }
+
+  @media (max-width: 540px) {
+    .form-container { padding: 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
