@@ -54,13 +54,15 @@ cp .env.example .env
 
 ## Páginas
 
-| Ruta            | Descripción                                    |
-| --------------- | ---------------------------------------------- |
-| `/`             | Landing page institucional                     |
-| `/unirse`       | Formulario de solicitud de ingreso al cluster  |
-| `/contacto`     | Formulario de contacto general                 |
-| `/api/unirse`   | Endpoint que procesa el formulario de ingreso  |
-| `/api/contacto` | Endpoint que procesa el formulario de contacto |
+| Ruta             | Descripción                                          |
+| ---------------- | ---------------------------------------------------- |
+| `/`              | Landing page institucional                           |
+| `/unirse`        | Formulario de solicitud de ingreso al cluster        |
+| `/contacto`      | Formulario de contacto general                       |
+| `/empresas`      | Solicitud de asesoría en IA para empresas de Azul    |
+| `/api/unirse`    | Endpoint que procesa el formulario de ingreso        |
+| `/api/contacto`  | Endpoint que procesa el formulario de contacto       |
+| `/api/empresas`  | Endpoint que procesa la solicitud de asesoría        |
 
 ## Contribuir
 

@@ -43,12 +43,14 @@ website/
 │   │   ├── Header.astro       # Fixed nav bar + hamburger menu
 │   │   └── Footer.astro       # Footer with social links (LinkedIn, Instagram, GitHub, Linktree)
 │   ├── pages/
-│   │   ├── index.astro        # Landing page (hero, nosotros, valores, iniciativas, CTA)
+│   │   ├── index.astro        # Landing page (hero, nosotros, valores, iniciativas, empresas teaser, CTA)
 │   │   ├── unirse.astro       # Join form page
 │   │   ├── contacto.astro     # Contact form page
+│   │   ├── empresas.astro     # AI advisory request page (two-column: sidebar + form)
 │   │   └── api/
 │   │       ├── unirse.ts      # POST handler for join form → Resend
-│   │       └── contacto.ts    # POST handler for contact form → Resend
+│   │       ├── contacto.ts    # POST handler for contact form → Resend
+│   │       └── empresas.ts    # POST handler for advisory request form → Resend (dual email)
 │   └── styles/
 │       └── global.css         # Design tokens, resets, utility classes
 ├── public/
@@ -151,7 +153,7 @@ during misconfiguration. Check Worker logs at: **Workers & Pages → website →
 - Domain verified in Resend dashboard with DNS records (DKIM TXT + SPF/CNAME)
 
 If you need to change the `from` address or domain, update both the Resend domain verification
-AND the hardcoded `from:` string in `src/pages/api/contacto.ts` and `src/pages/api/unirse.ts`.
+AND the hardcoded `from:` string in `src/pages/api/contacto.ts`, `src/pages/api/unirse.ts`, and `src/pages/api/empresas.ts`.
 
 ### Inbound (receiving email) — Cloudflare Email Routing
 
@@ -178,7 +180,7 @@ AND the hardcoded `from:` string in `src/pages/api/contacto.ts` and `src/pages/a
 
 ## Form handling
 
-Both forms (`/unirse` and `/contacto`) follow the same pattern:
+All forms (`/unirse`, `/contacto`, `/empresas`) follow the same pattern:
 
 1. Client submits JSON via `fetch` to the corresponding API route
 2. API route validates input server-side (required fields, email regex, field length limits, allowlists)
@@ -198,6 +200,11 @@ Both forms (`/unirse` and `/contacto`) follow the same pattern:
 `como-conociste` validated against `ALLOWED_COMO` set
 
 **`/api/contacto`:** `asunto` validated against `ALLOWED_ASUNTOS` set
+
+**`/api/empresas`:** fields `empresa` + `responsable` (max 200), `email` (EMAIL_RE, max 320),
+`categoria` validated against `ALLOWED_CATEGORIAS` set, `mensaje` optional (max 2000).
+Sends **two emails**: notification to cluster (critical — failure returns 500) and auto-reply to
+the company (best-effort — failure is logged but returns 200).
 
 If you add new select options to any form, you **must** also add the new value to the corresponding
 allowlist set in the API route.
