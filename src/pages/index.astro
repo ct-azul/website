@@ -173,12 +173,36 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
+  <div class="section-divider"></div>
+
+  <!-- ── EMPRESAS ──────────────────────────────────── -->
+  <section class="section empresas-section" id="empresas">
+    <div class="container">
+      <div class="cta-card">
+        <div class="cta-glow" aria-hidden="true"></div>
+        <span class="section-label">04 — Empresas</span>
+        <h2>¿Tu empresa está lista para innovar?</h2>
+        <p>
+          Te ayudamos a identificar cómo la inteligencia artificial puede mejorar
+          los procesos de tu empresa. Un diagnóstico inicial, recomendaciones
+          concretas y una hoja de ruta para empezar.
+        </p>
+        <div class="cta-actions">
+          <a href="/empresas" class="btn btn-primary">Quiero recibir asesoría</a>
+        </div>
+        <p class="empresas-supporting">
+          Al trabajar con nosotros, contribuís al ecosistema tecnológico de Azul.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- ── CTA ───────────────────────────────────────── -->
   <section class="section cta-section">
     <div class="container">
       <div class="cta-card">
         <div class="cta-glow" aria-hidden="true"></div>
-        <span class="section-label">¿Listo para sumarte?</span>
+        <span class="section-label">05 — ¿Listo para sumarte?</span>
         <h2>Sé parte del cambio<br />en Azul</h2>
         <p>
           El cluster es abierto a todos: desarrolladores, diseñadores, emprendedores,
@@ -595,6 +619,18 @@ import Layout from '../layouts/Layout.astro';
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
+    position: relative;
+  }
+
+  /* Empresas teaser */
+  .empresas-section {
+    padding-block: 4rem 2rem;
+  }
+
+  .empresas-supporting {
+    font-size: 0.85rem;
+    color: var(--clr-muted);
+    margin-top: 1.25rem;
     position: relative;
   }
 
