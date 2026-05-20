@@ -6,11 +6,13 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   description?: string;
+  darkHero?: boolean;
 }
 
 const {
   title,
   description = 'Impulsando la innovación tecnológica en Azul, Buenos Aires, Argentina.',
+  darkHero = false,
 } = Astro.props;
 
 const fullTitle = title === 'Cluster Tecnológico Azul'
@@ -67,7 +69,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <a href="#main-content" class="skip-link">Saltar al contenido</a>
-    <Header />
+    <Header darkHero={darkHero} />
     <main id="main-content">
       <slot />
     </main>
