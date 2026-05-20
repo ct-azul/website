@@ -138,12 +138,17 @@ const navLinks = [
   });
 
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (!localStorage.getItem('theme')) {
-      const theme = e.matches ? 'dark' : 'light';
-      document.querySelectorAll<HTMLButtonElement>('.theme-toggle').forEach(btn => {
-        btn.setAttribute('aria-checked', String(theme === 'dark'));
-      });
-    }
+    try { if (localStorage.getItem('theme')) return; } catch (_) {}
+    const theme = e.matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = theme;
+    document.querySelectorAll<HTMLButtonElement>('.theme-toggle').forEach(btn => {
+      btn.setAttribute('aria-checked', String(theme === 'dark'));
+    });
+    document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach(m => m.remove());
+    const meta = document.createElement('meta');
+    meta.name = 'theme-color';
+    meta.content = theme === 'dark' ? '#0d1b2e' : '#eef2f9';
+    document.head.appendChild(meta);
   });
 </script>
 
@@ -166,8 +171,9 @@ const navLinks = [
     -webkit-backdrop-filter: blur(16px);
   }
 
-  /* Force dark-mode text tokens when unscrolled — header always overlays the dark hero */
-  .site-header:not(.scrolled) {
+  /* Force dark-mode text tokens when unscrolled — header always overlays the dark hero.
+     Scoped to .header-inner so .nav-mobile inherits the page's actual theme tokens. */
+  .site-header:not(.scrolled) .header-inner {
     --clr-text:      #d8e3f0;
     --clr-text-soft: #96adc7;
     --clr-surface:   rgba(255, 255, 255, 0.08);
@@ -175,6 +181,9 @@ const navLinks = [
     --clr-gold:      #f0b429;
     --clr-muted:     #6882a0;
     --clr-border:    #243d5c;
+  }
+
+  .site-header:not(.scrolled) {
     border-color: rgba(255, 255, 255, 0.10);
   }
 

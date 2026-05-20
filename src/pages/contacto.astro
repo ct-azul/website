@@ -188,6 +188,7 @@ import { CONTACT_EMAIL } from '../config';
       });
 
       if (res.ok) {
+        form.removeAttribute('aria-busy');
         form.hidden = true;
         successEl.hidden = false;
         successEl.setAttribute('tabindex', '-1');
@@ -355,6 +356,10 @@ import { CONTACT_EMAIL } from '../config';
   .spinner { animation: spin 1s linear infinite; }
 
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spinner { animation: none; }
+  }
 
   .form-feedback {
     border-radius: var(--radius-md);
