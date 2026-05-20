@@ -1,4 +1,9 @@
 ---
+interface Props {
+  darkHero?: boolean;
+}
+const { darkHero = false } = Astro.props;
+
 const navLinks = [
   { href: '/#nosotros', label: 'Nosotros' },
   { href: '/#valores', label: 'Valores' },
@@ -9,7 +14,7 @@ const navLinks = [
 ];
 ---
 
-<header class="site-header" id="site-header">
+<header class:list={['site-header', { 'dark-hero': darkHero }]} id="site-header">
   <div class="container header-inner">
     <a href="/" class="logo" aria-label="Cluster Tecnológico Azul - Inicio">
       <img src="/logo.png" alt="" width="36" height="36" class="logo-img" />
@@ -171,9 +176,9 @@ const navLinks = [
     -webkit-backdrop-filter: blur(16px);
   }
 
-  /* Force dark-mode text tokens when unscrolled — header always overlays the dark hero.
+  /* Force dark-mode text tokens when unscrolled over a dark hero (homepage only).
      Scoped to .header-inner so .nav-mobile inherits the page's actual theme tokens. */
-  .site-header:not(.scrolled) .header-inner {
+  .site-header.dark-hero:not(.scrolled) .header-inner {
     --clr-text:      #d8e3f0;
     --clr-text-soft: #96adc7;
     --clr-surface:   rgba(255, 255, 255, 0.08);
@@ -183,7 +188,7 @@ const navLinks = [
     --clr-border:    #243d5c;
   }
 
-  .site-header:not(.scrolled) {
+  .site-header.dark-hero:not(.scrolled) {
     border-color: rgba(255, 255, 255, 0.10);
   }
 
