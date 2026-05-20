@@ -129,6 +129,15 @@ const navLinks = [
       applyTheme(getTheme() === 'dark' ? 'light' : 'dark');
     });
   });
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      const theme = e.matches ? 'dark' : 'light';
+      document.querySelectorAll<HTMLButtonElement>('.theme-toggle').forEach(btn => {
+        btn.setAttribute('aria-checked', String(theme === 'dark'));
+      });
+    }
+  });
 </script>
 
 <style>
@@ -156,6 +165,9 @@ const navLinks = [
     --clr-text-soft: #8399bb;
     --clr-surface:   rgba(255, 255, 255, 0.08);
     --clr-cyan:      #00d4c8;
+    --clr-gold:      #f0b429;
+    --clr-muted:     #6882a0;
+    --clr-border:    #243d5c;
     border-color: rgba(255, 255, 255, 0.10);
   }
 
