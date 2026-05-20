@@ -397,6 +397,10 @@ import Layout from '../layouts/Layout.astro';
     50% { opacity: 1; }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-line { animation: none; opacity: 0.6; }
+  }
+
   /* Sections */
   .section {
     padding-block: 5rem;

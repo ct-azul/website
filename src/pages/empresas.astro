@@ -185,12 +185,11 @@ import { CONTACT_EMAIL } from '../config';
       });
 
       if (res.ok) {
+        form.removeAttribute('aria-busy');
         form.hidden = true;
         successEl.hidden = false;
         successEl.setAttribute('tabindex', '-1');
         successEl.focus();
-        submitBtn.removeAttribute('aria-disabled');
-        form.removeAttribute('aria-busy');
       } else {
         throw new Error('Error en el servidor');
       }
