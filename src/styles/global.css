@@ -10,8 +10,8 @@
   --clr-cyan:      #0099a8;
   --clr-gold:      #c47d0e;
   --clr-text:      #0f1e35;
-  --clr-text-soft: #3d5a80;
-  --clr-muted:     #7a94b8;
+  --clr-text-soft: #2e4f75;
+  --clr-muted:     #607a96;
   --clr-header-scrolled: rgba(238, 242, 249, 0.92);
 
   --font-display: 'Plus Jakarta Sans', sans-serif;
@@ -38,13 +38,13 @@
     --clr-cyan:      #00d4c8;
     --clr-gold:      #f0b429;
     --clr-text:      #d8e3f0;
-    --clr-text-soft: #8399bb;
-    --clr-muted:     #4a5e7a;
+    --clr-text-soft: #96adc7;
+    --clr-muted:     #6882a0;
     --clr-header-scrolled: rgba(13, 27, 46, 0.92);
   }
 }
 
-/* ── Dark mode — explicit override (future manual toggle) ────── */
+/* ── Dark mode — manual toggle ───────────────────────────────── */
 :root[data-theme="dark"] {
   --clr-bg:        #0d1b2e;
   --clr-surface:   #132238;
@@ -56,8 +56,8 @@
   --clr-cyan:      #00d4c8;
   --clr-gold:      #f0b429;
   --clr-text:      #d8e3f0;
-  --clr-text-soft: #8399bb;
-  --clr-muted:     #4a5e7a;
+  --clr-text-soft: #96adc7;
+  --clr-muted:     #6882a0;
   --clr-header-scrolled: rgba(13, 27, 46, 0.92);
 }
 
@@ -192,9 +192,10 @@ img {
 .form-group label {
   font-family: var(--font-mono);
   font-size: 0.78rem;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--clr-text-soft);
+  color: var(--clr-text);
 }
 
 .form-group input,
