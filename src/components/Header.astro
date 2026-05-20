@@ -104,17 +104,24 @@ const navLinks = [
   });
 
   function getTheme(): 'light' | 'dark' {
-    const saved = localStorage.getItem('theme');
-    if (saved === 'light' || saved === 'dark') return saved;
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') return saved;
+    } catch (_) {}
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 
   function applyTheme(theme: 'light' | 'dark') {
     document.documentElement.dataset.theme = theme;
-    localStorage.setItem('theme', theme);
+    try { localStorage.setItem('theme', theme); } catch (_) {}
     document.querySelectorAll<HTMLButtonElement>('.theme-toggle').forEach(btn => {
       btn.setAttribute('aria-checked', String(theme === 'dark'));
     });
+    document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach(m => m.remove());
+    const meta = document.createElement('meta');
+    meta.name = 'theme-color';
+    meta.content = theme === 'dark' ? '#0d1b2e' : '#eef2f9';
+    document.head.appendChild(meta);
   }
 
   // Sync aria-checked on init without touching localStorage
@@ -162,7 +169,7 @@ const navLinks = [
   /* Force dark-mode text tokens when unscrolled — header always overlays the dark hero */
   .site-header:not(.scrolled) {
     --clr-text:      #d8e3f0;
-    --clr-text-soft: #8399bb;
+    --clr-text-soft: #96adc7;
     --clr-surface:   rgba(255, 255, 255, 0.08);
     --clr-cyan:      #00d4c8;
     --clr-gold:      #f0b429;

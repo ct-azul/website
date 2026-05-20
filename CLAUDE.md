@@ -240,8 +240,8 @@ can override OS detection (`"light"` or `"dark"`) — no CSS changes needed.
 --clr-cyan:      #0099a8   /* accent / highlight */
 --clr-gold:      #c47d0e
 --clr-text:      #0f1e35
---clr-text-soft: #3d5a80
---clr-muted:     #7a94b8
+--clr-text-soft: #2e4f75
+--clr-muted:     #607a96
 --clr-header-scrolled: rgba(238, 242, 249, 0.92)
 ```
 
@@ -256,8 +256,8 @@ can override OS detection (`"light"` or `"dark"`) — no CSS changes needed.
 --clr-cyan:      #00d4c8
 --clr-gold:      #f0b429
 --clr-text:      #d8e3f0
---clr-text-soft: #8399bb
---clr-muted:     #4a5e7a
+--clr-text-soft: #96adc7
+--clr-muted:     #6882a0
 --clr-header-scrolled: rgba(13, 27, 46, 0.92)
 ```
 

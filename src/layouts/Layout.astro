@@ -60,8 +60,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     />
     <script is:inline>
       (function () {
-        const t = localStorage.getItem('theme');
-        if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+        try {
+          const t = localStorage.getItem('theme');
+          if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+        } catch (_) {}
       })();
     </script>
   </head>
