@@ -313,12 +313,22 @@ img {
   .container { padding-inline: 1.25rem; }
 }
 
-/* Proyecto Atlas campaign — banner clears fixed header */
-[data-atlas-campaign] .atlas-hero {
+/* Proyecto Atlas campaign — banner clears fixed header on non-atlas pages */
+[data-atlas-campaign]:not([data-atlas-route]) .atlas-hero {
   padding-top: 2rem;
   min-height: 60svh;
 }
 
-[data-atlas-campaign] .page-hero {
+[data-atlas-campaign][data-atlas-route] .atlas-hero {
+  padding-top: calc(68px + 2rem);
+  min-height: 60svh;
+}
+
+/* Banner clears the header on other pages; /atlas/* needs explicit offset */
+[data-atlas-campaign]:not([data-atlas-route]) .page-hero {
   padding-top: 4rem;
+}
+
+[data-atlas-campaign][data-atlas-route] .page-hero {
+  padding-top: calc(68px + 3rem);
 }

@@ -22,10 +22,15 @@ const fullTitle = title === 'Cluster Tecnológico Azul'
   : `${title} — Cluster Tecnológico Azul`;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const isAtlasRoute = Astro.url.pathname.startsWith('/atlas');
 ---
 
 <!doctype html>
-<html lang="es-AR" data-atlas-campaign={ATLAS.active || undefined}>
+<html
+  lang="es-AR"
+  data-atlas-campaign={ATLAS.active || undefined}
+  data-atlas-route={isAtlasRoute || undefined}
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
