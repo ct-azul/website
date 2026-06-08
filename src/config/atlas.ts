@@ -1,4 +1,4 @@
-/** Proyecto Atlas — convocatoria activa. Actualizá los form URLs cuando estén listos. */
+/** Proyecto Atlas — convocatoria activa. */
 export const ATLAS = {
   active: true,
   name: 'Proyecto Atlas',
@@ -14,10 +14,9 @@ export const ATLAS = {
     disponibilidad: 'De forma continua',
     nota: 'Las empresas pueden sumarse aunque cierre la inscripción de alumnos.',
   },
-  /** Reemplazá con los links reales de Google Forms cuando los crees */
   forms: {
-    alumnos: 'https://forms.gle/TODO_ALUMNOS',
-    empresas: 'https://forms.gle/TODO_EMPRESAS',
+    alumnos: 'https://forms.gle/EWLtD7FB6ZkGNvGTA',
+    empresas: 'https://forms.gle/Vg9EErNdJkfJoVwS7',
   },
   referente: 'Nicolas Cirigliano',
 } as const;

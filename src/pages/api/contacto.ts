@@ -1,13 +1,21 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
-import { JSON_HEADERS, EMAIL_RE, escHtml, sanitizeSubject, getEmailConfig, parseJsonBody, str } from '../../lib/email';
+import {
+  JSON_HEADERS,
+  EMAIL_RE,
+  sanitizeSubject,
+  getEmailConfig,
+  parseJsonBody,
+  str,
+  sendFormEmails,
+} from '../../lib/email';
+import { ASUNTO } from '../../config/form-options';
+import { contactoAutoReply, contactoNotification } from '../../lib/email-templates';
 
 export const prerender = false;
 
-const ALLOWED_ASUNTOS = new Set(['informacion', 'colaboracion', 'evento', 'prensa', 'otro']);
-
 export const POST: APIRoute = async ({ request }) => {
-  const { resendKey, toEmail } = getEmailConfig();
+  const { resendKey, toEmail, fromName } = getEmailConfig();
 
   let raw: unknown;
   try {
@@ -34,7 +42,7 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ error: 'Email inválido' }), { status: 422, headers: JSON_HEADERS });
   }
 
-  if (!ALLOWED_ASUNTOS.has(asunto)) {
+  if (!ASUNTO.allowed.has(asunto)) {
     return new Response(JSON.stringify({ error: 'Asunto inválido' }), { status: 422, headers: JSON_HEADERS });
   }
 
@@ -45,38 +53,32 @@ export const POST: APIRoute = async ({ request }) => {
   if (!resendKey) {
     console.warn('[contacto] RESEND_API_KEY not set — logging submission');
     console.log({ nombre, email, asunto, mensaje });
-    return new Response(JSON.stringify({ ok: true }), { status: 200, headers: JSON_HEADERS });
+    return new Response(JSON.stringify({ ok: true, autoReplySent: false }), { status: 200, headers: JSON_HEADERS });
   }
 
-  const resend = new Resend(resendKey);
-
-  try {
-    const { data, error } = await resend.emails.send({
-      from:    'Cluster Tecnológico Azul <noreply@clustertecnologicoazul.org>',
-      to:      [toEmail],
+  const result = await sendFormEmails({
+    resend: new Resend(resendKey),
+    logPrefix: 'contacto',
+    notification: {
+      to: toEmail,
       replyTo: email,
-      subject: `Nuevo contacto: ${sanitizeSubject(asunto)} — ${sanitizeSubject(nombre)}`,
-      html: `
-        <h2>Nuevo mensaje de contacto</h2>
-        <table style="border-collapse:collapse;width:100%">
-          <tr><td style="padding:8px;font-weight:bold;color:#666">Nombre</td><td style="padding:8px">${escHtml(nombre)}</td></tr>
-          <tr><td style="padding:8px;font-weight:bold;color:#666">Email</td><td style="padding:8px"><a href="mailto:${escHtml(email)}">${escHtml(email)}</a></td></tr>
-          <tr><td style="padding:8px;font-weight:bold;color:#666">Asunto</td><td style="padding:8px">${escHtml(asunto)}</td></tr>
-          <tr><td style="padding:8px;font-weight:bold;color:#666;vertical-align:top">Mensaje</td><td style="padding:8px;white-space:pre-wrap">${escHtml(mensaje)}</td></tr>
-        </table>
-      `,
-    });
+      subject: `Nuevo contacto: ${sanitizeSubject(ASUNTO.label(asunto))} — ${sanitizeSubject(nombre)}`,
+      html: contactoNotification({ nombre, email, asunto, mensaje }),
+    },
+    autoReply: {
+      to: email,
+      replyTo: toEmail,
+      subject: `Recibimos tu mensaje — ${sanitizeSubject(fromName)}`,
+      html: contactoAutoReply(nombre),
+    },
+  });
 
-    if (error) {
-      console.error('[contacto] Resend API error:', JSON.stringify(error));
-      return new Response(JSON.stringify({ error: 'Error enviando email' }), { status: 500, headers: JSON_HEADERS });
-    }
-
-    console.log('[contacto] Email sent:', data?.id);
-  } catch (e) {
-    console.error('[contacto] Resend threw:', e instanceof Error ? e.message : String(e));
+  if (!result.ok) {
     return new Response(JSON.stringify({ error: 'Error enviando email' }), { status: 500, headers: JSON_HEADERS });
   }
 
-  return new Response(JSON.stringify({ ok: true }), { status: 200, headers: JSON_HEADERS });
+  return new Response(
+    JSON.stringify({ ok: true, autoReplySent: result.autoReplySent }),
+    { status: 200, headers: JSON_HEADERS },
+  );
 };

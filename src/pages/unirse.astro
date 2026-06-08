@@ -2,6 +2,7 @@
 export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 import { CONTACT_EMAIL } from '../config';
+import { COMO, ROL } from '../config/form-options';
 ---
 
 <Layout
@@ -80,7 +81,7 @@ import { CONTACT_EMAIL } from '../config';
             <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
           </svg>
           <h3>¡Gracias por sumarte!</h3>
-          <p>Recibimos tu solicitud. En breve nos ponemos en contacto con vos.</p>
+          <p id="success-detail"></p>
         </div>
 
         <div id="form-error" class="form-feedback error" hidden role="alert">
@@ -104,13 +105,7 @@ import { CONTACT_EMAIL } from '../config';
               <label for="rol">¿Cómo te describís? *</label>
               <select id="rol" name="rol" required>
                 <option value="" disabled selected>Seleccioná una opción</option>
-                <option value="desarrollador">Desarrollador/a de software</option>
-                <option value="diseniador">Diseñador/a UX/UI</option>
-                <option value="data">Data / IA / ML</option>
-                <option value="emprendedor">Emprendedor/a tech</option>
-                <option value="estudiante">Estudiante</option>
-                <option value="docente">Docente / investigador/a</option>
-                <option value="otro">Otro</option>
+                {ROL.options.map((o) => <option value={o.value}>{o.label}</option>)}
               </select>
             </div>
             <div class="form-group">
@@ -128,11 +123,7 @@ import { CONTACT_EMAIL } from '../config';
             <label for="como-conociste">¿Cómo nos conociste?</label>
             <select id="como-conociste" name="como-conociste">
               <option value="" disabled selected>Seleccioná una opción</option>
-              <option value="redes">Redes sociales</option>
-              <option value="amigo">Un amigo / colega</option>
-              <option value="evento">Evento o charla</option>
-              <option value="github">GitHub</option>
-              <option value="otro">Otro</option>
+              {COMO.options.map((o) => <option value={o.value}>{o.label}</option>)}
             </select>
           </div>
 
@@ -155,6 +146,7 @@ import { CONTACT_EMAIL } from '../config';
   const form = document.getElementById('join-form') as HTMLFormElement;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
   const successEl = document.getElementById('form-success')!;
+  const successDetailEl = document.getElementById('success-detail')!;
   const errorEl = document.getElementById('form-error')!;
 
   const btnLabel   = submitBtn.querySelector<HTMLElement>('.btn-label');
@@ -179,6 +171,10 @@ import { CONTACT_EMAIL } from '../config';
       });
 
       if (res.ok) {
+        const data = await res.json() as { autoReplySent?: boolean };
+        successDetailEl.textContent = data.autoReplySent
+          ? 'Te enviamos un correo de confirmación. En los próximos días revisamos tu solicitud y te escribimos.'
+          : 'Recibimos tu solicitud. En los próximos días la revisamos y te escribimos.';
         form.removeAttribute('aria-busy');
         form.hidden = true;
         successEl.hidden = false;

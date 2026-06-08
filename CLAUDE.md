@@ -34,11 +34,14 @@ GitHub org: <https://github.com/clustertecnologicoazul>
 ```text
 website/
 ├── src/
-│   ├── config.ts              # Shared constants (CONTACT_EMAIL fallback)
+│   ├── config.ts              # Re-exports CONTACT_EMAIL, SITE_URL from astro:env (build-time)
 │   ├── config/
-│   │   └── atlas.ts           # Proyecto Atlas campaign config, form URLs, dates, isAtlasFormReady()
+│   │   ├── atlas.ts           # Proyecto Atlas campaign config, form URLs, dates, isAtlasFormReady()
+│   │   └── form-options.ts    # Single source of truth for form <select> options (UI + API + emails)
 │   ├── lib/
-│   │   └── email.ts           # Shared email utilities (escHtml, EMAIL_RE, getEmailConfig, etc.)
+│   │   ├── env.ts             # getRuntimeConfig() — Worker env overrides astro:env defaults
+│   │   ├── email.ts           # escHtml, sendFormEmails(), getEmailConfig(), validation helpers
+│   │   └── email-templates.ts # HTML email layouts and notification/auto-reply bodies
 │   ├── layouts/
 │   │   └── Layout.astro       # Base HTML shell: <head>, SEO, fonts, skip-link, Header, AtlasBanner, Footer
 │   ├── components/
@@ -57,7 +60,7 @@ website/
 │   │   │   └── empresas.astro # Company convocatoria (Google Form external)
 │   │   └── api/
 │   │       ├── unirse.ts      # POST handler for join form → Resend (dual email)
-│   │       ├── contacto.ts    # POST handler for contact form → Resend
+│   │       ├── contacto.ts    # POST handler for contact form → Resend (dual email)
 │   │       └── empresas.ts    # POST handler for legacy advisory form → Resend (dual email)
 │   └── styles/
 │       └── global.css         # Design tokens, resets, utility classes
@@ -68,7 +71,7 @@ website/
 │   ├── icon-192.png           # 192×192, Android/Chrome
 │   ├── icon-512.png           # 512×512, PWA splash screens
 │   └── og-image.png           # 1200×630, Open Graph / Twitter Card social preview
-├── astro.config.mjs           # Astro config: output=server, cloudflare adapter, site URL
+├── astro.config.mjs           # Astro config: output=server, cloudflare adapter, astro:env schema
 ├── wrangler.jsonc             # Cloudflare Worker config: name, routes, assets, observability
 └── .env.example               # Template for local env vars
 ```
@@ -79,7 +82,7 @@ website/
 
 ```bash
 npm install
-cp .env.example .env   # fill in RESEND_API_KEY and CONTACT_EMAIL
+cp .env.example .env   # fill in all variables (see Environment variables below)
 npm run dev            # starts on http://localhost:4321
 npm run build          # production build → dist/
 ```
@@ -124,25 +127,36 @@ schema and will break the build.
 
 ### Where to set them
 
-| Purpose                  | Location                                                         | Variable                                              |
-| ------------------------ | ---------------------------------------------------------------- | ----------------------------------------------------- |
-| Email sending at runtime | **Workers & Pages → website → Settings → Variables and Secrets** | `RESEND_API_KEY` (Secret), `CONTACT_EMAIL` (Variable) |
-| Local dev                | `.env` file (gitignored)                                         | same names                                            |
+All variables are listed in `.env.example`. Copy it to `.env` for local dev.
+
+| Variable         | Type     | Purpose                                              |
+| ---------------- | -------- | ---------------------------------------------------- |
+| `RESEND_API_KEY` | Secret   | Resend API key (runtime only)                        |
+| `CONTACT_EMAIL`  | Variable | Form submission destination + mailto links           |
+| `SITE_URL`       | Variable | Canonical URL (`astro.config` `site`, email footer) |
+| `NOREPLY_EMAIL`  | Variable | Outbound `from` address (domain verified in Resend)  |
+| `FROM_NAME`      | Variable | Display name in the `From` header                    |
+
+| Purpose   | Location                                                         |
+| --------- | ---------------------------------------------------------------- |
+| Production | **Workers & Pages → website → Settings → Variables and Secrets** |
+| Local dev | `.env` file (gitignored)                                         |
 
 > **DO NOT** set `RESEND_API_KEY` in the CI/CD "Build variables" section. Those variables are only
-> available during the build process, not at Worker runtime. The Worker reads env via
-> `import { env } from 'cloudflare:workers'` (Astro v6 requirement).
+> available during the build process, not at Worker runtime.
+
+Prerendered pages (`/contacto`, `/unirse`, etc.) bake `CONTACT_EMAIL` and `SITE_URL` at **build
+time** via `astro:env`. Set them as build env vars in CI if they differ from schema defaults.
 
 ### Astro v6 env access (breaking change from v5)
 
 `Astro.locals.runtime.env` was **removed in Astro v6**.
-All environment variable access must use:
 
-```typescript
-import { env } from 'cloudflare:workers';
-```
+- **Schema:** defined in `astro.config.mjs` (`env.schema` with `envField`)
+- **Build-time / prerender:** `import { CONTACT_EMAIL, SITE_URL } from 'astro:env/server'` (re-exported from `src/config.ts` for pages)
+- **Worker runtime (API routes):** `getRuntimeConfig()` in `src/lib/env.ts` reads `cloudflare:workers` env and falls back to `astro:env` defaults
 
-This is already implemented in `src/lib/email.ts`. Do not revert to `locals.runtime.env`.
+Do not revert to `locals.runtime.env`.
 
 ### Fallback behavior
 
@@ -154,17 +168,23 @@ during misconfiguration. Check Worker logs at: **Workers & Pages → website →
 
 ## Email system
 
+### Architecture
+
+- **`src/lib/email.ts`** — `sendFormEmails()`: cluster notification (critical → 500) + user auto-reply (best-effort → 200 with `autoReplySent` flag)
+- **`src/lib/email-templates.ts`** — HTML layouts, notification bodies, auto-reply copy
+- **`src/config/form-options.ts`** — human-readable labels for select values in notification emails
+
 ### Outbound (form submissions) — Resend
 
 - Library: `resend` npm package
-- API key: stored as a Worker Secret (see above)
-- `from` address: `noreply@clustertecnologicoazul.org`
-- `to` address: value of `CONTACT_EMAIL` env var (falls back to `info@clustertecnologicoazul.org`)
-- `replyTo`: set to the user's submitted email so replies go directly to them
+- API key: `RESEND_API_KEY` Worker Secret
+- `from` address: built from `FROM_NAME` + `NOREPLY_EMAIL` env vars (see `.env.example`)
+- `to` address: `CONTACT_EMAIL` env var
+- Auto-reply `replyTo`: cluster inbox (`CONTACT_EMAIL`) so replies from `noreply@` reach the team
+- Notification `replyTo`: user's submitted email
 - Domain verified in Resend dashboard with DNS records (DKIM TXT + SPF/CNAME)
 
-If you need to change the `from` address or domain, update both the Resend domain verification
-AND the hardcoded `from:` string in `src/pages/api/contacto.ts`, `src/pages/api/unirse.ts`, and `src/pages/api/empresas.ts`.
+If you change the outbound domain, update Resend domain verification **and** `NOREPLY_EMAIL` in Cloudflare.
 
 ### Inbound (receiving email) — Cloudflare Email Routing
 
@@ -191,37 +211,38 @@ AND the hardcoded `from:` string in `src/pages/api/contacto.ts`, `src/pages/api/
 
 ## Form handling
 
-All forms (`/unirse`, `/contacto`, `/empresas`) follow the same pattern:
+Resend forms (`/unirse`, `/contacto`, `/empresas`) follow the same pattern:
 
 1. Client submits JSON via `fetch` to the corresponding API route
-2. API route validates input server-side (required fields, email regex, field length limits, allowlists)
-3. If valid and `RESEND_API_KEY` is set → sends email via Resend
-4. Returns `{ ok: true }` on success or `{ error: "..." }` on failure
-5. Client shows success/error feedback with `role="alert"` for screen readers and focuses the message
+2. API route validates input server-side (required fields, email regex, field length limits, allowlists from `form-options.ts`)
+3. If valid and `RESEND_API_KEY` is set → `sendFormEmails()` via Resend
+4. Returns `{ ok: true, autoReplySent: boolean }` on success or `{ error: "..." }` on failure
+5. Client shows success copy based on `autoReplySent` (does not promise confirmation email if auto-reply failed)
+6. Success/error feedback uses `role="alert"`; focus moves to the success message
+
+Proyecto Atlas (`/atlas/alumnos`, `/atlas/empresas`) uses external Google Forms — not Resend API routes.
 
 ### Input validation rules
 
-**Both endpoints:**
+**All three Resend forms:**
 
 - `email`: must match `EMAIL_RE` regex, max 320 chars
-- `nombre`: required, max 200 chars
-- `mensaje`: max 5,000 chars
+- `mensaje`: max 5,000 chars (`/empresas`: max 2,000, optional)
 
-**`/api/unirse`:** `rol` validated against `ALLOWED_ROLES` set;
-`como-conociste` validated against `ALLOWED_COMO` set.
-Sends **two emails**: notification to cluster (critical — failure returns 500) and auto-reply to
-the applicant (best-effort — failure is logged but returns 200). Auto-reply uses `replyTo: toEmail`
-so replies from `noreply@` reach the cluster inbox.
+**`/api/unirse`:** `nombre` required (max 200); `rol` → `ROL.allowed`; `como-conociste` → `COMO.allowed` (optional); `organizacion` max 200
 
-**`/api/contacto`:** `asunto` validated against `ALLOWED_ASUNTOS` set
+**`/api/contacto`:** `nombre` required (max 200); `asunto` → `ASUNTO.allowed`; `mensaje` required
 
-**`/api/empresas`:** fields `empresa` + `responsable` (max 200), `email` (EMAIL_RE, max 320),
-`categoria` validated against `ALLOWED_CATEGORIAS` set, `mensaje` optional (max 2000).
-Sends **two emails**: notification to cluster (critical — failure returns 500) and auto-reply to
-the company (best-effort — failure is logged but returns 200).
+**`/api/empresas`:** `empresa` + `responsable` (max 200); `categoria` → `CATEGORIA.allowed`
 
-If you add new select options to any form, you **must** also add the new value to the corresponding
-allowlist set in the API route.
+All three send **two emails**: notification to cluster (critical — failure returns 500) and auto-reply
+to the submitter (best-effort — failure is logged; response still `200` with `autoReplySent: false`).
+
+### Form select options
+
+All `<select>` options live in **`src/config/form-options.ts`** (`ASUNTO`, `ROL`, `COMO`, `CATEGORIA`).
+Each export provides `.options` (for Astro pages), `.allowed` (for API validation), and `.label()` (for emails).
+Do not duplicate option values elsewhere.
 
 ### Security
 
@@ -337,7 +358,7 @@ Social links appear in: **Footer** (icon-only) and **Contacto page sidebar** (ic
 
 - `<link rel="canonical">` and `og:url` computed from `Astro.url.pathname` + `Astro.site` in `Layout.astro`
 - `og:image` points to `/og-image.png` (1200×630px, exists in `public/`). Regenerate with sharp if branding changes.
-- `site` in `astro.config.mjs` is `https://clustertecnologicoazul.org` — keep in sync with the live domain
+- `site` in `astro.config.mjs` reads `SITE_URL` from env (default `https://clustertecnologicoazul.org`)
 
 ---
 
@@ -373,14 +394,14 @@ if it changes too often without real content changes.
 
 1. Add the `<input>` / `<select>` to the `.astro` page
 2. Add validation in the corresponding `src/pages/api/*.ts` route
-3. If it is a `<select>`, add all valid values to the allowlist `Set`
-4. Add the new field to the HTML email template in the API route
+3. If it is a `<select>`, add the entry to `src/config/form-options.ts` and render via `.options.map()`
+4. Add the field to the notification template in `src/lib/email-templates.ts` (use `.label()` for select values)
 5. If the field is a user-supplied string rendered in the email HTML, wrap it in `escHtml()`
 
 ### Change the contact email
 
 1. Update `CONTACT_EMAIL` in **Workers & Pages → website → Settings → Variables and Secrets**
-2. The fallback in `src/config.ts` is only used locally — update it too if the change is permanent
+2. Update `.env` locally; defaults are in `astro.config.mjs` `env.schema` if you need to change the fallback
 
 ### Rotate the Resend API key
 
@@ -390,9 +411,8 @@ if it changes too often without real content changes.
 
 ### Add a new select option to a form
 
-1. Add the `<option value="newvalue">` to the `.astro` page
-2. Add `'newvalue'` to the corresponding `ALLOWED_*` Set in the API route — **required**,
-   or submissions with the new value will return 422
+1. Add `{ value: 'newvalue', label: 'Human label' }` to the matching array in `src/config/form-options.ts`
+2. No other file changes needed — the `.astro` page, API allowlist, and email labels update automatically
 
 ### Regenerate PNG images from SVG sources
 

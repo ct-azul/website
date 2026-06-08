@@ -2,6 +2,7 @@
 export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 import { CONTACT_EMAIL } from '../config';
+import { CATEGORIA } from '../config/form-options';
 ---
 
 <Layout
@@ -77,7 +78,7 @@ import { CONTACT_EMAIL } from '../config';
             <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
           </svg>
           <h3>¡Solicitud recibida!</h3>
-          <p>Gracias por contactarnos. Te respondemos en los próximos días hábiles.</p>
+          <p id="success-detail"></p>
         </div>
 
         <div id="form-error" class="form-feedback error" hidden role="alert">
@@ -121,12 +122,7 @@ import { CONTACT_EMAIL } from '../config';
             <label for="categoria">Área de asesoría *</label>
             <select id="categoria" name="categoria" required>
               <option value="" disabled selected>¿En qué área querés asesorarte?</option>
-              <option value="automatizacion">Automatización de procesos internos</option>
-              <option value="asistentes-ia">Asistentes con IA</option>
-              <option value="integracion">Integración de herramientas de IA</option>
-              <option value="analisis-datos">Análisis de datos e inteligencia de negocio</option>
-              <option value="capacitacion">Capacitación del equipo</option>
-              <option value="no-se">No sé por dónde empezar</option>
+              {CATEGORIA.options.map((o) => <option value={o.value}>{o.label}</option>)}
             </select>
           </div>
 
@@ -161,6 +157,7 @@ import { CONTACT_EMAIL } from '../config';
   const form = document.getElementById('empresas-form') as HTMLFormElement;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
   const successEl = document.getElementById('form-success')!;
+  const successDetailEl = document.getElementById('success-detail')!;
   const errorEl   = document.getElementById('form-error')!;
 
   const btnLabel   = submitBtn.querySelector<HTMLElement>('.btn-label');
@@ -185,6 +182,10 @@ import { CONTACT_EMAIL } from '../config';
       });
 
       if (res.ok) {
+        const data = await res.json() as { autoReplySent?: boolean };
+        successDetailEl.textContent = data.autoReplySent
+          ? 'Te enviamos un correo de confirmación. Nos ponemos en contacto en menos de 48 horas hábiles.'
+          : 'Recibimos tu solicitud. Nos ponemos en contacto en menos de 48 horas hábiles.';
         form.removeAttribute('aria-busy');
         form.hidden = true;
         successEl.hidden = false;

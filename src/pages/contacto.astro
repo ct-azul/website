@@ -2,6 +2,7 @@
 export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 import { CONTACT_EMAIL } from '../config';
+import { ASUNTO } from '../config/form-options';
 ---
 
 <Layout
@@ -109,7 +110,7 @@ import { CONTACT_EMAIL } from '../config';
             <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
           </svg>
           <h3>¡Mensaje enviado!</h3>
-          <p>Gracias por escribirnos. Te respondemos pronto.</p>
+          <p id="success-detail"></p>
         </div>
 
         <div id="form-error" class="form-feedback error" hidden role="alert">
@@ -132,11 +133,7 @@ import { CONTACT_EMAIL } from '../config';
             <label for="asunto">Asunto *</label>
             <select id="asunto" name="asunto" required>
               <option value="" disabled selected>¿Sobre qué querés escribir?</option>
-              <option value="informacion">Información general</option>
-              <option value="colaboracion">Propuesta de colaboración</option>
-              <option value="evento">Organizar un evento</option>
-              <option value="prensa">Prensa / medios</option>
-              <option value="otro">Otro</option>
+              {ASUNTO.options.map((o) => <option value={o.value}>{o.label}</option>)}
             </select>
           </div>
 
@@ -164,6 +161,7 @@ import { CONTACT_EMAIL } from '../config';
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
   const successEl = document.getElementById('form-success')!;
+  const successDetailEl = document.getElementById('success-detail')!;
   const errorEl = document.getElementById('form-error')!;
 
   const btnLabel   = submitBtn.querySelector<HTMLElement>('.btn-label');
@@ -188,6 +186,10 @@ import { CONTACT_EMAIL } from '../config';
       });
 
       if (res.ok) {
+        const data = await res.json() as { autoReplySent?: boolean };
+        successDetailEl.textContent = data.autoReplySent
+          ? 'Te enviamos un correo de confirmación. Lo vamos a leer y te respondemos a la brevedad.'
+          : 'Recibimos tu mensaje. Lo vamos a leer y te respondemos a la brevedad.';
         form.removeAttribute('aria-busy');
         form.hidden = true;
         successEl.hidden = false;

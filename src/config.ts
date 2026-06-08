@@ -1,2 +1,2 @@
-// Baked at build time (pages are prerendered). Keep in sync with the CONTACT_EMAIL Worker variable.
-export const CONTACT_EMAIL = 'info@clustertecnologicoazul.org';
+/** Build-time / prerender defaults from `.env` via astro:env. Runtime overrides in Worker env. */
+export { CONTACT_EMAIL, SITE_URL } from 'astro:env/server';
