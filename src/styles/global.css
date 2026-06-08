@@ -23,6 +23,21 @@
   --radius-lg: 20px;
 
   --transition: 220ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  --header-height: 68px;
+}
+
+/* Homepage with campaign banner — hero fills remaining viewport */
+[data-atlas-campaign]:not([data-atlas-route]) {
+  --atlas-banner-height: 3.25rem;
+  /* Set precisely via Layout script; fallback = header + estimated banner */
+  --main-offset-top: calc(var(--header-height) + var(--atlas-banner-height));
+}
+
+@media (max-width: 768px) {
+  [data-atlas-campaign]:not([data-atlas-route]) {
+    --atlas-banner-height: 6rem;
+  }
 }
 
 /* ── Dark mode — OS preference ───────────────────────────────── */
@@ -186,9 +201,10 @@ img {
 }
 
 .btn-outline {
-  background: transparent;
+  background: var(--clr-surface-2);
   color: var(--clr-text);
-  border: 1px solid var(--clr-border);
+  border: 1.5px solid color-mix(in srgb, var(--clr-text-soft) 50%, var(--clr-border));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
 }
 
 .btn-outline:hover {
@@ -196,6 +212,7 @@ img {
   color: var(--clr-blue);
   background: var(--clr-blue-glow);
   transform: translateY(-1px);
+  box-shadow: 0 4px 18px rgba(43, 127, 255, 0.18);
 }
 
 .btn:focus-visible {
@@ -311,6 +328,71 @@ img {
 
 @media (max-width: 640px) {
   .container { padding-inline: 1.25rem; }
+}
+
+/*
+ * Site header — same rules on every page:
+ *   Light mode → dark bar when unscrolled, light bar when scrolled
+ *   Dark mode  → dark bar always
+ */
+:root[data-theme="light"] .site-header:not(.scrolled) .header-inner,
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .site-header:not(.scrolled) .header-inner {
+    --clr-text:      #d8e3f0;
+    --clr-text-soft: #96adc7;
+    --clr-surface:   rgba(255, 255, 255, 0.08);
+    --clr-surface-2: rgba(255, 255, 255, 0.12);
+    --clr-cyan:      #00d4c8;
+    --clr-gold:      #f0b429;
+    --clr-muted:     #6882a0;
+    --clr-border:    #243d5c;
+  }
+}
+
+:root[data-theme="dark"] .site-header .header-inner,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .site-header .header-inner {
+    --clr-text:      #d8e3f0;
+    --clr-text-soft: #96adc7;
+    --clr-surface:   rgba(255, 255, 255, 0.08);
+    --clr-surface-2: rgba(255, 255, 255, 0.12);
+    --clr-cyan:      #00d4c8;
+    --clr-gold:      #f0b429;
+    --clr-muted:     #6882a0;
+    --clr-border:    #243d5c;
+  }
+}
+
+:root[data-theme="light"] .site-header:not(.scrolled),
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .site-header:not(.scrolled) {
+    background: rgba(13, 27, 46, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-color: rgba(255, 255, 255, 0.10);
+    box-shadow: none;
+  }
+}
+
+:root[data-theme="dark"] .site-header,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .site-header {
+    background: rgba(13, 27, 46, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-color: rgba(255, 255, 255, 0.10);
+    box-shadow: 0 1px 24px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Homepage hero — must be global (Astro scopes [data-atlas-campaign] selectors incorrectly) */
+[data-atlas-campaign][data-atlas-home] .hero {
+  padding-top: 0;
+  min-height: calc(100svh - var(--main-offset-top));
+}
+
+[data-atlas-campaign][data-atlas-home] .hero-content {
+  padding-block: 1.5rem;
 }
 
 /* Proyecto Atlas campaign — banner clears fixed header on non-atlas pages */

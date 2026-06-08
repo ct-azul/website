@@ -1,8 +1,5 @@
 ---
-interface Props {
-  darkHero?: boolean;
-}
-const { darkHero = false } = Astro.props;
+const isAtlasRoute = Astro.url.pathname.startsWith('/atlas');
 
 const navLinks = [
   { href: '/atlas', label: 'Proyecto Atlas', highlight: true },
@@ -16,7 +13,7 @@ const navLinks = [
 ];
 ---
 
-<header class:list={['site-header', { 'dark-hero': darkHero }]} id="site-header">
+<header class="site-header" id="site-header">
   <div class="container header-inner">
     <a href="/" class="logo" aria-label="Cluster Tecnológico Azul - Inicio">
       <img src="/logo.png" alt="" width="36" height="36" class="logo-img" />
@@ -48,7 +45,9 @@ const navLinks = [
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
-      <a href="/atlas" class="btn btn-primary btn-sm btn-atlas">Atlas</a>
+      {!isAtlasRoute && (
+        <a href="/atlas" class="btn btn-primary btn-sm btn-atlas">Atlas</a>
+      )}
       <a href="/unirse" class="btn btn-outline btn-sm">Unite</a>
       <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
         <span class="hamburger-icon"><span></span><span></span><span></span></span>
@@ -87,9 +86,11 @@ const navLinks = [
   const hamburger = document.getElementById('hamburger')!;
   const navMobile = document.getElementById('nav-mobile')!;
 
-  window.addEventListener('scroll', () => {
+  function updateScrolled() {
     header.classList.toggle('scrolled', window.scrollY > 40);
-  });
+  }
+  updateScrolled();
+  window.addEventListener('scroll', updateScrolled, { passive: true });
 
   function closeMenu() {
     hamburger.setAttribute('aria-expanded', 'false');
@@ -178,28 +179,13 @@ const navLinks = [
     border-bottom: 1px solid transparent;
   }
 
+  /* Light-mode scrolled shell — dark mode overrides in global.css */
   .site-header.scrolled {
     background: var(--clr-header-scrolled);
     border-color: var(--clr-border);
     box-shadow: 0 1px 24px rgba(0, 0, 0, 0.08);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-  }
-
-  /* Force dark-mode text tokens when unscrolled over a dark hero (homepage without campaign banner).
-     Disabled while ATLAS.active — the banner leaves the header over the light page background. */
-  .site-header.dark-hero:not(.scrolled) .header-inner {
-    --clr-text:      #d8e3f0;
-    --clr-text-soft: #96adc7;
-    --clr-surface:   rgba(255, 255, 255, 0.08);
-    --clr-cyan:      #00d4c8;
-    --clr-gold:      #f0b429;
-    --clr-muted:     #6882a0;
-    --clr-border:    #243d5c;
-  }
-
-  .site-header.dark-hero:not(.scrolled) {
-    border-color: rgba(255, 255, 255, 0.10);
   }
 
   .header-inner {

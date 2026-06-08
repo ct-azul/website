@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import { ATLAS } from '../config/atlas';
 ---
 
-<Layout title="Cluster Tecnológico Azul" darkHero={!ATLAS.active}>
+<Layout title="Cluster Tecnológico Azul">
   <!-- ── HERO ─────────────────────────────────────── -->
   <section class="hero">
     <canvas id="starfield" aria-hidden="true"></canvas>
@@ -25,8 +25,10 @@ import { ATLAS } from '../config/atlas';
       </p>
       <div class="hero-actions reveal reveal-4">
         <a href="/atlas" class="btn btn-primary btn-atlas-hero">Proyecto Atlas — Inscripción alumnos abierta</a>
-        <a href="/unirse" class="btn btn-outline">Unite al cluster</a>
-        <a href="/#nosotros" class="btn btn-outline">Conocé más</a>
+        <div class="hero-actions-row">
+          <a href="/unirse" class="btn btn-outline">Unite al cluster</a>
+          <a href="/#nosotros" class="btn btn-outline">Conocé más</a>
+        </div>
       </div>
     </div>
 
@@ -492,7 +494,7 @@ import { ATLAS } from '../config/atlas';
     display: flex;
     align-items: center;
     overflow: hidden;
-    padding-top: 68px;
+    padding-top: var(--header-height);
     /* always dark — starfield canvas requires a dark background */
     background-color: #0d1b2e;
     --clr-bg:        #0d1b2e;
@@ -564,8 +566,16 @@ import { ATLAS } from '../config/atlas';
 
   .hero-actions {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 1rem;
+    max-width: 100%;
+  }
+
+  .hero-actions-row {
+    display: flex;
     flex-wrap: wrap;
+    gap: 1rem;
   }
 
   .hero-scroll-hint {
@@ -874,11 +884,6 @@ import { ATLAS } from '../config/atlas';
   /* Responsive */
   @media (max-width: 1024px) {
     .pilares-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  [data-atlas-campaign] .hero {
-    padding-top: 2rem;
-    min-height: calc(100svh - 48px);
   }
 
   @media (max-width: 768px) {

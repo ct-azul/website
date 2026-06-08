@@ -8,13 +8,11 @@ import { ATLAS } from '../config/atlas';
 interface Props {
   title: string;
   description?: string;
-  darkHero?: boolean;
 }
 
 const {
   title,
   description = 'Impulsando la innovación tecnológica en Azul, Buenos Aires, Argentina.',
-  darkHero = false,
 } = Astro.props;
 
 const fullTitle = title === 'Cluster Tecnológico Azul'
@@ -23,6 +21,8 @@ const fullTitle = title === 'Cluster Tecnológico Azul'
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const isAtlasRoute = Astro.url.pathname.startsWith('/atlas');
+const isAtlasHub = /^\/atlas\/?$/.test(Astro.url.pathname);
+const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 ---
 
 <!doctype html>
@@ -30,6 +30,8 @@ const isAtlasRoute = Astro.url.pathname.startsWith('/atlas');
   lang="es-AR"
   data-atlas-campaign={ATLAS.active || undefined}
   data-atlas-route={isAtlasRoute || undefined}
+  data-atlas-hub={isAtlasHub || undefined}
+  data-atlas-home={isHome || undefined}
 >
   <head>
     <meta charset="UTF-8" />
@@ -76,12 +78,26 @@ const isAtlasRoute = Astro.url.pathname.startsWith('/atlas');
   </head>
   <body>
     <a href="#main-content" class="skip-link">Saltar al contenido</a>
-    <Header darkHero={darkHero} />
+    <Header />
     <AtlasBanner />
     <main id="main-content">
       <slot />
     </main>
     <Footer />
+    {ATLAS.active && isHome && (
+      <script>
+        function syncMainOffset() {
+          const main = document.getElementById('main-content');
+          if (!main) return;
+          document.documentElement.style.setProperty('--main-offset-top', `${main.offsetTop}px`);
+        }
+        syncMainOffset();
+        window.addEventListener('resize', syncMainOffset, { passive: true });
+        const banner = document.querySelector('.atlas-banner');
+        if (banner) new ResizeObserver(syncMainOffset).observe(banner);
+        document.fonts?.ready?.then(syncMainOffset);
+      </script>
+    )}
   </body>
 </html>
 
