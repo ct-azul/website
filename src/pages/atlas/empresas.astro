@@ -1,0 +1,608 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import AtlasFormButton from '../../components/AtlasFormButton.astro';
+import { ATLAS } from '../../config/atlas';
+import { CONTACT_EMAIL } from '../../config';
+---
+
+<Layout
+  title="Asesoría Tecnológica — Convocatoria Empresas"
+  description="Sumate a Proyecto Atlas como empresa patrocinadora. Recibí asesoría tecnológica personalizada y financiá la formación de jóvenes de Azul."
+>
+  <div class="page-hero">
+    <div class="container">
+      <a href="/atlas" class="back-link">← Proyecto Atlas</a>
+      <span class="page-audience">Para empresas</span>
+      <h1>Asesoría tecnológica</h1>
+      <p class="page-subtitle">
+        Participá como empresa patrocinadora de {ATLAS.name}: recibí una mirada externa, estructurada
+        y accionable sobre tus procesos, y contribuí a financiar la formación tecnológica gratuita
+        de jóvenes de Azul y la región.
+      </p>
+      <div class="hero-cta">
+        <AtlasFormButton track="empresas" size="lg" />
+        <span class="hero-deadline">Inscripción {ATLAS.convocatoriaEmpresas.disponibilidad.toLowerCase()}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container content-grid">
+      <div class="main-content">
+        <section class="content-block">
+          <h2>¿Qué es Proyecto Atlas?</h2>
+          <p>
+            {ATLAS.name} es la iniciativa del Cluster Tecnológico Azul para impulsar la
+            {ATLAS.tagline.toLowerCase()}. Conecta empresas locales con jóvenes en formación:
+            tu empresa recibe asesoría especializada y, al mismo tiempo, hace posible que 40 alumnos
+            accedan al programa «{ATLAS.programAlumnos}» sin costo.
+          </p>
+          <div class="highlight-box">
+            <h3>Innovar es comprometerse con Azul</h3>
+            <p>
+              Al participar, tu empresa no solo mejora sus procesos — también contribuye al crecimiento
+              del ecosistema tecnológico local y al desarrollo profesional de los jóvenes de la región.
+            </p>
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>¿Qué incluye la asesoría?</h2>
+          <p>
+            Las asesorías ofrecen a las empresas patrocinadoras una mirada externa, estructurada
+            y accionable sobre sus problemáticas actuales, con recomendaciones iniciales que ayuden
+            a ordenar los próximos pasos.
+          </p>
+          <div class="info-table-wrap">
+            <table class="info-table">
+              <tbody>
+                <tr><th>Reuniones</th><td>2 reuniones por empresa</td></tr>
+                <tr><th>Duración</th><td>Hasta 2 horas por reunión</td></tr>
+                <tr><th>Equipo asesor</th><td>2 asesores por empresa</td></tr>
+                <tr><th>Modalidad</th><td>A definir según cada caso, priorizando lo presencial</td></tr>
+                <tr><th>Entregable</th><td><strong>1 informe de devolución</strong> con hoja de ruta</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">
+            No constituye consultoría ni proyecto de implementación. La finalidad es relevar,
+            diagnosticar y priorizar; nunca ejecutar.
+          </p>
+        </section>
+
+        <section class="content-block">
+          <h2>Qué trabajamos en las reuniones</h2>
+          <div class="meetings-grid">
+            <article class="meeting-card">
+              <span class="meeting-num">Reunión 1</span>
+              <h3>Relevamiento y entendimiento</h3>
+              <ul>
+                <li>Presentación del equipo asesor y alcance</li>
+                <li>Relevamiento de procesos, herramientas y dinámica operativa</li>
+                <li>Identificación de dolores y tareas manuales frecuentes</li>
+                <li>Registro de objetivos de mejora de la empresa</li>
+              </ul>
+            </article>
+            <article class="meeting-card">
+              <span class="meeting-num">Reunión 2</span>
+              <h3>Discovery, oportunidades y cierre</h3>
+              <ul>
+                <li>Profundización sobre los puntos detectados</li>
+                <li>Discovery de oportunidades de mejora y automatización</li>
+                <li>Priorización preliminar junto a la empresa</li>
+                <li>Alineación de expectativas y próximos pasos</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Áreas de trabajo</h2>
+          <p>El relevamiento cubre, entre otros:</p>
+          <ul class="content-list">
+            <li>Problemáticas, necesidades o dolores actuales de la empresa</li>
+            <li>Procesos, herramientas utilizadas y dinámica operativa</li>
+            <li>Oportunidades de mejora, digitalización o automatización</li>
+            <li>Priorización preliminar de alternativas</li>
+          </ul>
+          <p>Si tu empresa no tiene una problemática definida, podemos trabajar sobre alternativas como:</p>
+          <div class="alt-grid">
+            <div class="alt-chip">Google Workspace</div>
+            <div class="alt-chip">Automatización de tareas</div>
+            <div class="alt-chip">Agente de ventas con IA</div>
+            <div class="alt-chip">Bot de WhatsApp</div>
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Qué recibís al finalizar</h2>
+          <p>Un informe de devolución con:</p>
+          <ul class="content-list benefits">
+            <li>Resumen del contexto relevado</li>
+            <li>Principales problemáticas identificadas</li>
+            <li>Oportunidades de mejora detectadas</li>
+            <li>Alternativas de solución posibles</li>
+            <li>Priorización sugerida por impacto y esfuerzo</li>
+            <li>Próximos pasos recomendados (hoja de ruta inicial)</li>
+          </ul>
+        </section>
+
+        <section class="content-block">
+          <h2>Alcance y límites</h2>
+          <div class="limits-grid">
+            <div class="limit-card includes">
+              <h3>Sí incluye</h3>
+              <ul>
+                <li>Diagnóstico y relevamiento</li>
+                <li>Recomendaciones accionables</li>
+                <li>Hoja de ruta inicial</li>
+                <li>Confidencialidad de la información</li>
+              </ul>
+            </div>
+            <div class="limit-card excludes">
+              <h3>No incluye</h3>
+              <ul>
+                <li>Implementación de soluciones</li>
+                <li>Desarrollo de software</li>
+                <li>Configuración de herramientas</li>
+                <li>Soporte técnico ni ejecución de proyectos</li>
+              </ul>
+            </div>
+          </div>
+          <p class="note">
+            Cualquier proyecto de implementación posterior se define por fuera del alcance de Atlas.
+          </p>
+        </section>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <span class="sidebar-badge">Patrocinadoras</span>
+          <h3>Postulate</h3>
+          <p>
+            Completá el formulario para sumarte como empresa patrocinadora.
+            {ATLAS.convocatoriaEmpresas.nota}
+          </p>
+          <AtlasFormButton track="empresas" size="full" label="Formulario de inscripción" />
+          <dl class="dates-list">
+            <div>
+              <dt>Inscripción</dt>
+              <dd>{ATLAS.convocatoriaEmpresas.disponibilidad}</dd>
+            </div>
+            <div>
+              <dt>Inscripción alumnos</dt>
+              <dd>Cierra el {ATLAS.convocatoriaAlumnos.cierreInscripcion}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>¿Por qué sumarse?</h3>
+          <ul class="sidebar-list">
+            <li>Mirada externa sobre tus procesos</li>
+            <li>Recomendaciones concretas y priorizadas</li>
+            <li>Sin compromiso de implementación</li>
+            <li>Impacto social en la formación de jóvenes</li>
+            <li>Conexión con talento local al cierre del programa</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card contact-card">
+          <h3>¿Tenés dudas?</h3>
+          <p>Escribinos y te orientamos sobre la convocatoria.</p>
+          <p class="referente">Referente: <strong>{ATLAS.referente}</strong></p>
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page-hero {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--clr-border);
+    background: linear-gradient(180deg, var(--clr-blue-glow) 0%, transparent 100%);
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: var(--clr-text-soft);
+    margin-bottom: 1.25rem;
+    text-decoration: none;
+  }
+
+  .back-link:hover { color: var(--clr-blue); }
+
+  .page-audience {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clr-blue);
+    margin-bottom: 0.75rem;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    color: var(--clr-text);
+    margin-bottom: 1rem;
+  }
+
+  .page-subtitle {
+    color: var(--clr-text-soft);
+    font-size: 1.05rem;
+    max-width: 640px;
+    line-height: 1.75;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-lg { padding: 0.9rem 2rem; font-size: 1rem; }
+  .btn-full { width: 100%; justify-content: center; }
+
+  .hero-deadline {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--clr-muted);
+  }
+
+  .page-body { padding-block: 4rem; }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .content-block { margin-bottom: 3rem; }
+
+  .content-block h2 {
+    font-size: 1.5rem;
+    color: var(--clr-text);
+    margin-bottom: 1rem;
+  }
+
+  .content-block p {
+    color: var(--clr-text-soft);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .highlight-box {
+    background: var(--clr-blue-glow);
+    border: 1px solid var(--clr-blue-dim);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin-top: 1.25rem;
+  }
+
+  .highlight-box h3 {
+    font-size: 1rem;
+    color: var(--clr-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .highlight-box p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+
+  .info-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    margin-bottom: 1rem;
+  }
+
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .info-table th,
+  .info-table td {
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid var(--clr-border);
+  }
+
+  .info-table tr:last-child th,
+  .info-table tr:last-child td { border-bottom: none; }
+
+  .info-table th {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--clr-muted);
+    width: 40%;
+    background: var(--clr-surface);
+  }
+
+  .info-table td {
+    color: var(--clr-text-soft);
+    background: var(--clr-surface-2);
+  }
+
+  .info-table td strong { color: var(--clr-blue); }
+
+  .note {
+    font-size: 0.88rem;
+    color: var(--clr-muted);
+    font-style: italic;
+  }
+
+  .meetings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .meeting-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+  }
+
+  .meeting-num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--clr-blue);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .meeting-card h3 {
+    font-size: 1rem;
+    color: var(--clr-text);
+    margin-bottom: 0.75rem;
+  }
+
+  .meeting-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .meeting-card li {
+    font-size: 0.85rem;
+    color: var(--clr-text-soft);
+    padding-left: 0.9rem;
+    position: relative;
+    line-height: 1.55;
+  }
+
+  .meeting-card li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--clr-blue);
+    font-size: 0.75rem;
+  }
+
+  .content-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .content-list li {
+    color: var(--clr-text-soft);
+    padding-left: 1.25rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .content-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--clr-blue);
+    font-weight: bold;
+  }
+
+  .content-list.benefits li::before { content: '✓'; color: var(--clr-cyan); }
+
+  .alt-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.75rem;
+  }
+
+  .alt-chip {
+    font-size: 0.82rem;
+    font-family: var(--font-mono);
+    color: var(--clr-text-soft);
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+  }
+
+  .limits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .limit-card {
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    border: 1px solid var(--clr-border);
+  }
+
+  .limit-card.includes {
+    background: rgba(0, 153, 168, 0.06);
+    border-color: rgba(0, 153, 168, 0.25);
+  }
+
+  .limit-card.excludes {
+    background: var(--clr-surface);
+  }
+
+  .limit-card h3 {
+    font-size: 0.9rem;
+    color: var(--clr-text);
+    margin-bottom: 0.75rem;
+  }
+
+  .limit-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .limit-card li {
+    font-size: 0.85rem;
+    color: var(--clr-text-soft);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .limit-card.includes li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--clr-cyan);
+  }
+
+  .limit-card.excludes li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: var(--clr-muted);
+  }
+
+  /* Sidebar — shared with alumnos */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: sticky;
+    top: calc(68px + 2rem);
+    align-self: start;
+  }
+
+  .sidebar-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+  }
+
+  .sidebar-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--clr-blue);
+    background: var(--clr-blue-glow);
+    border: 1px solid var(--clr-blue-dim);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+
+  .sidebar-card h3 {
+    font-size: 1rem;
+    color: var(--clr-text);
+    margin-bottom: 0.6rem;
+  }
+
+  .sidebar-card > p {
+    font-size: 0.875rem;
+    color: var(--clr-text-soft);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .dates-list {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--clr-border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .dates-list dt {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--clr-muted);
+  }
+
+  .dates-list dd {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--clr-text);
+    margin-top: 0.15rem;
+  }
+
+  .sidebar-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .sidebar-list li {
+    font-size: 0.82rem;
+    color: var(--clr-text-soft);
+    padding-left: 0.9rem;
+    position: relative;
+  }
+
+  .sidebar-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--clr-blue);
+  }
+
+  .contact-card a {
+    font-size: 0.85rem;
+    word-break: break-all;
+  }
+
+  .referente {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem !important;
+  }
+
+  @media (max-width: 900px) {
+    .content-grid { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .meetings-grid { grid-template-columns: 1fr; }
+    .limits-grid { grid-template-columns: 1fr; }
+  }
+</style>

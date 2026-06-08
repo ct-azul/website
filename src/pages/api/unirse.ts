@@ -85,10 +85,37 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'Error enviando email' }), { status: 500, headers: JSON_HEADERS });
     }
 
-    console.log('[unirse] Email sent:', data?.id);
+    console.log('[unirse] Notification sent:', data?.id);
   } catch (e) {
     console.error('[unirse] Resend threw:', e instanceof Error ? e.message : String(e));
     return new Response(JSON.stringify({ error: 'Error enviando email' }), { status: 500, headers: JSON_HEADERS });
+  }
+
+  // Auto-reply to applicant (best-effort — failure does not affect response)
+  try {
+    const { data, error } = await resend.emails.send({
+      from:    'Cluster Tecnológico Azul <noreply@clustertecnologicoazul.org>',
+      to:      [email],
+      replyTo: toEmail,
+      subject: 'Recibimos tu solicitud — Cluster Tecnológico Azul',
+      html: `
+        <p>Hola ${escHtml(nombre)},</p>
+        <p>¡Gracias por sumarte! Recibimos tu solicitud para formar parte del Cluster Tecnológico Azul y ya está en nuestras manos.</p>
+        <p>En los próximos días la vamos a revisar y te escribimos a este mismo correo para contarte los próximos pasos. Por ahora no tenés que hacer nada más.</p>
+        <p>Nos mueve una idea simple: la tecnología no tiene fronteras geográficas, pero el impacto más profundo ocurre cuando la aplicas en el lugar donde vivís. Gracias por querer construir eso con nosotros.</p>
+        <p>Cualquier duda, respondé este mail y te contestamos.</p>
+        <br>
+        <p>Un abrazo,<br><strong>Equipo Cluster Tecnológico Azul</strong></p>
+      `,
+    });
+
+    if (error) {
+      console.error('[unirse] Auto-reply error:', JSON.stringify(error));
+    } else {
+      console.log('[unirse] Auto-reply sent:', data?.id);
+    }
+  } catch (e) {
+    console.error('[unirse] Auto-reply threw:', e instanceof Error ? e.message : String(e));
   }
 
   return new Response(JSON.stringify({ ok: true }), { status: 200, headers: JSON_HEADERS });

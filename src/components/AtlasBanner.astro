@@ -1,0 +1,88 @@
+---
+import { ATLAS } from '../config/atlas';
+
+if (!ATLAS.active || Astro.url.pathname.startsWith('/atlas')) return;
+---
+
+<div class="atlas-banner" role="region" aria-label="Convocatoria Proyecto Atlas">
+  <div class="container atlas-banner-inner">
+  <span class="atlas-banner-badge">Proyecto Atlas</span>
+    <p class="atlas-banner-text">
+      <strong>Alumnos:</strong> inscripción hasta el {ATLAS.convocatoriaAlumnos.cierreInscripcion}.
+      <strong>Empresas:</strong> asesoría abierta de forma continua.
+    </p>
+    <a href="/atlas" class="atlas-banner-cta">Conocé más</a>
+  </div>
+</div>
+
+<style>
+  .atlas-banner {
+    position: relative;
+    z-index: 99;
+    background: linear-gradient(90deg, #0a3d8f 0%, #1a6ff0 45%, #0099a8 100%);
+    color: #fff;
+    padding-block: 0.65rem;
+    margin-top: 68px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .atlas-banner-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .atlas-banner-badge {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    animation: pulse-badge 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-badge {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3); }
+    50% { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .atlas-banner-badge { animation: none; }
+  }
+
+  .atlas-banner-text {
+    flex: 1;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    min-width: 200px;
+  }
+
+  .atlas-banner-text strong {
+    font-weight: 700;
+  }
+
+  .atlas-banner-cta {
+    flex-shrink: 0;
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #0a3d8f;
+    background: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+
+  .atlas-banner-cta:hover {
+    color: #0a3d8f;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+</style>

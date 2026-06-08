@@ -1,0 +1,636 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import AtlasFormButton from '../../components/AtlasFormButton.astro';
+import { ATLAS } from '../../config/atlas';
+import { CONTACT_EMAIL } from '../../config';
+---
+
+<Layout
+  title="Proyecto Atlas"
+  description="Formación tecnológica gratuita para jóvenes (inscripción con fecha límite) y asesoría en innovación para empresas de Azul y la región (abierta de forma continua)."
+>
+  <section class="atlas-hero">
+    <div class="atlas-hero-glow" aria-hidden="true"></div>
+    <div class="container atlas-hero-content">
+      <span class="section-label reveal reveal-1">Convocatoria 2026</span>
+      <h1 class="reveal reveal-2">
+        {ATLAS.name}
+      </h1>
+      <p class="atlas-hero-tagline reveal reveal-3">{ATLAS.tagline}</p>
+      <p class="atlas-hero-desc reveal reveal-4">
+        Una iniciativa del Cluster Tecnológico Azul para impulsar el desarrollo de la región
+        a través de la tecnología: empresas reciben asesoría especializada y jóvenes acceden
+        a formación práctica y gratuita, financiada por el sector productivo local.
+      </p>
+      <div class="atlas-hero-dates reveal reveal-5">
+        <a href="#participar" class="dates-panel dates-panel-alumnos">
+          <span class="dates-panel-title">Convocatoria alumnos</span>
+          <div class="dates-panel-chips">
+            <div class="date-chip">
+              <span class="date-label">Apertura</span>
+              <span class="date-value">{ATLAS.convocatoriaAlumnos.apertura}</span>
+            </div>
+            <div class="date-chip highlight">
+              <span class="date-label">Cierre inscripción</span>
+              <span class="date-value">{ATLAS.convocatoriaAlumnos.cierreInscripcion}</span>
+            </div>
+            <div class="date-chip">
+              <span class="date-label">Inicio del curso</span>
+              <span class="date-value">{ATLAS.convocatoriaAlumnos.inicioCurso}</span>
+            </div>
+          </div>
+          <span class="dates-panel-cta">Ver convocatoria alumnos ↓</span>
+        </a>
+        <a href="#participar" class="dates-panel dates-panel-empresas">
+          <span class="dates-panel-title">Asesoría empresas</span>
+          <div class="dates-panel-chips">
+            <div class="date-chip">
+              <span class="date-label">Inscripción</span>
+              <span class="date-value">{ATLAS.convocatoriaEmpresas.disponibilidad}</span>
+            </div>
+          </div>
+          <p class="dates-panel-note">{ATLAS.convocatoriaEmpresas.nota}</p>
+          <span class="dates-panel-cta">Ver convocatoria empresas ↓</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section atlas-tracks">
+    <div class="container">
+      <div class="section-header centered">
+        <span class="section-label">Dos caminos, un mismo objetivo</span>
+        <h2 id="participar">Elegí cómo querés participar</h2>
+        <p class="tracks-intro">
+          Proyecto Atlas conecta el talento joven con las necesidades reales de las empresas
+          de Azul y la región. Elegí la convocatoria que te corresponda.
+        </p>
+      </div>
+
+      <div class="tracks-grid">
+        <article class="track-card track-alumnos">
+          <span class="track-audience">Para alumnos</span>
+          <div class="track-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+              <path d="M12 14l6.16-3.422a12.083 12.083 0 0 1 .665 6.479A11.952 11.952 0 0 0 12 20.055a11.952 11.952 0 0 0-6.824-2.998 12.078 12.078 0 0 1 .665-6.479L12 14z"/>
+              <path d="M12 14v7"/>
+            </svg>
+          </div>
+          <span class="track-badge">40 cupos</span>
+          <h3>{ATLAS.programAlumnos}</h3>
+          <p>
+            Formación tecnológica práctica, virtual e interactiva, dictada por profesionales
+            activos de la industria. Gratuita para vos, financiada por empresas de la región.
+          </p>
+          <ul class="track-highlights">
+            <li>14 semanas · 2 clases por semana</li>
+            <li>Programación, IA, metodologías ágiles y más</li>
+            <li>Mentorías en grupos reducidos</li>
+            <li>Vinculación con empresas al cierre</li>
+          </ul>
+          <p class="track-dates">
+            Inscripción hasta el <strong>{ATLAS.convocatoriaAlumnos.cierreInscripcion}</strong>
+          </p>
+          <div class="track-actions">
+            <a href="/atlas/alumnos" class="btn btn-primary">Ver convocatoria</a>
+            <AtlasFormButton track="alumnos" variant="outline" />
+          </div>
+        </article>
+
+        <article class="track-card track-empresas">
+          <span class="track-audience">Para empresas</span>
+          <div class="track-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16m14 0H5m14 0h2m-16 0H3m2-16h10M9 7h1m-1 4h1m4-4h1m-1 4h1"/>
+            </svg>
+          </div>
+          <span class="track-badge track-badge-gold">Patrocinadoras</span>
+          <h3>Asesoría tecnológica</h3>
+          <p>
+            Tu empresa recibe una mirada externa y accionable sobre sus procesos, con
+            recomendaciones concretas para digitalizar y automatizar. Al participar,
+            financiás la formación de jóvenes locales.
+          </p>
+          <ul class="track-highlights">
+            <li>2 reuniones de hasta 2 horas cada una</li>
+            <li>Equipo de 2 asesores por empresa</li>
+            <li>Informe de devolución con hoja de ruta</li>
+            <li>Diagnóstico sin compromiso de implementación</li>
+          </ul>
+          <p class="track-dates">Inscripción {ATLAS.convocatoriaEmpresas.disponibilidad.toLowerCase()}</p>
+          <div class="track-actions">
+            <a href="/atlas/empresas" class="btn btn-primary">Ver convocatoria</a>
+            <AtlasFormButton track="empresas" variant="outline" />
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section atlas-how">
+    <div class="container">
+      <div class="section-header centered">
+        <span class="section-label">Cómo funciona</span>
+        <h2>Un ecosistema que se potencia</h2>
+      </div>
+      <div class="how-steps">
+        <div class="how-step">
+          <span class="how-num">01</span>
+          <h3>Empresas se suman</h3>
+          <p>Las pymes de la región participan como patrocinadoras y reciben asesoría tecnológica personalizada.</p>
+        </div>
+        <div class="how-arrow" aria-hidden="true">→</div>
+        <div class="how-step">
+          <span class="how-num">02</span>
+          <h3>Se financia la formación</h3>
+          <p>El aporte de las empresas permite ofrecer el programa de formación de forma gratuita para los alumnos.</p>
+        </div>
+        <div class="how-arrow" aria-hidden="true">→</div>
+        <div class="how-step">
+          <span class="how-num">03</span>
+          <h3>Jóvenes se forman</h3>
+          <p>40 alumnos acceden a capacitación práctica con profesionales de la industria y mentorías de seguimiento.</p>
+        </div>
+        <div class="how-arrow" aria-hidden="true">→</div>
+        <div class="how-step">
+          <span class="how-num">04</span>
+          <h3>Todos ganan</h3>
+          <p>Al cierre, una mesa mixta conecta estudiantes con empresas para facilitar la inserción laboral.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section atlas-cta-section">
+    <div class="container">
+      <div class="cta-card">
+        <div class="cta-glow" aria-hidden="true"></div>
+        <span class="section-label">Contacto</span>
+        <h2>¿Tenés dudas?</h2>
+        <p>
+          Si querés postularte como alumno, escribinos antes del {ATLAS.convocatoriaAlumnos.cierreInscripcion}.
+          Las empresas pueden consultar en cualquier momento.
+        </p>
+        <div class="cta-actions">
+          <a href={`mailto:${CONTACT_EMAIL}`} class="btn btn-primary">{CONTACT_EMAIL}</a>
+          <a href="/contacto" class="btn btn-outline">Formulario de contacto</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .atlas-hero {
+    position: relative;
+    min-height: 70svh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background-color: #0d1b2e;
+    --clr-bg:        #0d1b2e;
+    --clr-surface:   #132238;
+    --clr-surface-2: #1a2d45;
+    --clr-border:    #243d5c;
+    --clr-text:      #d8e3f0;
+    --clr-text-soft: #8399bb;
+    --clr-muted:     #4a5e7a;
+    color-scheme: dark;
+  }
+
+  .atlas-hero-glow {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 212, 200, 0.12) 0%, rgba(26, 111, 240, 0.08) 40%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .atlas-hero-content {
+    position: relative;
+    z-index: 1;
+    padding-block: 4rem 5rem;
+    max-width: 800px;
+  }
+
+  .atlas-hero-content .section-label { margin-bottom: 1.25rem; }
+
+  .atlas-hero h1 {
+    font-size: clamp(2.8rem, 7vw, 4.5rem);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.75rem;
+    line-height: 1.05;
+  }
+
+  .atlas-hero-tagline {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+    font-weight: 600;
+    color: var(--clr-cyan);
+    margin-bottom: 1.25rem;
+  }
+
+  .atlas-hero-desc {
+    font-size: 1.05rem;
+    color: var(--clr-text-soft);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    max-width: 640px;
+  }
+
+  .atlas-hero-dates {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  #participar {
+    scroll-margin-top: calc(68px + 2rem);
+  }
+
+  .dates-panel {
+    display: block;
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    text-decoration: none;
+    color: var(--clr-text);
+    cursor: pointer;
+    transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  }
+
+  .dates-panel:hover {
+    color: var(--clr-text);
+  }
+
+  @media (hover: hover) {
+    .dates-panel:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(26, 111, 240, 0.12);
+    }
+  }
+
+  .dates-panel-alumnos:hover { border-color: var(--clr-cyan); }
+  .dates-panel-empresas:hover { border-color: #7eb8ff; }
+
+  .dates-panel:focus-visible {
+    outline: 2px solid var(--clr-blue);
+    outline-offset: 3px;
+  }
+
+  .dates-panel-cta {
+    display: block;
+    margin-top: 0.85rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--clr-border);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--clr-text-soft);
+    transition: color var(--transition);
+  }
+
+  .dates-panel-alumnos:hover .dates-panel-cta { color: var(--clr-cyan); }
+  .dates-panel-empresas:hover .dates-panel-cta { color: #a8d4ff; }
+
+  .dates-panel-title {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+  }
+
+  .dates-panel-alumnos .dates-panel-title { color: var(--clr-cyan); }
+  .dates-panel-empresas .dates-panel-title { color: #7eb8ff; }
+
+  .dates-panel-chips {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .dates-panel-note {
+    font-size: 0.82rem;
+    color: var(--clr-text-soft);
+    margin-top: 0.85rem;
+    line-height: 1.55;
+  }
+
+  .date-chip {
+    background: var(--clr-surface-2);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .date-chip.highlight {
+    border-color: var(--clr-cyan);
+    background: rgba(0, 212, 200, 0.08);
+  }
+
+  .date-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #96adc7;
+  }
+
+  .date-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--clr-text);
+  }
+
+  .date-chip.highlight .date-value { color: var(--clr-cyan); }
+
+  /* Tracks */
+  .section { padding-block: 5rem; }
+
+  .section-header { margin-bottom: 3rem; }
+  .section-header.centered { text-align: center; }
+  .section-header.centered .section-label { justify-content: center; }
+  .section-header.centered .section-label::before { display: none; }
+
+  .section-header h2 {
+    font-size: clamp(1.8rem, 4vw, 2.75rem);
+    color: var(--clr-text);
+    margin-bottom: 1rem;
+  }
+
+  .tracks-intro {
+    color: var(--clr-text-soft);
+    max-width: 560px;
+    margin-inline: auto;
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .tracks-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .track-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    padding: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  }
+
+  .track-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(26, 111, 240, 0.12);
+  }
+
+  .track-audience {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clr-muted);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--clr-border);
+  }
+
+  .track-alumnos .track-audience { color: var(--clr-cyan); }
+  .track-empresas .track-audience { color: var(--clr-blue); }
+
+  .track-alumnos:hover { border-color: var(--clr-cyan); }
+  .track-empresas:hover { border-color: var(--clr-blue); }
+
+  .track-icon {
+    width: 52px;
+    height: 52px;
+    background: var(--clr-surface-2);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--clr-cyan);
+    margin-bottom: 1rem;
+  }
+
+  .track-empresas .track-icon { color: var(--clr-blue); }
+
+  .track-badge {
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--clr-cyan);
+    background: rgba(0, 153, 168, 0.1);
+    border: 1px solid rgba(0, 153, 168, 0.3);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+
+  .track-badge-gold {
+    color: var(--clr-gold);
+    background: rgba(196, 125, 14, 0.1);
+    border-color: rgba(196, 125, 14, 0.3);
+  }
+
+  .track-card h3 {
+    font-size: 1.4rem;
+    color: var(--clr-text);
+    margin-bottom: 0.75rem;
+  }
+
+  .track-card > p {
+    color: var(--clr-text-soft);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+  }
+
+  .track-highlights {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+    flex: 1;
+  }
+
+  .track-highlights li {
+    font-size: 0.875rem;
+    color: var(--clr-text-soft);
+    padding-left: 1.1rem;
+    position: relative;
+  }
+
+  .track-highlights li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--clr-cyan);
+    font-size: 0.8rem;
+  }
+
+  .track-empresas .track-highlights li::before { color: var(--clr-blue); }
+
+  .track-dates {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--clr-muted);
+    margin-bottom: 1.25rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--clr-border);
+  }
+
+  .track-dates strong { color: var(--clr-cyan); }
+
+  .track-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* How it works */
+  .how-steps {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .how-step {
+    flex: 1;
+    min-width: 180px;
+    max-width: 220px;
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .how-num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--clr-cyan);
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .how-step h3 {
+    font-size: 0.95rem;
+    color: var(--clr-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .how-step p {
+    font-size: 0.82rem;
+    color: var(--clr-text-soft);
+    line-height: 1.65;
+  }
+
+  .how-arrow {
+    color: var(--clr-muted);
+    font-size: 1.25rem;
+    padding-top: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  /* CTA */
+  .atlas-cta-section { padding-block: 2rem 6rem; }
+
+  .cta-card {
+    position: relative;
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    padding: 4rem;
+    text-align: center;
+    overflow: hidden;
+    --clr-bg:        #0d1b2e;
+    --clr-surface:   #132238;
+    --clr-surface-2: #1a2d45;
+    --clr-border:    #243d5c;
+    --clr-text:      #d8e3f0;
+    --clr-text-soft: #8399bb;
+    --clr-muted:     #4a5e7a;
+    color-scheme: dark;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(43, 127, 255, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-card .section-label { justify-content: center; margin-bottom: 1.25rem; }
+  .cta-card .section-label::before { display: none; }
+
+  .cta-card h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: #fff;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .cta-card p {
+    color: var(--clr-text-soft);
+    max-width: 520px;
+    margin-inline: auto;
+    margin-bottom: 2rem;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    position: relative;
+  }
+
+  .cta-card p strong { color: var(--clr-text); }
+
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  @media (max-width: 900px) {
+    .atlas-hero-dates { grid-template-columns: 1fr; }
+    .tracks-grid { grid-template-columns: 1fr; }
+    .how-arrow { display: none; }
+    .how-step { max-width: none; }
+  }
+
+  @media (max-width: 640px) {
+    .cta-card { padding: 2.5rem 1.5rem; }
+    .track-actions { flex-direction: column; }
+    .track-actions .btn { justify-content: center; }
+  }
+</style>

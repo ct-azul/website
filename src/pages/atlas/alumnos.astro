@@ -1,0 +1,468 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import AtlasFormButton from '../../components/AtlasFormButton.astro';
+import { ATLAS } from '../../config/atlas';
+import { CONTACT_EMAIL } from '../../config';
+---
+
+<Layout
+  title="Más allá del Código — Convocatoria Alumnos"
+  description="Programa de formación tecnológica gratuita para jóvenes de Azul y la región. 14 semanas, modalidad virtual, 40 cupos. Inscripción abierta."
+>
+  <div class="page-hero">
+    <div class="container">
+      <a href="/atlas" class="back-link">← Proyecto Atlas</a>
+      <span class="page-audience">Para alumnos</span>
+      <h1>{ATLAS.programAlumnos}</h1>
+      <p class="page-subtitle">
+        Una formación tecnológica práctica, gratuita para vos y financiada por empresas de la región,
+        pensada para jóvenes de Azul y alrededores que quieran dar sus primeros pasos en el mundo de la tecnología.
+      </p>
+      <div class="hero-cta">
+        <AtlasFormButton track="alumnos" size="lg" />
+        <span class="hero-deadline">Inscripción hasta el {ATLAS.convocatoriaAlumnos.cierreInscripcion}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container content-grid">
+      <div class="main-content">
+        <section class="content-block">
+          <h2>¿De qué se trata?</h2>
+          <p>
+            «{ATLAS.programAlumnos}» es el programa de formación del {ATLAS.name}, la iniciativa del
+            Cluster Tecnológico Azul para impulsar el desarrollo de Azul y la región a través de la tecnología.
+          </p>
+          <p>
+            El programa está orientado a jóvenes de Azul y la región interesados en introducirse en el mundo
+            tecnológico desde una perspectiva práctica, aplicada y conectada con problemas reales.
+            Lo dictan profesionales activos de la industria.
+          </p>
+          <div class="highlight-box">
+            <h3>¿Para quién es?</h3>
+            <p>
+              Para personas que estén estudiando y quieran sumar nuevos conocimientos, que busquen su primer
+              empleo o que estén explorando una reconversión laboral. <strong>No necesitás experiencia previa</strong>:
+              lo importante son las ganas de aprender.
+            </p>
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Cómo está organizado</h2>
+          <div class="info-table-wrap">
+            <table class="info-table">
+              <tbody>
+                <tr><th>Duración</th><td>14 semanas (estimado)</td></tr>
+                <tr><th>Modalidad</th><td>Virtual e interactiva</td></tr>
+                <tr><th>Frecuencia</th><td>2 clases por semana</td></tr>
+                <tr><th>Duración por clase</th><td>1 hora y 30 minutos</td></tr>
+                <tr><th>Cupo (1ª cursada)</th><td><strong>40 alumnos</strong></td></tr>
+                <tr><th>Docentes</th><td>Profesionales activos de la industria tecnológica</td></tr>
+                <tr><th>Enfoque</th><td>Práctico, aplicado y vinculado a problemas reales</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Qué vas a aprender</h2>
+          <ul class="content-list">
+            <li>Introducción a la programación</li>
+            <li>HTML, CSS y JavaScript</li>
+            <li>Python básico</li>
+            <li>Inteligencia Artificial e Ingeniería de Prompts</li>
+            <li>Metodologías ágiles</li>
+            <li>Testing y QA</li>
+            <li>UX y automatización</li>
+          </ul>
+          <p class="note">Los contenidos pueden ajustarse en función de los aprendizajes de la primera cursada.</p>
+        </section>
+
+        <section class="content-block">
+          <h2>Mentorías y acompañamiento</h2>
+          <p>
+            Durante el curso vas a contar con acompañamiento a través de grupos reducidos de mentoría.
+            La dinámica prevista es trabajar en grupos de aproximadamente 5 a 10 alumnos por mentor.
+          </p>
+          <p>
+            Los mentores son personas externas seleccionadas para acompañar consultas, hacer seguimiento
+            y dar orientación general. El canal de comunicación será simple y cercano —por ejemplo,
+            grupos de WhatsApp— para priorizar respuestas ágiles.
+          </p>
+        </section>
+
+        <section class="content-block">
+          <h2>Cómo se seleccionan los alumnos</h2>
+          <p>
+            La primera cursada tiene un cupo máximo de <strong>40 alumnos</strong>. Si la cantidad de inscriptos
+            supera ese cupo, se dará prioridad a personas vinculadas con:
+          </p>
+          <ul class="content-list">
+            <li>Escuelas técnicas</li>
+            <li>Colegios secundarios</li>
+            <li>Centros de formación</li>
+            <li>Espacios educativos o formativos vinculados al desarrollo de habilidades laborales</li>
+          </ul>
+          <p>
+            El criterio busca que la primera cursada tenga un impacto formativo concreto y llegue a jóvenes
+            o personas en etapa de inserción, orientación vocacional o reconversión laboral.
+          </p>
+          <div class="highlight-box">
+            <h3>Lista de espera</h3>
+            <p>
+              Si no ingresás por límite de cupo, quedás registrado en una lista de espera para ser considerado
+              en el próximo ciclo.
+            </p>
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Qué ganás participando</h2>
+          <ul class="content-list benefits">
+            <li>Formación técnica introductoria y aplicada</li>
+            <li>Contacto con profesionales activos de la industria</li>
+            <li>Acompañamiento mediante mentorías</li>
+            <li>Experiencia vinculada a necesidades reales de empresas</li>
+            <li>Posibilidad de vincularte con el sector productivo local</li>
+          </ul>
+          <p>
+            Al cierre del ciclo hay una instancia de vinculación con empresas (mesa mixta), pensada para
+            facilitar el contacto directo entre estudiantes y organizaciones de la región.
+          </p>
+        </section>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <span class="sidebar-badge">Convocatoria abierta</span>
+          <h3>Inscribite</h3>
+          <p>Completá el formulario de inscripción antes del cierre de la convocatoria.</p>
+          <AtlasFormButton track="alumnos" size="full" label="Formulario de inscripción" />
+          <dl class="dates-list">
+            <div>
+              <dt>Apertura</dt>
+              <dd>{ATLAS.convocatoriaAlumnos.apertura}</dd>
+            </div>
+            <div>
+              <dt>Cierre</dt>
+              <dd>{ATLAS.convocatoriaAlumnos.cierreInscripcion}</dd>
+            </div>
+            <div>
+              <dt>Inicio del curso</dt>
+              <dd>{ATLAS.convocatoriaAlumnos.inicioCurso}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Datos que vas a necesitar</h3>
+          <ul class="sidebar-list">
+            <li>Nombre y apellido</li>
+            <li>Edad y localidad</li>
+            <li>Datos de contacto</li>
+            <li>Institución educativa (si corresponde)</li>
+            <li>Situación actual</li>
+            <li>Motivación para participar</li>
+            <li>Disponibilidad horaria</li>
+            <li>Experiencia previa en tecnología</li>
+            <li>Acceso a Internet y computadora</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card contact-card">
+          <h3>¿Tenés dudas?</h3>
+          <p>Escribinos antes del cierre y con gusto te ayudamos.</p>
+          <p class="referente">Referente: <strong>{ATLAS.referente}</strong></p>
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page-hero {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--clr-border);
+    background: linear-gradient(180deg, var(--clr-blue-glow) 0%, transparent 100%);
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: var(--clr-text-soft);
+    margin-bottom: 1.25rem;
+    text-decoration: none;
+  }
+
+  .back-link:hover { color: var(--clr-blue); }
+
+  .page-audience {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clr-cyan);
+    margin-bottom: 0.75rem;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    color: var(--clr-text);
+    margin-bottom: 1rem;
+  }
+
+  .page-subtitle {
+    color: var(--clr-text-soft);
+    font-size: 1.05rem;
+    max-width: 640px;
+    line-height: 1.75;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-lg { padding: 0.9rem 2rem; font-size: 1rem; }
+  .btn-full { width: 100%; justify-content: center; }
+
+  .hero-deadline {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--clr-muted);
+  }
+
+  .page-body { padding-block: 4rem; }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .content-block {
+    margin-bottom: 3rem;
+  }
+
+  .content-block h2 {
+    font-size: 1.5rem;
+    color: var(--clr-text);
+    margin-bottom: 1rem;
+  }
+
+  .content-block p {
+    color: var(--clr-text-soft);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .highlight-box {
+    background: var(--clr-blue-glow);
+    border: 1px solid var(--clr-blue-dim);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin-top: 1.25rem;
+  }
+
+  .highlight-box h3 {
+    font-size: 1rem;
+    color: var(--clr-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .highlight-box p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+
+  .highlight-box strong { color: var(--clr-text); }
+
+  .info-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+  }
+
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .info-table th,
+  .info-table td {
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid var(--clr-border);
+  }
+
+  .info-table tr:last-child th,
+  .info-table tr:last-child td { border-bottom: none; }
+
+  .info-table th {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--clr-muted);
+    width: 40%;
+    background: var(--clr-surface);
+  }
+
+  .info-table td {
+    color: var(--clr-text-soft);
+    background: var(--clr-surface-2);
+  }
+
+  .info-table td strong { color: var(--clr-cyan); }
+
+  .content-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .content-list li {
+    color: var(--clr-text-soft);
+    padding-left: 1.25rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .content-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--clr-cyan);
+    font-weight: bold;
+  }
+
+  .content-list.benefits li::before { content: '✓'; }
+
+  .note {
+    font-size: 0.88rem;
+    color: var(--clr-muted);
+    font-style: italic;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: sticky;
+    top: calc(68px + 2rem);
+    align-self: start;
+  }
+
+  .sidebar-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+  }
+
+  .sidebar-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--clr-cyan);
+    background: rgba(0, 153, 168, 0.1);
+    border: 1px solid rgba(0, 153, 168, 0.3);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+
+  .sidebar-card h3 {
+    font-size: 1rem;
+    color: var(--clr-text);
+    margin-bottom: 0.6rem;
+  }
+
+  .sidebar-card > p {
+    font-size: 0.875rem;
+    color: var(--clr-text-soft);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .dates-list {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--clr-border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .dates-list dt {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--clr-muted);
+  }
+
+  .dates-list dd {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--clr-text);
+    margin-top: 0.15rem;
+  }
+
+  .sidebar-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .sidebar-list li {
+    font-size: 0.82rem;
+    color: var(--clr-text-soft);
+    padding-left: 0.9rem;
+    position: relative;
+  }
+
+  .sidebar-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--clr-cyan);
+  }
+
+  .contact-card a {
+    font-size: 0.85rem;
+    word-break: break-all;
+  }
+
+  .referente {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem !important;
+  }
+
+  @media (max-width: 900px) {
+    .content-grid { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+  }
+</style>

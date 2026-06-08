@@ -1,9 +1,10 @@
 ---
 export const prerender = true;
 import Layout from '../layouts/Layout.astro';
+import { ATLAS } from '../config/atlas';
 ---
 
-<Layout title="Cluster Tecnológico Azul" darkHero>
+<Layout title="Cluster Tecnológico Azul" darkHero={!ATLAS.active}>
   <!-- ── HERO ─────────────────────────────────────── -->
   <section class="hero">
     <canvas id="starfield" aria-hidden="true"></canvas>
@@ -23,8 +24,8 @@ import Layout from '../layouts/Layout.astro';
         que trabajan juntos para transformar el ecosistema digital de Azul.
       </p>
       <div class="hero-actions reveal reveal-4">
-        <a href="/empresas" class="btn btn-primary">Recibí asesoría</a>
-        <a href="/unirse" class="btn btn-primary">Unite al cluster</a>
+        <a href="/atlas" class="btn btn-primary btn-atlas-hero">Proyecto Atlas — Inscripción alumnos abierta</a>
+        <a href="/unirse" class="btn btn-outline">Unite al cluster</a>
         <a href="/#nosotros" class="btn btn-outline">Conocé más</a>
       </div>
     </div>
@@ -34,6 +35,51 @@ import Layout from '../layouts/Layout.astro';
       <span class="scroll-label">Scroll</span>
     </div>
   </section>
+
+  <!-- ── PROYECTO ATLAS ───────────────────────────── -->
+  <section class="section atlas-spotlight" id="atlas">
+    <div class="container">
+      <div class="atlas-spotlight-card">
+        <div class="atlas-spotlight-glow" aria-hidden="true"></div>
+        <div class="atlas-spotlight-header">
+          <span class="atlas-live-badge">Proyecto Atlas 2026</span>
+          <span class="section-label">Dos convocatorias, calendarios distintos</span>
+          <h2>Formación gratuita + asesoría para empresas</h2>
+          <p>
+            {ATLAS.tagline}. Los alumnos tienen fecha límite de inscripción;
+            las empresas pueden sumarse en cualquier momento.
+          </p>
+        </div>
+        <div class="atlas-spotlight-grid">
+          <article class="atlas-spotlight-item atlas-spotlight-alumnos">
+            <span class="track-audience">Para alumnos</span>
+            <span class="spotlight-icon" aria-hidden="true">🎓</span>
+            <h3>{ATLAS.programAlumnos}</h3>
+            <p>14 semanas de formación práctica en programación, IA y más. 40 cupos. Sin costo.</p>
+            <div class="spotlight-meta">
+              <span>Inscripción hasta el {ATLAS.convocatoriaAlumnos.cierreInscripcion}</span>
+            </div>
+            <a href="/atlas/alumnos" class="btn btn-primary">Ver convocatoria</a>
+          </article>
+          <article class="atlas-spotlight-item atlas-spotlight-empresas">
+            <span class="track-audience">Para empresas</span>
+            <span class="spotlight-icon" aria-hidden="true">🏢</span>
+            <h3>Asesoría tecnológica</h3>
+            <p>2 reuniones de asesoría con informe de devolución. Financiás la formación de jóvenes locales.</p>
+            <div class="spotlight-meta">
+              <span>Inscripción {ATLAS.convocatoriaEmpresas.disponibilidad.toLowerCase()}</span>
+            </div>
+            <a href="/atlas/empresas" class="btn btn-primary">Ver convocatoria</a>
+          </article>
+        </div>
+        <div class="atlas-spotlight-footer">
+          <a href="/atlas" class="btn btn-outline">Conocé todo sobre Proyecto Atlas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
 
   <!-- ── NOSOTROS ──────────────────────────────────── -->
   <section class="section" id="nosotros">
@@ -184,12 +230,11 @@ import Layout from '../layouts/Layout.astro';
         <span class="section-label">04 — Empresas</span>
         <h2>¿Tu empresa está lista para innovar?</h2>
         <p>
-          Te ayudamos a identificar cómo la inteligencia artificial puede mejorar
-          los procesos de tu empresa. Un diagnóstico inicial, recomendaciones
-          concretas y una hoja de ruta para empezar.
+          Sumate a Proyecto Atlas como empresa patrocinadora: recibí asesoría tecnológica
+          personalizada y contribuí a financiar la formación de jóvenes de la región.
         </p>
         <div class="cta-actions">
-          <a href="/empresas" class="btn btn-primary">Quiero recibir asesoría</a>
+          <a href="/atlas/empresas" class="btn btn-primary">Ver convocatoria empresas</a>
         </div>
         <p class="empresas-supporting">
           Al trabajar con nosotros, contribuís al ecosistema tecnológico de Azul.
@@ -282,6 +327,165 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
   /* Hero */
+  .btn-atlas-hero {
+    background: linear-gradient(135deg, var(--clr-blue), #0099a8);
+    animation: atlas-cta-glow 3s ease-in-out infinite;
+  }
+
+  .btn-atlas-hero:hover {
+    background: linear-gradient(135deg, #4a93ff, #00b8a8);
+  }
+
+  @keyframes atlas-cta-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 212, 200, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(0, 212, 200, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-atlas-hero { animation: none; }
+  }
+
+  /* Atlas spotlight */
+  .atlas-spotlight {
+    padding-block: 4rem 5rem;
+  }
+
+  .atlas-spotlight-card {
+    position: relative;
+    background: var(--clr-surface);
+    border: 2px solid var(--clr-cyan);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    overflow: hidden;
+    --clr-bg:        #0d1b2e;
+    --clr-surface:   #132238;
+    --clr-surface-2: #1a2d45;
+    --clr-border:    #243d5c;
+    --clr-text:      #d8e3f0;
+    --clr-text-soft: #8399bb;
+    --clr-muted:     #4a5e7a;
+    color-scheme: dark;
+  }
+
+  .atlas-spotlight-glow {
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0, 212, 200, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .atlas-live-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--clr-cyan);
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+    animation: pulse-badge 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-badge {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 212, 200, 0.5); }
+    50% { box-shadow: 0 0 0 8px rgba(0, 212, 200, 0); }
+  }
+
+  .atlas-spotlight-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .atlas-spotlight-header .section-label {
+    justify-content: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .atlas-spotlight-header .section-label::before { display: none; }
+
+  .atlas-spotlight-header h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  .atlas-spotlight-header p {
+    color: var(--clr-text-soft);
+    max-width: 600px;
+    margin-inline: auto;
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .atlas-spotlight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .atlas-spotlight-item {
+    background: var(--clr-surface-2);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .atlas-spotlight-item .track-audience {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: -0.25rem 0 0.25rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--clr-border);
+  }
+
+  .atlas-spotlight-alumnos .track-audience { color: var(--clr-cyan); }
+  .atlas-spotlight-empresas .track-audience { color: var(--clr-blue); }
+
+  .spotlight-icon {
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+
+  .atlas-spotlight-item h3 {
+    font-size: 1.15rem;
+    color: var(--clr-text);
+  }
+
+  .atlas-spotlight-item p {
+    font-size: 0.9rem;
+    color: var(--clr-text-soft);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .spotlight-meta {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--clr-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  .atlas-spotlight-footer {
+    text-align: center;
+    position: relative;
+  }
+
   .hero {
     position: relative;
     min-height: 100svh;
@@ -672,7 +876,14 @@ import Layout from '../layouts/Layout.astro';
     .pilares-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
+  [data-atlas-campaign] .hero {
+    padding-top: 2rem;
+    min-height: calc(100svh - 48px);
+  }
+
   @media (max-width: 768px) {
+    .atlas-spotlight-grid { grid-template-columns: 1fr; }
+    .atlas-spotlight-card { padding: 2rem 1.5rem; }
     .nosotros-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     .pilares-grid { grid-template-columns: 1fr 1fr; }
     .cta-card { padding: 2.5rem 1.5rem; }

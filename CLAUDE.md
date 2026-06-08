@@ -35,22 +35,30 @@ GitHub org: <https://github.com/clustertecnologicoazul>
 website/
 ├── src/
 │   ├── config.ts              # Shared constants (CONTACT_EMAIL fallback)
+│   ├── config/
+│   │   └── atlas.ts           # Proyecto Atlas campaign config, form URLs, dates, isAtlasFormReady()
 │   ├── lib/
 │   │   └── email.ts           # Shared email utilities (escHtml, EMAIL_RE, getEmailConfig, etc.)
 │   ├── layouts/
-│   │   └── Layout.astro       # Base HTML shell: <head>, SEO, fonts, skip-link, Header, Footer
+│   │   └── Layout.astro       # Base HTML shell: <head>, SEO, fonts, skip-link, Header, AtlasBanner, Footer
 │   ├── components/
 │   │   ├── Header.astro       # Fixed nav bar + hamburger menu
-│   │   └── Footer.astro       # Footer with social links (LinkedIn, Instagram, GitHub, Linktree)
+│   │   ├── Footer.astro       # Footer with social links (LinkedIn, Instagram, GitHub, Linktree)
+│   │   ├── AtlasBanner.astro  # Site-wide campaign strip (hidden on /atlas/* when ATLAS.active)
+│   │   └── AtlasFormButton.astro # Google Form CTA; disabled when URL contains TODO
 │   ├── pages/
-│   │   ├── index.astro        # Landing page (hero, nosotros, valores, iniciativas, empresas teaser, CTA)
+│   │   ├── index.astro        # Landing page (hero, atlas spotlight, nosotros, valores, iniciativas, CTA)
 │   │   ├── unirse.astro       # Join form page
 │   │   ├── contacto.astro     # Contact form page
-│   │   ├── empresas.astro     # AI advisory request page (two-column: sidebar + form)
+│   │   ├── empresas.astro     # Legacy advisory form (no nav links — use /atlas/empresas for campaign)
+│   │   ├── atlas/
+│   │   │   ├── index.astro    # Proyecto Atlas hub
+│   │   │   ├── alumnos.astro  # Student convocatoria (Google Form external)
+│   │   │   └── empresas.astro # Company convocatoria (Google Form external)
 │   │   └── api/
-│   │       ├── unirse.ts      # POST handler for join form → Resend
+│   │       ├── unirse.ts      # POST handler for join form → Resend (dual email)
 │   │       ├── contacto.ts    # POST handler for contact form → Resend
-│   │       └── empresas.ts    # POST handler for advisory request form → Resend (dual email)
+│   │       └── empresas.ts    # POST handler for legacy advisory form → Resend (dual email)
 │   └── styles/
 │       └── global.css         # Design tokens, resets, utility classes
 ├── public/
@@ -200,7 +208,10 @@ All forms (`/unirse`, `/contacto`, `/empresas`) follow the same pattern:
 - `mensaje`: max 5,000 chars
 
 **`/api/unirse`:** `rol` validated against `ALLOWED_ROLES` set;
-`como-conociste` validated against `ALLOWED_COMO` set
+`como-conociste` validated against `ALLOWED_COMO` set.
+Sends **two emails**: notification to cluster (critical — failure returns 500) and auto-reply to
+the applicant (best-effort — failure is logged but returns 200). Auto-reply uses `replyTo: toEmail`
+so replies from `noreply@` reach the cluster inbox.
 
 **`/api/contacto`:** `asunto` validated against `ALLOWED_ASUNTOS` set
 
@@ -271,8 +282,10 @@ can override OS detection (`"light"` or `"dark"`) — no CSS changes needed.
 
 ### Always-dark sections
 
-`.hero` (homepage starfield) and `.cta-card` hardcode dark tokens regardless of mode.
-These sections set `color-scheme: dark` and override `--clr-*` variables locally.
+`.hero` (homepage starfield), `.atlas-hero`, `.cta-card`, and `.atlas-spotlight-card` hardcode
+dark tokens regardless of mode. These sections set `color-scheme: dark` and override `--clr-*`
+variables locally. `global.css` also forces bright accent tokens (`--clr-cyan`, `--clr-blue`,
+`--clr-gold`) on those selectors so light site theme keeps readable contrast on dark backgrounds.
 
 ### Other notes
 
@@ -329,6 +342,14 @@ Social links appear in: **Footer** (icon-only) and **Contacto page sidebar** (ic
 ---
 
 ## Common tasks
+
+### Proyecto Atlas campaign
+
+- Config: `src/config/atlas.ts` — set `ATLAS.active = false` to hide banner and campaign UI
+- Google Form URLs: `ATLAS.forms.alumnos` / `ATLAS.forms.empresas` — while URL contains `TODO`,
+  `AtlasFormButton` renders a disabled button (no broken link)
+- Inscription is external (Google Forms), not Resend API routes
+- Banner shows on all pages except `/atlas/*` when `ATLAS.active` is true
 
 ### Add a new page
 

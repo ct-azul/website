@@ -61,6 +61,16 @@
   --clr-header-scrolled: rgba(13, 27, 46, 0.92);
 }
 
+/* Always-dark sections keep bright accents even when the site is in light mode */
+.hero,
+.atlas-hero,
+.cta-card,
+.atlas-spotlight-card {
+  --clr-cyan: #00d4c8;
+  --clr-blue: #2b7fff;
+  --clr-gold: #f0b429;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -162,6 +172,17 @@ img {
   color: #fff;
   transform: translateY(-1px);
   box-shadow: 0 8px 30px rgba(43, 127, 255, 0.4);
+}
+
+.btn-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-disabled:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 .btn-outline {
@@ -290,4 +311,14 @@ img {
 
 @media (max-width: 640px) {
   .container { padding-inline: 1.25rem; }
+}
+
+/* Proyecto Atlas campaign — banner clears fixed header */
+[data-atlas-campaign] .atlas-hero {
+  padding-top: 2rem;
+  min-height: 60svh;
+}
+
+[data-atlas-campaign] .page-hero {
+  padding-top: 4rem;
 }

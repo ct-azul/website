@@ -1,0 +1,45 @@
+---
+import { ATLAS, isAtlasFormReady } from '../config/atlas';
+
+interface Props {
+  track: 'alumnos' | 'empresas';
+  label?: string;
+  variant?: 'primary' | 'outline';
+  size?: 'lg' | 'full' | 'sm';
+  class?: string;
+}
+
+const {
+  track,
+  label,
+  variant = 'primary',
+  size,
+  class: className,
+} = Astro.props;
+
+const defaults = {
+  alumnos: 'Inscribite ahora',
+  empresas: 'Postulate ahora',
+} as const;
+
+const text = label ?? defaults[track];
+const url = ATLAS.forms[track];
+const ready = isAtlasFormReady(url);
+
+const btnClass = [
+  'btn',
+  variant === 'outline' ? 'btn-outline' : 'btn-primary',
+  size ? `btn-${size}` : '',
+  className,
+].filter(Boolean);
+---
+
+{ready ? (
+  <a href={url} class:list={btnClass} target="_blank" rel="noopener noreferrer">
+    {text}
+  </a>
+) : (
+  <span class:list={[...btnClass, 'btn-disabled']} aria-disabled="true" title="Formulario disponible próximamente">
+    {text}
+  </span>
+)}
